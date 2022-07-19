@@ -1,0 +1,27 @@
+spring:
+  h2:
+    console:
+      enabled: true
+#  spring.datasource.url=jdbc:h2:~/dbname;MODE=MySQL;DATABASE_TO_LOWER=TRUE
+  mvc:
+    pathmatch:
+      matching-strategy: ant_path_matcher
+  jpa:
+    defer-datasource-initialization: true
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+        dialect: org.hibernate.dialect.MySQL5InnoDBDialect
+    generate-ddl: true
+    hibernate:
+      ddl-auto: update
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/dambae_200
+    username: connectuser
+    password: connect123!@#
+    initialization-mode: always
+server:
+  port: 8060
+
