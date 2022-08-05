@@ -10,6 +10,9 @@ import lombok.RequiredArgsConstructor;
 import org.hibernate.sql.Delete;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 @Service
 @RequiredArgsConstructor
 public class NotificationUpdateService {
@@ -17,17 +20,16 @@ public class NotificationUpdateService {
     final NotificationRepository notificationRepository;
     final RepoUtils repoUtils;
 
-    public NotificationDto.GetResponse readNotifiation(Long id) throws EntityNotFoundException {
+    public NotificationDto.GetListResponse markAsReadNotifiations(List<Long> idList) throws EntityNotFoundException {
 
-        // 유효성검사, 로드
-        Notification notification = repoUtils.getOneElseThrowException(notificationRepository, id);
+        List<Notification> notifications = notificationRepository.findAllById(idList).stream().map(item -> {
+//            System.out.println("notification id " + item.getId() + "를 읽겠습니다.");
+            item.markAsRead();
+            notificationRepository.save(item);
+            return item;
+        }).collect(Collectors.toList());
 
-        // 처리
-        notification.markAsRead();
-        Notification saved = notificationRepository.save(notification);
-
-        // 리턴
-        return new NotificationDto.GetResponse(saved);
+        return new NotificationDto.GetListResponse(notifications);
     }
 
     public DeleteResponse deleteNotification(Long id) throws EntityNotFoundException {

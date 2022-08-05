@@ -1,6 +1,6 @@
 package com.dambae200.dambae200.domain.store.domain;
 
-import com.dambae200.dambae200.domain.store.exception.InvalidStoreBrandCode;
+import com.dambae200.dambae200.domain.store.exception.InvalidStoreBrandCodeException;
 import lombok.Getter;
 
 import java.util.Arrays;
@@ -13,7 +13,6 @@ public enum StoreBrand {
     SEVEN_ELEVEN("세븐일레븐", "SB04"),
     MINISTOP("미니스톱", "SB05"),
     STORYWAY("스토리웨이", "SB06"),
-    WITH_ME("위드미", "SB07"),
     ECT("기타", "SB99")
     ;
 
@@ -31,7 +30,7 @@ public enum StoreBrand {
         return Arrays.stream(StoreBrand.values())
                 .filter(item -> item.getCode().equals(code))
                 .findAny()
-                .orElseThrow(() -> new InvalidStoreBrandCode(code));
+                .orElseThrow(() -> new InvalidStoreBrandCodeException(code));
     }
 
 }

@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
+import java.net.URLDecoder;
+import java.nio.charset.Charset;
 
 @RestController
 @RequestMapping("/api/stores")
@@ -20,15 +22,11 @@ public class StoreRestController {
     final StoreFindService storeFindService;
     final StoreUpdateService storeUpdateService;
 
-    @GetMapping("/findByUserId")
-    public ResponseEntity<StoreDto.GetListResponse> findAllByUserId(@RequestParam @NotNull String userId){
-        StoreDto.GetListResponse response = storeFindService.findAllByUser(Long.valueOf(userId));
-        return ResponseEntity.ok(response);
-    }
 
-    @GetMapping("findByName")
+    @GetMapping("")
     public ResponseEntity<StoreDto.GetListResponse> findAllByName(@RequestParam @NotNull String name){
-        StoreDto.GetListResponse response = storeFindService.findByNameLike(name);
+        String decodedName = URLDecoder.decode(name, Charset.forName("UTF-8"));
+        StoreDto.GetListResponse response = storeFindService.findByNameLike(decodedName);
         return ResponseEntity.ok(response);
     }
 

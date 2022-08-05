@@ -6,6 +6,8 @@ import com.dambae200.dambae200.domain.notification.repository.NotificationReposi
 import com.dambae200.dambae200.global.common.RepoUtils;
 import com.dambae200.dambae200.global.error.exception.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -17,9 +19,13 @@ public class NotificationFindService {
     final NotificationRepository notificationRepository;
     final RepoUtils repoUtils;
 
-    public NotificationDto.GetListResponse findAllByUserId(Long userId){
-        List<Notification> entities = notificationRepository.findAllByUserId(userId);
-        return new NotificationDto.GetListResponse(entities);
+    public Page<NotificationDto.GetResponse> findByUserId(Long userId, Pageable pageable){
+        Page<Notification> entities = notificationRepository.findByUserId(userId, pageable);
+        return entities.map(NotificationDto.GetResponse::new);
+    }
+
+    public boolean unreadExistByUserId(Long userId){
+        return notificationRepository.existsByUserIdAndIsRead(userId, false);
     }
 
     public NotificationDto.GetResponse findById(Long id) throws EntityNotFoundException {

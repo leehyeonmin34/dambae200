@@ -43,4 +43,10 @@ public class NotificationDto {
 
     }
 
+    @Getter
+    public static class MarkAsReadRequest{
+        private List<Long> idList;
+
+    }
+
 }

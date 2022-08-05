@@ -41,7 +41,8 @@ public class UserUpdateService {
     }
 
 
-    public UserDto.GetResponse updateUser(Long id, UserDto.UpdateRequest request) throws EntityNotFoundException {
+    public UserDto.GetResponse updateUser(Long id, UserDto.UpdateRequest request) throws EntityNotFoundException, NicknameDuplicationException {
+        validateNickname(request.getNickname());
         User user = repoUtils.getOneElseThrowException(userRepository, id);
         user.changeNickname(request.getNickname());
         User saved = userRepository.save(user);
@@ -80,4 +81,7 @@ public class UserUpdateService {
         if (userRepository.existsByNickname(nickname))
             throw new NicknameDuplicationException();
     }
+
 }
+
+

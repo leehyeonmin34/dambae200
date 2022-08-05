@@ -3,7 +3,6 @@ package com.dambae200.dambae200.domain.notification.service.accessNotification;
 import com.dambae200.dambae200.domain.access.domain.Access;
 import com.dambae200.dambae200.domain.access.domain.AccessType;
 import com.dambae200.dambae200.domain.notification.domain.Notification;
-import com.dambae200.dambae200.domain.notification.service.NotificationData;
 import com.dambae200.dambae200.domain.notification.service.NotificationSender;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;

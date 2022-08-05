@@ -19,7 +19,7 @@ public class UserDto {
     public static class AddRequest{
         @NotBlank(message = "이메일을 입력해주세요")
         private String email;
-        @Pattern(regexp = "^[A-Za-z0-9]{6,20}$",message = "비밀번호는 영문과 숫자를 포함해 6자 ~ 20자 이상이어야 합니다.")
+        @Pattern(regexp = "^[A-Za-z0-9]{6,20}$",message = "비밀번호는 영문과 숫자를 포함해 6자 ~ 20자여야 합니다.")
         private String pw;
         @NotBlank
         private String nickname;
@@ -67,6 +67,7 @@ public class UserDto {
         }
 
     }
+
 
 
 }

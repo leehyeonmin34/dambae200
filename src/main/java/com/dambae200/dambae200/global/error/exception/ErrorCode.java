@@ -15,17 +15,19 @@ public enum ErrorCode {
     HANDLE_ACCESS_DENIED(HttpStatus.FORBIDDEN.value(), "C006", "Access is Denied"), // Authentication 객체가 필요한 권한을 보유하지 않은 경우 발생
 
     // User
-        LOGIN_INPUT_INVALID(HttpStatus.BAD_REQUEST.value(), "U001", "Login input is invalid"),
-        EMAIL_DUPLICATION(HttpStatus.BAD_REQUEST.value(), "U002", "Email is Duplication"),
-        NICKNAME_DUPLICATION(HttpStatus.BAD_REQUEST.value(), "U003", "Nickname is Duplication"),
+    LOGIN_INPUT_INVALID(HttpStatus.BAD_REQUEST.value(), "U001", "Login input is invalid"),
+    EMAIL_DUPLICATION(HttpStatus.BAD_REQUEST.value(), "U002", "Email is Duplication"),
+    NICKNAME_DUPLICATION(HttpStatus.BAD_REQUEST.value(), "U003", "Nickname is Duplication"),
 
     // Store
     INVALID_STORE_BRAND_CODE(HttpStatus.BAD_REQUEST.value(), "S001", "Invalid Store Brand Code"),
+    DUPLICATE_STORE(HttpStatus.BAD_REQUEST.value(), "S002", "Duplicate Store Registered"),
 
     // Access
     INVALID_ACCESS_TYPE_CODE(HttpStatus.INTERNAL_SERVER_ERROR.value(), "A001", "Invalid Access Type Code"),
     CANNOT_FIND_ACCESS_NOTIFCATION_TYPE(HttpStatus.INTERNAL_SERVER_ERROR.value(), "A002", "Cannot Find Access Notification Type"),
-    CANNOT_FIND_ACCESS_SITUATION_TYPE(HttpStatus.INTERNAL_SERVER_ERROR.value(), "A003", "Cannot Find Access Situation Type")
+    CANNOT_FIND_ACCESS_SITUATION_TYPE(HttpStatus.INTERNAL_SERVER_ERROR.value(), "A003", "Cannot Find Access Situation Type"),
+    DUPLICATED_ACCESS_APPLY(HttpStatus.BAD_REQUEST.value(), "A004", "Duplicate Access Registered")
     ;
 
     private int status;

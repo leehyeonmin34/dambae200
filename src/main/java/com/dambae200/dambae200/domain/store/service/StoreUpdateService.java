@@ -8,7 +8,8 @@ import com.dambae200.dambae200.domain.notification.service.storeNotification.Sto
 import com.dambae200.dambae200.domain.store.domain.Store;
 import com.dambae200.dambae200.domain.store.domain.StoreBrand;
 import com.dambae200.dambae200.domain.store.dto.StoreDto;
-import com.dambae200.dambae200.domain.store.exception.InvalidStoreBrandCode;
+import com.dambae200.dambae200.domain.store.exception.DuplicateStoreException;
+import com.dambae200.dambae200.domain.store.exception.InvalidStoreBrandCodeException;
 import com.dambae200.dambae200.domain.store.repository.StoreRepository;
 import com.dambae200.dambae200.domain.user.domain.User;
 import com.dambae200.dambae200.domain.user.repository.UserRepository;
@@ -16,9 +17,7 @@ import com.dambae200.dambae200.global.common.DeleteResponse;
 import com.dambae200.dambae200.global.common.RepoUtils;
 import com.dambae200.dambae200.global.error.exception.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
-import org.hibernate.sql.Delete;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -33,7 +32,9 @@ public class StoreUpdateService {
     final StoreNotificationGeneratorAndSender storeNotificationGeneratorAndSender;
 
     //TODO 영속화 관련 테스트
-    public StoreDto.GetResponse addStore(StoreDto.AddRequest request) throws EntityNotFoundException, InvalidStoreBrandCode {
+    public StoreDto.GetResponse addStore(StoreDto.AddRequest request) throws EntityNotFoundException, InvalidStoreBrandCodeException, DuplicateStoreException {
+
+        checkDuplicate(request.getName(), request.getStoreBrandCode());
 
         // Store 먼저 생성 후 영속화
         Store store = Store.builder()
@@ -56,7 +57,10 @@ public class StoreUpdateService {
         return new StoreDto.GetResponse(savedStore);
     }
 
-    public StoreDto.GetResponse updateStore(Long id, StoreDto.UpdateRequest request) throws EntityNotFoundException, InvalidStoreBrandCode{
+
+
+    public StoreDto.GetResponse updateStore(Long id, StoreDto.UpdateRequest request) throws EntityNotFoundException, InvalidStoreBrandCodeException, DuplicateStoreException {
+        checkDuplicate(request.getName(), request.getStoreBrandCode());
 
         // 해당 엔티티 로드
         Store store = repoUtils.getOneElseThrowException(storeRepository, id);
@@ -88,6 +92,12 @@ public class StoreUpdateService {
 
         // 리턴
         return new DeleteResponse("store", id);
+    }
+
+    private void checkDuplicate(String name, String brandCode){
+        if(storeRepository.existsByNameAndBrand(name, StoreBrand.ofCode(brandCode))) {
+            throw new DuplicateStoreException(name, brandCode);
+        }
     }
 
 }

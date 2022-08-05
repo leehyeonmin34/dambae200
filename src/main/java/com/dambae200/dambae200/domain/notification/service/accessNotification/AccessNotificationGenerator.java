@@ -20,15 +20,13 @@ public class AccessNotificationGenerator {
 
     // 데이터 기반해 알림 타입 선택
     private List<AccessNotificationType> getNotificationType(AccessType prev, AccessType curr, Boolean byAdmin) throws CannotFindAccessNotificationType {
-        AccessSituationType accessSituationType = AccessSituationType.findBy(prev, curr, byAdmin);
-        return accessNotificationTypeFinder.getNotificationTypeBySituationType(accessSituationType);
+        return accessNotificationTypeFinder.getNotificationType(prev, curr, byAdmin);
     }
-
 
     // 알림 엔티티 생성
     public List<Notification> generate(AccessType prev, Access access, Boolean byAdmin) throws CannotFindAccessNotificationType{
 
-        // 템플릿 선택 및 변수 적용
+        // 알림타입(템플릿) 선택
         List<AccessNotificationType> notificationTypes = getNotificationType(prev, access.getAccessType(), byAdmin);
 
         // 알림 엔티티에 넣을 데이터 추출
@@ -55,6 +53,5 @@ public class AccessNotificationGenerator {
         return notifications;
 
     }
-
 
 }

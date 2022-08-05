@@ -3,6 +3,8 @@ package com.dambae200.dambae200.domain.notification.service.accessNotification;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
+import java.util.List;
+
 @AllArgsConstructor
 @Getter
 public enum AccessNotificationType {
@@ -58,6 +60,27 @@ public enum AccessNotificationType {
     public String getContentFrom(String... strings){
 
         return String.format(this.getContentTemplate(), (Object[])strings);
+    }
+
+    static public List<AccessNotificationType> findBy(AccessSituationType type){
+        // ACCESSIBLE, INACCESSIBLE, ADMIN, WAITING
+        switch (type){
+            case APPLIED:
+                return List.of(ACCESS_APPLY, APPLLICATION_CAME);
+            case APPLY_CANCELED:
+                return List.of(APPLICATION_CANCELD);
+            case WITHDRAWAL:
+                return List.of(USER_WITHDRAWAL);
+            case ACCESS_APPRVOED:
+                return List.of(ACCESS_APPROVED);
+            case ACCESS_DENIED:
+                return List.of(ACCESS_DENIED);
+            case ADMIN_PROMOTED:
+                return List.of(ACCESS_ADMIN_PROMOTION);
+            case ACCESS_REMOVED:
+                return List.of(ACCESS_DELETED);
+        }
+        return null;
     }
 
 
