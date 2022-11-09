@@ -28,7 +28,7 @@ public class CigaretteUpdateService {
 
         Cigarette cigarette = Cigarette.builder()
                 .officialName(request.getOfficialName())
-                .customizedName(request.getCustomizedName())
+                .simpleName(request.getSimpleName())
                 .build();
 
         Cigarette savedCigarette = cigaretteRepository.save(cigarette);
@@ -40,7 +40,7 @@ public class CigaretteUpdateService {
         checkDuplicate(request.getOfficialName());
 
         Cigarette cigarette = repoUtils.getOneElseThrowException(cigaretteRepository, id);
-        cigarette.updateCigarette(request.getOfficialName(), request.getCustomizedName());
+        cigarette.updateCigarette(request.getOfficialName(), request.getSimpleName());
 
         return new CigaretteDto.GetResponse(cigarette);
     }

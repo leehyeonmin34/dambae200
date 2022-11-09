@@ -1,103 +1,52 @@
-package com.dambae200.dambae200.domain.store.service;
+package dambae200.dambae200.domain.cigarette.controller;
 
-import com.dambae200.dambae200.domain.access.domain.Access;
-import com.dambae200.dambae200.domain.access.domain.AccessType;
-import com.dambae200.dambae200.domain.access.repository.AccessRepository;
-import com.dambae200.dambae200.domain.notification.service.storeNotification.StoreNotificationGeneratorAndSender;
-import com.dambae200.dambae200.domain.notification.service.storeNotification.StoreNotificationType;
-import com.dambae200.dambae200.domain.store.domain.Store;
-import com.dambae200.dambae200.domain.store.domain.StoreBrand;
-import com.dambae200.dambae200.domain.store.dto.StoreDto;
-import com.dambae200.dambae200.domain.store.exception.DuplicateStoreException;
-import com.dambae200.dambae200.domain.store.exception.InvalidStoreBrandCodeException;
-import com.dambae200.dambae200.domain.store.repository.StoreRepository;
-import com.dambae200.dambae200.domain.user.domain.User;
-import com.dambae200.dambae200.domain.user.repository.UserRepository;
-import com.dambae200.dambae200.global.common.DeleteResponse;
-import com.dambae200.dambae200.global.common.RepoUtils;
-import com.dambae200.dambae200.global.error.exception.EntityNotFoundException;
+import dambae200.dambae200.domain.cigarette.dto.CigaretteDto;
+import dambae200.dambae200.domain.cigarette.service.CigaretteFindService;
+import dambae200.dambae200.domain.cigarette.service.CigaretteUpdateService;
+import dambae200.dambae200.domain.cigaretteOnList.dto.CigaretteOnListDto;
+import dambae200.dambae200.global.common.DeleteResponse;
+import lombok.Getter;
 import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Service;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
+import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
+import java.net.URLDecoder;
+import java.nio.charset.Charset;
 
-@Service
+@RestController
+@RequestMapping("/api/cigarettes")
 @RequiredArgsConstructor
-public class StoreUpdateService {
+public class CigaretteRestController {
 
-    final StoreRepository storeRepository;
-    final UserRepository userRepository;
-    final AccessRepository accessRepository;
-    final RepoUtils repoUtils;
-    final StoreNotificationGeneratorAndSender storeNotificationGeneratorAndSender;
+    final CigaretteFindService cigaretteFindService;
+    final CigaretteUpdateService cigaretteUpdateService;
 
-    //TODO 영속화 관련 테스트
-    public StoreDto.GetResponse addStore(StoreDto.AddRequest request) throws EntityNotFoundException, InvalidStoreBrandCodeException, DuplicateStoreException {
-
-        checkDuplicate(request.getName(), request.getStoreBrandCode());
-
-        // Store 먼저 생성 후 영속화
-        Store store = Store.builder()
-                .brand(StoreBrand.ofCode(request.getStoreBrandCode()))
-                .name(request.getName())
-                .build();
-
-        Store savedStore = storeRepository.save(store);
-
-        // 연관 객체인 access 생성
-        User admin = repoUtils.getOneElseThrowException(userRepository, request.getAdminId());
-        Access access = Access.builder()
-                .user(admin)
-                .store(savedStore)
-                .accessType(AccessType.ADMIN)
-                .build();
-
-        accessRepository.save(access);
-
-        return new StoreDto.GetResponse(savedStore);
+    @GetMapping("/drop_box")
+    public ResponseEntity<CigaretteDto.GetListResponse> findAllByOfficialNameLike(@RequestParam @NotNull String name) {
+        String decodedName = URLDecoder.decode(name, Charset.forName("UTF-8"));
+        CigaretteDto.GetListResponse response = cigaretteFindService.findAllByOfficialNameLike(decodedName);
+        return ResponseEntity.ok(response);
     }
 
-
-
-    public StoreDto.GetResponse updateStore(Long id, StoreDto.UpdateRequest request) throws EntityNotFoundException, InvalidStoreBrandCodeException, DuplicateStoreException {
-        checkDuplicate(request.getName(), request.getStoreBrandCode());
-
-        // 해당 엔티티 로드
-        Store store = repoUtils.getOneElseThrowException(storeRepository, id);
-        String oldName = store.toString();
-
-        // 처리 (수정)
-        StoreBrand brand = StoreBrand.ofCode(request.getStoreBrandCode());
-        store.updateStore(request.getName(), brand);
-
-        // 알림 발송
-        storeNotificationGeneratorAndSender.generateAndSend(store, StoreNotificationType.STORE_UPDATED, oldName);
-
-        // 리턴
-        return new StoreDto.GetResponse(store);
+    @PostMapping("")
+    public ResponseEntity<CigaretteDto.GetResponse> addCigarette(@RequestBody @Valid CigaretteDto.CigaretteRequest request) {
+        CigaretteDto.GetResponse response = cigaretteUpdateService.addCigarette(request);
+        return ResponseEntity.ok(response);
     }
 
-    public DeleteResponse deleteStore(Long id) throws EntityNotFoundException{
-        // 해당 엔티티 로드
-        Store store = repoUtils.getOneElseThrowException(storeRepository, id);
-        // 관련 엔티티 로드 및 삭제
-        List<Access> accessList = accessRepository.findAllByStoreId(id);
-        accessRepository.deleteAll(accessList);
-
-        //해당 엔티티 삭제
-        storeRepository.delete(store);
-
-        // 관련 알림 발송
-        storeNotificationGeneratorAndSender.generateAndSend(store, StoreNotificationType.STORE_DELETED);
-
-        // 리턴
-        return new DeleteResponse("store", id);
+    @PutMapping("/{id}")
+    public ResponseEntity<CigaretteDto.GetResponse> updateCigarette(@PathVariable @NotNull Long id, @RequestBody @Valid CigaretteDto.CigaretteRequest request) {
+        CigaretteDto.GetResponse response = cigaretteUpdateService.updateCigarette(id, request);
+        return ResponseEntity.ok(response);
     }
 
-    private void checkDuplicate(String name, String brandCode){
-        if(storeRepository.existsByNameAndBrand(name, StoreBrand.ofCode(brandCode))) {
-            throw new DuplicateStoreException(name, brandCode);
-        }
+    @DeleteMapping("/{id}")
+    public ResponseEntity<DeleteResponse> deleteCigarette(@PathVariable String id) {
+        DeleteResponse response = cigaretteUpdateService.deleteCigarette(Long.valueOf(id));
+        return ResponseEntity.ok(response);
     }
+
 
 }

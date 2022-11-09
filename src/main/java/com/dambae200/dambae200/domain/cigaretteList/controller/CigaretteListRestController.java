@@ -32,23 +32,6 @@ public class CigaretteListRestController {
         return ResponseEntity.ok(response);
     }
 
-    /*
-    @GetMapping("/{id}/displayOrder")
-    public ResponseEntity<CigaretteOnListDto.GetListCigaretteResponse> findInfoById(@PathVariable String id) {
-        CigaretteOnListDto.GetListCigaretteResponse response = cigaretteOnListFindService.findAllByCigaretteListId(Long.valueOf(id));
-        return ResponseEntity.ok(response);
-    }
-
-    @GetMapping("/{id}/computerizedOrder")
-    public ResponseEntity<CigaretteOnListDto.GetListCigaretteByComputerizedOrderResponse> findAllBySectionId(@PathVariable String listId,@PathVariable String sectionId){
-        CigaretteOnListDto.GetListCigaretteByComputerizedOrderResponse response = cigaretteOnListFindService.findAllBySectionId(Long.valueOf(listId), Long.valueOf(sectionId));
-        return ResponseEntity.ok(response);
-    }
-
-     */
-
-
-
     @PutMapping("/{id}")
     public ResponseEntity<CigaretteListDto.GetResponse> updateCigaretteListName(@PathVariable @NotNull Long id, @RequestBody @Valid CigaretteListDto.UpdateRequest request) {
         CigaretteListDto.GetResponse response = cigaretteListUpdateService.updateCigaretteList(id, request);

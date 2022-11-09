@@ -3,7 +3,6 @@ package dambae200.dambae200.domain.cigaretteOnList.domain;
 
 import dambae200.dambae200.domain.cigarette.domain.Cigarette;
 import dambae200.dambae200.domain.cigaretteList.domain.CigaretteList;
-import dambae200.dambae200.domain.section.domain.Section;
 import dambae200.dambae200.global.common.BaseEntity;
 import lombok.AccessLevel;
 import lombok.Getter;
@@ -24,11 +23,11 @@ public class CigaretteOnList extends BaseEntity {
     private Long id;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "cigaretteList_id", nullable = false)
+    @JoinColumn(name = "cigaretteList_id")
     private CigaretteList cigaretteList;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "cigarette_id",nullable = false)
+    @JoinColumn(name = "cigarette_id")
     private Cigarette cigarette;
 
     private int count;
@@ -37,13 +36,14 @@ public class CigaretteOnList extends BaseEntity {
 
     private int computerizedOrder;
 
+    private String customizedName;
+
 
     public void changeCigaretteList(CigaretteList cigaretteList) {
         if (this.cigaretteList != null) {
             this.cigaretteList.getCigaretteOnLists().remove(this);
         }
         this.cigaretteList = cigaretteList;
-        cigaretteList.getCigaretteOnLists().add(this);
     }
 
 
@@ -61,10 +61,11 @@ public class CigaretteOnList extends BaseEntity {
     }
 
     //생성 메서드
-    public static CigaretteOnList createCigaretteOnList(Cigarette cigarette) {
+    public static CigaretteOnList createCigaretteOnList(Cigarette cigarette, String customizedName) {
         CigaretteOnList cigaretteOnList = new CigaretteOnList();
         cigaretteOnList.changeCigarette(cigarette);
-        //cigaretteOnList.cigarette.updateCigaretteCustomizedName(customizedName);
+        //cigaretteOnList.cigarette.updateCigaretteSimpleName(simpleName);
+        cigaretteOnList.customizedName = customizedName;
         cigaretteOnList.changeCount(0); //등록할때는 0으로
 
         return cigaretteOnList;

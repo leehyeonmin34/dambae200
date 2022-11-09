@@ -20,28 +20,28 @@ public class Cigarette extends BaseEntity {
     @Column(name ="cigarette_id")
     private Long id;
 
-    @Column(name = "officialName", nullable = false)
+    @Column(name = "officialName")
     private String officialName;
 
-    @Column(name = "customizedName", nullable = false)
-    private String customizedName;
+    @Column(name = "simpleName")
+    private String simpleName;
 
     @Builder
-    public Cigarette(String officialName, String customizedName) {
+    public Cigarette(String officialName, String simpleName) {
         this.officialName = officialName;
-        this.customizedName = customizedName;
+        this.simpleName = simpleName;
     }
 
-    public void updateCigarette(String officialName, String customizedName) {
+    public void updateCigarette(String officialName, String simpleName) {
         this.officialName = officialName;
-        this.customizedName = customizedName;
+        this.simpleName = simpleName;
     }
 
     public void updateCigaretteOfficialName(String name) {
         this.officialName = name;
     }
 
-    public void updateCigaretteCustomizedName(String name) {
-        this.customizedName = name;
+    public void updateCigarettesimpleName(String name) {
+        this.simpleName = name;
     }
 }

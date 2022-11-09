@@ -8,13 +8,12 @@ import dambae200.dambae200.domain.cigaretteOnList.domain.CigaretteOnList;
 import dambae200.dambae200.domain.cigaretteOnList.dto.CigaretteOnListDto;
 import dambae200.dambae200.domain.cigaretteOnList.exception.DuplicateCigaretteOnListException;
 import dambae200.dambae200.domain.cigaretteOnList.repository.CigaretteOnListRepository;
-import dambae200.dambae200.domain.section.domain.Section;
-import dambae200.dambae200.domain.section.repository.SectionRepository;
 import dambae200.dambae200.global.common.DeleteResponse;
 import dambae200.dambae200.global.common.RepoUtils;
 import dambae200.dambae200.global.error.exception.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -28,6 +27,7 @@ public class CigaretteOnListUpdateService {
     private final RepoUtils repoUtils;
 
     //담배 개수 입력
+    @Transactional
     public CigaretteOnListDto.GetCigaretteResponse inputCigaretteCount(Long id, int count) throws EntityNotFoundException {
         CigaretteOnList cigaretteOnList = repoUtils.getOneElseThrowException(cigaretteOnListRepository, id);
         cigaretteOnList.changeCount(count);
@@ -35,7 +35,62 @@ public class CigaretteOnListUpdateService {
         return new CigaretteOnListDto.GetCigaretteResponse(cigaretteOnList);
     }
 
+
+    //드래그앤드롭(진열순서)
+    @Transactional
+    public CigaretteOnListDto.GetListCigaretteResponse moveDisplayOrderByDragAndDrop(Long cigaretteListId, Long afterElementId, Long draggableId){
+        CigaretteOnList afterElementCigarette = repoUtils.getOneElseThrowException(cigaretteOnListRepository, afterElementId);
+        CigaretteOnList draggableCigarette = repoUtils.getOneElseThrowException(cigaretteOnListRepository, draggableId);
+
+        int afterElementOrder = afterElementCigarette.getDisplayOrder();
+        int draggableOrder = draggableCigarette.getDisplayOrder();
+
+        if (afterElementOrder < draggableOrder){//아래서 위로 드래그 한경우
+            //after 이상, draggable 미만인 cigaretteOnList들 다 +1
+            cigaretteOnListRepository.dragAndDropDisplayOrderUp(cigaretteListId,afterElementOrder, draggableOrder);
+            //draggable 의 displayOrder는 after의 원래 순서로
+            //draggableCigarette.changeDisplayOrder(afterElementOrder);
+            cigaretteOnListRepository.updateDisplayOrder(draggableId,afterElementOrder);
+        }
+        else{//위에서 아래로 drag 한 경우
+            //after 미만, draggable보다 큰 cigaretteOnList들 다 -1
+            cigaretteOnListRepository.dragAndDropDisplayOrderDown(cigaretteListId,afterElementOrder, draggableOrder);
+            //draggable 의 displayOrder는 after의 -1로
+            //draggableCigarette.changeDisplayOrder(afterElementOrder-1);
+            cigaretteOnListRepository.updateDisplayOrder(draggableId,afterElementOrder-1);
+        }
+
+        return new CigaretteOnListDto.GetListCigaretteResponse(cigaretteOnListRepository.findAllByCigaretteListId(cigaretteListId));
+    }
+
+    //드래드앤드롭(전산순서)
+    @Transactional
+    public CigaretteOnListDto.GetListCigaretteResponse moveComputerizedOrderByDragAndDrop(Long cigaretteListId, Long afterElementId, Long draggableId){
+        CigaretteOnList afterElementCigarette = repoUtils.getOneElseThrowException(cigaretteOnListRepository, afterElementId);
+        CigaretteOnList draggableCigarette = repoUtils.getOneElseThrowException(cigaretteOnListRepository, draggableId);
+
+        int afterElementOrder = afterElementCigarette.getComputerizedOrder();
+        int draggableOrder = draggableCigarette.getComputerizedOrder();
+
+        if (afterElementOrder < draggableOrder){//아래서 위로 드래그 한경우
+            //after 이상, draggable 미만인 cigaretteOnList들 다 +1
+            cigaretteOnListRepository.dragAndDropComputerizedOrderUp(cigaretteListId,afterElementOrder, draggableOrder);
+            //draggable 의 displayOrder는 after의 원래 순서로
+            //draggableCigarette.changeComputerizedOrder(afterElementOrder);
+            cigaretteOnListRepository.updateComputerizedOrder(draggableId,afterElementOrder);
+        }
+        else{//위에서 아래로 drag 한 경우
+            //after 미만, draggable보다 큰 cigaretteOnList들 다 -1
+            cigaretteOnListRepository.dragAndDropComputerizedOrderDown(cigaretteListId,afterElementOrder, draggableOrder);
+            //draggable 의 displayOrder는 after의 -1로
+            cigaretteOnListRepository.updateComputerizedOrder(draggableId,afterElementOrder-1);
+        }
+        return new CigaretteOnListDto.GetListCigaretteResponse(cigaretteOnListRepository.findAllByCigaretteListId(cigaretteListId));
+    }
+
+
     //담배 추가(담배id)
+    @Transactional
     public CigaretteOnListDto.GetCigaretteResponse addCigaretteOnListById(CigaretteOnListDto.AddCigaretteOnList request) throws DuplicateCigaretteOnListException {
 
         checkDuplicate(request.getCigaretteListId(), request.getCigaretteId());
@@ -44,17 +99,24 @@ public class CigaretteOnListUpdateService {
 
         Cigarette cigarette = cigaretteRepository.findOneByIdCustom(request.getCigaretteId());
 
-        CigaretteOnList cigaretteOnList = CigaretteOnList.createCigaretteOnList(cigarette);
-
-        List<CigaretteOnList> cigaretteOnLists = cigaretteOnListRepository.findAllByCigaretteListId(request.getCigaretteListId());
-        //진열순서 초기값
-        cigaretteOnList.changeDisplayOrder(cigaretteOnLists.size()+1);
-
-        //전산순서 초기값
+        CigaretteOnList cigaretteOnList = CigaretteOnList.createCigaretteOnList(cigarette,request.getCustomizedName());
 
         cigaretteList.addCigaretteOnList(cigaretteOnList);
 
+        //진열순서 초기값
+        List<CigaretteOnList> cigaretteOnLists = cigaretteOnListRepository.findAllByCigaretteListId(request.getCigaretteListId());
+        cigaretteOnList.changeDisplayOrder(cigaretteOnLists.size()-1);
+
+        //전산순서 초기값
         //저장 후 전산순서 확정->그럼 전산순서를 이름순서로 해서 그 사이에 넣는다는건데 이게 이름 순서로 안되어 있을 수 있어 마지막에 넣어야 하나??
+        //지금 저장되어 있는 담배온리스트 중 이름순으로 몇번째인지 찾아보고 전산순서 결정
+        //결정하기전 그 이후의 전산순서를 가지는 담배들 모두 전산순서 +1씩
+        List<CigaretteOnList> smallerThanOfficialName = cigaretteOnListRepository.findAllBySmallThanOfficialName(cigaretteList.getId(), cigarette.getOfficialName());
+        //전산순서가 ~이상인것들은 +1 업데이트 쿼리 날려야해 => 벌크성 수정 쿼리
+        cigaretteOnListRepository.updateByOrderGreaterThanPlus(cigaretteList.getId(), smallerThanOfficialName.size());
+
+        //cigaretteOnList.changeComputerizedOrder(smallerThanOfficialName.size());
+        cigaretteOnListRepository.updateComputerizedOrder(cigaretteOnList.getId(), smallerThanOfficialName.size());
 
         return new CigaretteOnListDto.GetCigaretteResponse(cigaretteOnList);
     }
@@ -89,22 +151,6 @@ public class CigaretteOnListUpdateService {
         }
 
         return new CigaretteOnListDto.GetListCigaretteResponse(cigaretteOnLists);
-    }
-
-    //드래그앤드랍
-    public void moveCigaretteByDragAndDrop(Long listId, Long dragId, Long dropId){
-        CigaretteOnList dragCigaretteOnList = repoUtils.getOneElseThrowException(cigaretteOnListRepository, dragId);
-        CigaretteOnList dropCigaretteOnList = repoUtils.getOneElseThrowException(cigaretteOnListRepository, dropId);
-
-        int order = dropCigaretteOnList.getDisplayOrder();
-        //dropCigaretteOnList의 order보다 크거나 같은것들은 다 +1;
-        //dropCI~ 보다 order큰것을  다 가져와서
-        dropCigaretteOnList.changeDisplayOrder(order+1);
-        List<CigaretteOnList> cigaretteOnListsBiggerOrder = cigaretteOnListRepository.findAllByCigaretteListIdAndBiggerOrder(listId, order);
-        for (CigaretteOnList co : cigaretteOnListsBiggerOrder){
-            co.changeDisplayOrder(co.getDisplayOrder()+1);
-        }
-        dragCigaretteOnList.changeDisplayOrder(order);
     }
      */
 

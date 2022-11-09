@@ -19,7 +19,7 @@ public class CigaretteDto {
         private String officialName;
 
         @NotNull(message = "간편이름을 입력해주세요")
-        private String customizedName;
+        private String simpleName;
     }
 
 
@@ -30,6 +30,7 @@ public class CigaretteDto {
         private LocalDateTime createdAt;
         private LocalDateTime updatedAt;
         private String officialName;
+        private String simpleName;
 
 
         public GetResponse(Cigarette cigarette) {
@@ -37,6 +38,7 @@ public class CigaretteDto {
             createdAt = cigarette.getCreatedAt();
             updatedAt = cigarette.getUpdatedAt();
             officialName = cigarette.getOfficialName();
+            simpleName = cigarette.getSimpleName();
         }
     }
 

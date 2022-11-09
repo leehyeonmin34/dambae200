@@ -15,6 +15,6 @@ public interface CigaretteRepository extends JpaRepository<Cigarette, Long>, Cig
     @Query("select c from Cigarette c where c.officialName = : officialName")
     Cigarette findOneByOfficialName(@Param("officialName") String officialName);
 
-    @Query("select c from Cigarette c where c.customizedName = : customizedName")
-    Cigarette findOneByCustomizedName(@Param("customizedName") String customizedName);
+    @Query("select c from Cigarette c where c.simpleName = : simpleName")
+    Cigarette findOneBySimpleName(@Param("simpleName") String simpleName);
 }

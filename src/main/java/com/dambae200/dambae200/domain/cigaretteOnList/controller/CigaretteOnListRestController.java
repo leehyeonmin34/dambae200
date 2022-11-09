@@ -39,6 +39,7 @@ public class CigaretteOnListRestController {
         return ResponseEntity.ok(response);
     }
 
+    /*
     //진열순서 검색 기능.
     @GetMapping("/{id}/include")
     public ResponseEntity<CigaretteOnListDto.GetListCigaretteResponse> findAllByOfficialName(@PathVariable String id, @RequestParam @NotNull String name){
@@ -52,7 +53,8 @@ public class CigaretteOnListRestController {
         String decodedName = URLDecoder.decode(name, Charset.forName("UTF-8"));
         CigaretteOnListDto.GetListCigaretteResponse response = cigaretteOnListFindService.findAllByNotIncludeOfficialName(Long.valueOf(id), decodedName);
         return ResponseEntity.ok(response);
-    }
+
+     */
 
 
     @PostMapping("")
@@ -65,6 +67,19 @@ public class CigaretteOnListRestController {
     @PutMapping("/{id}/update_count")
     public ResponseEntity<CigaretteOnListDto.GetCigaretteResponse> inputCigaretteCount(@PathVariable String id, @RequestBody @Valid CigaretteOnListDto.UpdateCountRequest request) {
         CigaretteOnListDto.GetCigaretteResponse response = cigaretteOnListUpdateService.inputCigaretteCount(Long.valueOf(id), request.getCount());
+        return ResponseEntity.ok(response);
+    }
+
+
+    @PutMapping("/{id}/draganddrop_display")
+    public ResponseEntity<CigaretteOnListDto.GetListCigaretteResponse> dragAndDropDisplayOrder(@PathVariable String id, @RequestBody @Valid CigaretteOnListDto.DragAndDropRequest request){
+        CigaretteOnListDto.GetListCigaretteResponse response = cigaretteOnListUpdateService.moveDisplayOrderByDragAndDrop(Long.valueOf(id), request.getAfterElementId(), request.getDraggableId());
+        return ResponseEntity.ok(response);
+    }
+
+    @PutMapping("/{id}/draganddrop_computerized")
+    public ResponseEntity<CigaretteOnListDto.GetListCigaretteResponse> dragAndDropComputerizedOrder(@PathVariable String id, @RequestBody @Valid CigaretteOnListDto.DragAndDropRequest request){
+        CigaretteOnListDto.GetListCigaretteResponse response = cigaretteOnListUpdateService.moveComputerizedOrderByDragAndDrop(Long.valueOf(id), request.getAfterElementId(), request.getDraggableId());
         return ResponseEntity.ok(response);
     }
 

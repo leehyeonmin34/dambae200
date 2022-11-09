@@ -29,6 +29,7 @@ public class CigaretteOnListFindService {
         return new CigaretteOnListDto.GetListCigaretteResponse(cigaretteOnLists);
     }
 
+    /*
     public CigaretteOnListDto.GetListCigaretteResponse findAllByOfficialName(Long cigaretteListId, String officialName) {
         List<CigaretteOnList> cigaretteOnLists = cigaretteOnListRepository.findAllByOfficialNameLike(cigaretteListId, officialName);
         return new CigaretteOnListDto.GetListCigaretteResponse(cigaretteOnLists);
@@ -38,20 +39,8 @@ public class CigaretteOnListFindService {
         List<CigaretteOnList> cigaretteOnLists = cigaretteOnListRepository.findAllByNotIncludeOfficialNameLike(cigaretteListId, officialName);
         return new CigaretteOnListDto.GetListCigaretteResponse(cigaretteOnLists);
     }
+    */
 
 
-    /*
-    public  CigaretteOnListDto.GetSectionListReponse findSectionByListId(Long listId){
-        final List<CigaretteOnListDto.GetSectionResponse> cigaretteOnListList = cigaretteOnListRepository.findAllByCigaretteListId(listId).stream().map(cigaretteOnList -> {
-            return new CigaretteOnListDto.GetSectionResponse(cigaretteOnList);
-        }).collect(Collectors.toList());
-
-        final CigaretteOnListDto.GetSectionListReponse response = CigaretteOnListDto.GetSectionListReponse.builder()
-                .cigaretteOnLists(cigaretteOnListList)
-                .build();
-
-        return response;
-    }
-     */
 
 }
