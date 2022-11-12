@@ -1,12 +1,10 @@
 package com.dambae200.dambae200.domain.store.domain;
 
+import com.dambae200.dambae200.domain.cigaretteList.domain.CigaretteList;
 import com.dambae200.dambae200.global.common.BaseEntity;
 import lombok.*;
 
-import javax.persistence.Column;
-import javax.persistence.Convert;
-import javax.persistence.Entity;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @Entity
 @NoArgsConstructor(access = AccessLevel.PROTECTED)

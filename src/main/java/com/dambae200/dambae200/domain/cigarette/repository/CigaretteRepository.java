@@ -1,6 +1,7 @@
-package dambae200.dambae200.domain.cigarette.repository;
+package com.dambae200.dambae200.domain.cigarette.repository;
 
-import dambae200.dambae200.domain.cigarette.domain.Cigarette;
+import com.dambae200.dambae200.domain.cigarette.domain.Cigarette;
+import com.dambae200.dambae200.domain.cigarette.repository.CigaretteRepositoryCustom;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;

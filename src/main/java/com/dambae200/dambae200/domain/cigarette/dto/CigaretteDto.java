@@ -1,7 +1,6 @@
-package dambae200.dambae200.domain.cigarette.dto;
+package com.dambae200.dambae200.domain.cigarette.dto;
 
-import dambae200.dambae200.domain.cigarette.domain.Cigarette;
-import lombok.Builder;
+import com.dambae200.dambae200.domain.cigarette.domain.Cigarette;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 

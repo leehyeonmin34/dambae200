@@ -1,7 +1,6 @@
-package dambae200.dambae200.domain.cigaretteOnList.repository;
+package com.dambae200.dambae200.domain.cigaretteOnList.repository;
 
-import dambae200.dambae200.domain.cigaretteList.domain.CigaretteList;
-import dambae200.dambae200.domain.cigaretteOnList.domain.CigaretteOnList;
+import com.dambae200.dambae200.domain.cigaretteOnList.domain.CigaretteOnList;
 import lombok.RequiredArgsConstructor;
 
 import javax.persistence.EntityManager;

@@ -1,7 +1,7 @@
-package dambae200.dambae200.domain.cigarette.exception;
+package com.dambae200.dambae200.domain.cigarette.exception;
 
-import dambae200.dambae200.global.error.exception.BusinessException;
-import dambae200.dambae200.global.error.exception.ErrorCode;
+import com.dambae200.dambae200.global.error.exception.BusinessException;
+import com.dambae200.dambae200.global.error.exception.ErrorCode;
 
 public class OfficaialNameDuplicationException extends BusinessException {
 
