@@ -26,4 +26,6 @@ public class StoreFindService {
         return new StoreDto.GetListResponse(stores);
     }
 
+
+
 }

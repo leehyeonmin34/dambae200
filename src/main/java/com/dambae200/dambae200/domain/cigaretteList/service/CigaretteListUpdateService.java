@@ -1,13 +1,12 @@
-package dambae200.dambae200.domain.cigaretteList.service;
+package com.dambae200.dambae200.domain.cigaretteList.service;
 
-import dambae200.dambae200.domain.cigaretteList.domain.CigaretteList;
-import dambae200.dambae200.domain.cigaretteList.dto.CigaretteListDto;
-import dambae200.dambae200.domain.cigaretteList.repository.CigaretteListRepository;
-import dambae200.dambae200.domain.cigaretteOnList.domain.CigaretteOnList;
-import dambae200.dambae200.domain.cigaretteOnList.repository.CigaretteOnListRepository;
-import dambae200.dambae200.global.common.DeleteResponse;
-import dambae200.dambae200.global.common.RepoUtils;
-import dambae200.dambae200.global.error.exception.EntityNotFoundException;
+import com.dambae200.dambae200.domain.cigaretteList.domain.CigaretteList;
+import com.dambae200.dambae200.domain.cigaretteList.dto.CigaretteListDto;
+import com.dambae200.dambae200.domain.cigaretteList.repository.CigaretteListRepository;
+import com.dambae200.dambae200.domain.cigaretteOnList.domain.CigaretteOnList;
+import com.dambae200.dambae200.domain.cigaretteOnList.repository.CigaretteOnListRepository;
+import com.dambae200.dambae200.global.common.DeleteResponse;
+import com.dambae200.dambae200.global.common.RepoUtils;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -22,7 +21,7 @@ public class CigaretteListUpdateService {
     private final RepoUtils repoUtils;
 
     //목록이름변경
-    public CigaretteListDto.GetResponse updateCigaretteList(Long id, CigaretteListDto.UpdateRequest request) throws EntityNotFoundException {
+    public CigaretteListDto.GetResponse updateCigaretteList(Long id, CigaretteListDto.UpdateRequest request){
 
         CigaretteList cigaretteList = repoUtils.getOneElseThrowException(cigaretteListRepository, id);
         cigaretteList.changeName(request.getName());
@@ -31,7 +30,7 @@ public class CigaretteListUpdateService {
     }
 
     //목록 삭제
-    public DeleteResponse deleteCigaretteList(Long id) throws EntityNotFoundException {
+    public DeleteResponse deleteCigaretteList(Long id){
         CigaretteList cigaretteList = repoUtils.getOneElseThrowException(cigaretteListRepository, id);
 
         List<CigaretteOnList> cigaretteOnLists = cigaretteOnListRepository.findAllByCigaretteListId(id);

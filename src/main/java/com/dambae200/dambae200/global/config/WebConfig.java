@@ -1,20 +1,13 @@
 package com.dambae200.dambae200.global.config;
 
 import com.dambae200.dambae200.domain.sessionInfo.service.SessionService;
-import com.dambae200.dambae200.global.filter.ExceptionHandlerFilter;
-//import com.dambae200.dambae200.global.filter.LoginCheckFilter;
-import com.dambae200.dambae200.global.filter.LoginCheckFilter;
-import com.dambae200.dambae200.global.interceptor.CorsInterceptor;
 import com.dambae200.dambae200.global.interceptor.LoggerInterceptor;
 import com.dambae200.dambae200.global.utils.RequestJsonMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.web.servlet.FilterRegistrationBean;
-import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpHeaders;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
-import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 import javax.servlet.Filter;

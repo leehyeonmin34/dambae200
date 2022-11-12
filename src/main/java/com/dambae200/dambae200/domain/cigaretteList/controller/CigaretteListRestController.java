@@ -1,13 +1,10 @@
-package dambae200.dambae200.domain.cigaretteList.controller;
+package com.dambae200.dambae200.domain.cigaretteList.controller;
 
-import dambae200.dambae200.domain.cigaretteList.domain.CigaretteList;
-import dambae200.dambae200.domain.cigaretteList.dto.CigaretteListDto;
-import dambae200.dambae200.domain.cigaretteList.service.CigaretteListFindService;
-import dambae200.dambae200.domain.cigaretteList.service.CigaretteListUpdateService;
-import dambae200.dambae200.domain.cigaretteOnList.dto.CigaretteOnListDto;
-import dambae200.dambae200.domain.cigaretteOnList.service.CigaretteOnListFindService;
-import dambae200.dambae200.domain.cigaretteOnList.service.CigaretteOnListUpdateService;
-import dambae200.dambae200.global.common.DeleteResponse;
+import com.dambae200.dambae200.domain.cigaretteList.dto.CigaretteListDto;
+import com.dambae200.dambae200.domain.cigaretteList.service.CigaretteListFindService;
+import com.dambae200.dambae200.domain.cigaretteList.service.CigaretteListUpdateService;
+import com.dambae200.dambae200.domain.cigaretteOnList.service.CigaretteOnListFindService;
+import com.dambae200.dambae200.global.common.DeleteResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

@@ -1,7 +1,7 @@
-package dambae200.dambae200.domain.cigarette.domain;
+package com.dambae200.dambae200.domain.cigarette.domain;
 
 
-import dambae200.dambae200.global.common.BaseEntity;
+import com.dambae200.dambae200.global.common.BaseEntity;
 import lombok.*;
 
 import javax.persistence.Column;

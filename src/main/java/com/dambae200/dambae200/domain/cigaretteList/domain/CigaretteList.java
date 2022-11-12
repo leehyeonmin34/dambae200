@@ -1,8 +1,8 @@
-package dambae200.dambae200.domain.cigaretteList.domain;
+package com.dambae200.dambae200.domain.cigaretteList.domain;
 
-import dambae200.dambae200.domain.cigaretteOnList.domain.CigaretteOnList;
-import dambae200.dambae200.domain.store.domain.Store;
-import dambae200.dambae200.global.common.BaseEntity;
+import com.dambae200.dambae200.domain.cigaretteOnList.domain.CigaretteOnList;
+import com.dambae200.dambae200.domain.store.domain.Store;
+import com.dambae200.dambae200.global.common.BaseEntity;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

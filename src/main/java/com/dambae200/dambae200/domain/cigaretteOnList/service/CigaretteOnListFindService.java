@@ -1,9 +1,9 @@
-package dambae200.dambae200.domain.cigaretteOnList.service;
+package com.dambae200.dambae200.domain.cigaretteOnList.service;
 
-import dambae200.dambae200.domain.cigaretteList.repository.CigaretteListRepository;
-import dambae200.dambae200.domain.cigaretteOnList.domain.CigaretteOnList;
-import dambae200.dambae200.domain.cigaretteOnList.dto.CigaretteOnListDto;
-import dambae200.dambae200.domain.cigaretteOnList.repository.CigaretteOnListRepository;
+import com.dambae200.dambae200.domain.cigaretteList.repository.CigaretteListRepository;
+import com.dambae200.dambae200.domain.cigaretteOnList.domain.CigaretteOnList;
+import com.dambae200.dambae200.domain.cigaretteOnList.dto.CigaretteOnListDto;
+import com.dambae200.dambae200.domain.cigaretteOnList.repository.CigaretteOnListRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 

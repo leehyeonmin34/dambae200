@@ -1,16 +1,15 @@
-package dambae200.dambae200.domain.cigaretteOnList.service;
+package com.dambae200.dambae200.domain.cigaretteOnList.service;
 
-import dambae200.dambae200.domain.cigarette.domain.Cigarette;
-import dambae200.dambae200.domain.cigarette.repository.CigaretteRepository;
-import dambae200.dambae200.domain.cigaretteList.domain.CigaretteList;
-import dambae200.dambae200.domain.cigaretteList.repository.CigaretteListRepository;
-import dambae200.dambae200.domain.cigaretteOnList.domain.CigaretteOnList;
-import dambae200.dambae200.domain.cigaretteOnList.dto.CigaretteOnListDto;
-import dambae200.dambae200.domain.cigaretteOnList.exception.DuplicateCigaretteOnListException;
-import dambae200.dambae200.domain.cigaretteOnList.repository.CigaretteOnListRepository;
-import dambae200.dambae200.global.common.DeleteResponse;
-import dambae200.dambae200.global.common.RepoUtils;
-import dambae200.dambae200.global.error.exception.EntityNotFoundException;
+import com.dambae200.dambae200.domain.cigarette.domain.Cigarette;
+import com.dambae200.dambae200.domain.cigarette.repository.CigaretteRepository;
+import com.dambae200.dambae200.domain.cigaretteList.domain.CigaretteList;
+import com.dambae200.dambae200.domain.cigaretteList.repository.CigaretteListRepository;
+import com.dambae200.dambae200.domain.cigaretteOnList.domain.CigaretteOnList;
+import com.dambae200.dambae200.domain.cigaretteOnList.dto.CigaretteOnListDto;
+import com.dambae200.dambae200.domain.cigaretteOnList.exception.DuplicateCigaretteOnListException;
+import com.dambae200.dambae200.domain.cigaretteOnList.repository.CigaretteOnListRepository;
+import com.dambae200.dambae200.global.common.DeleteResponse;
+import com.dambae200.dambae200.global.common.RepoUtils;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -28,7 +27,7 @@ public class CigaretteOnListUpdateService {
 
     //담배 개수 입력
     @Transactional
-    public CigaretteOnListDto.GetCigaretteResponse inputCigaretteCount(Long id, int count) throws EntityNotFoundException {
+    public CigaretteOnListDto.GetCigaretteResponse inputCigaretteCount(Long id, int count){
         CigaretteOnList cigaretteOnList = repoUtils.getOneElseThrowException(cigaretteOnListRepository, id);
         cigaretteOnList.changeCount(count);
 
@@ -156,7 +155,7 @@ public class CigaretteOnListUpdateService {
 
 
     //삭제
-    public DeleteResponse deleteCigaretteOnList(Long id) throws EntityNotFoundException {
+    public DeleteResponse deleteCigaretteOnList(Long id) {
         CigaretteOnList cigaretteOnList = repoUtils.getOneElseThrowException(cigaretteOnListRepository, id);
         CigaretteList cigaretteList = cigaretteOnList.getCigaretteList();
         cigaretteList.deleteCigaretteOnList(cigaretteOnList);

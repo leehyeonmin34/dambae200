@@ -1,9 +1,8 @@
-package dambae200.dambae200.domain.cigaretteOnList.dto;
+package com.dambae200.dambae200.domain.cigaretteOnList.dto;
 
-import dambae200.dambae200.domain.cigarette.domain.Cigarette;
-import dambae200.dambae200.domain.cigaretteOnList.domain.CigaretteOnList;
-import dambae200.dambae200.global.common.BaseDto;
-import dambae200.dambae200.global.common.BaseEntity;
+import com.dambae200.dambae200.domain.cigarette.domain.Cigarette;
+import com.dambae200.dambae200.domain.cigaretteOnList.domain.CigaretteOnList;
+import com.dambae200.dambae200.global.common.BaseDto;
 import lombok.Builder;
 import lombok.Getter;
 
@@ -51,7 +50,7 @@ public class CigaretteOnListDto {
             this.customizedName = cigaretteOnList.getCustomizedName();
             this.count = cigaretteOnList.getCount();
             createdAt = cigaretteOnList.getCreatedAt();
-            updateAt = cigaretteOnList.getUpdatedAt();
+            updatedAt = cigaretteOnList.getUpdatedAt();
         }
     }
 
