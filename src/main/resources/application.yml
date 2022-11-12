@@ -22,6 +22,8 @@ spring:
     username: connectuser
     password: connect123!@#
     initialization-mode: always
+  redis:
+    host: localhost
+    port: 6379
 server:
   port: 8060
-

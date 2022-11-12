@@ -1,6 +1,6 @@
 package com.dambae200.dambae200.domain.user.domain;
 
-import com.dambae200.dambae200.domain.user.exception.LoginInputInvalidException;
+import com.dambae200.dambae200.domain.user.exception.LoginInfoNotMatched;
 import com.dambae200.dambae200.global.common.BaseEntity;
 import lombok.*;
 
@@ -43,7 +43,7 @@ public class User extends BaseEntity {
     public Boolean authenticate(String pw){
         if (this.pw.equals(pw))
             return true;
-        else throw new LoginInputInvalidException();
+        else throw new LoginInfoNotMatched();
     }
 
 

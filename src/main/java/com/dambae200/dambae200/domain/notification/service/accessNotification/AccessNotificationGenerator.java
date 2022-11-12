@@ -19,12 +19,12 @@ public class AccessNotificationGenerator {
     final AccessRepository accessRepository;
 
     // 데이터 기반해 알림 타입 선택
-    private List<AccessNotificationType> getNotificationType(AccessType prev, AccessType curr, Boolean byAdmin) throws CannotFindAccessNotificationType {
+    private List<AccessNotificationType> getNotificationType(AccessType prev, AccessType curr, Boolean byAdmin){
         return accessNotificationTypeFinder.getNotificationType(prev, curr, byAdmin);
     }
 
     // 알림 엔티티 생성
-    public List<Notification> generate(AccessType prev, Access access, Boolean byAdmin) throws CannotFindAccessNotificationType{
+    public List<Notification> generate(AccessType prev, Access access, Boolean byAdmin){
 
         // 알림타입(템플릿) 선택
         List<AccessNotificationType> notificationTypes = getNotificationType(prev, access.getAccessType(), byAdmin);
@@ -35,7 +35,8 @@ public class AccessNotificationGenerator {
         String userNickname = access.getUser().getNickname();
         // TODO admin ID를 이렇게 구하는 게 맞을까?
         Long adminId = accessRepository.findAllByStoreId(access.getStore().getId())
-                .stream().filter(item -> item.getAccessType().equals(AccessType.ADMIN)).findAny().get().getId();
+                .stream().filter(item -> item.getAccessType().equals(AccessType.ADMIN))
+                .findAny().get().getUser().getId();
 
         // 각 알림 타입에 맞는 알림 생성
         List<Notification> notifications = notificationTypes.stream().map(item -> {

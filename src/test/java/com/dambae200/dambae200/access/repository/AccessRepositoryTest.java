@@ -17,6 +17,23 @@ public class AccessRepositoryTest {
     void FindAdminUserAccessByStaffAccessIdSuccess(){
         // WHEN
 //        lenient().
+        int a = 4;
+        double b = 0.3;
+        double c = 0;
+        c = a / b;
+        System.out.println(c);
+
+        double a2 = 1.4;
+        double b2 = 3.0;
+        double c2 = 0;
+        c2 = a2 / b2;
+        System.out.println(c2);
+
+        double a3 = 1.4;
+        int b3 = 3;
+        double c3 = 0;
+        c3 = a3 / b3;
+        System.out.println(c3);
 
     }
 
