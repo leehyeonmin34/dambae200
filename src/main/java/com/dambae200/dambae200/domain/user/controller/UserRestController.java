@@ -42,6 +42,8 @@ public class UserRestController {
 
     @GetMapping("/{id}/home")
     public ResponseEntity<UserHomeDto> findHomeInfoById(@PathVariable String id){
+
+
         boolean newNoti = notificationFindService.unreadExistByUserId(Long.valueOf(id));
         AccessDto.GetStoreListResponse stores = accessService.findAllByUserId(Long.valueOf(id));
         UserHomeDto response = UserHomeDto.builder()
@@ -85,6 +87,7 @@ public class UserRestController {
         DeleteResponse response = userUpdateService.deleteUser(Long.valueOf(id), pw);
         return ResponseEntity.ok(response);
     }
+
 
 
 

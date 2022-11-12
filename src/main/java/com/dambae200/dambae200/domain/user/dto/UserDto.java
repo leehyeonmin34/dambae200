@@ -6,6 +6,7 @@ import com.dambae200.dambae200.global.common.BaseDto;
 import lombok.Builder;
 import lombok.Getter;
 
+import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Pattern;
 import java.time.LocalDateTime;
@@ -17,7 +18,7 @@ public class UserDto {
 
     @Getter
     public static class AddRequest{
-        @NotBlank(message = "이메일을 입력해주세요")
+        @Email(message = "잘못된 이메일 형식입니다.")
         private String email;
         @Pattern(regexp = "^[A-Za-z0-9]{6,20}$",message = "비밀번호는 영문과 숫자를 포함해 6자 ~ 20자여야 합니다.")
         private String pw;
@@ -66,6 +67,16 @@ public class UserDto {
             this.total = users.size();
         }
 
+    }
+
+    @Getter
+    public static class LoginRequest{
+
+        @Email(message = "잘못된 이메일 형식입니다.")
+        private String email;
+
+        @Pattern(regexp = "^[A-Za-z0-9]{6,20}$",message = "비밀번호는 영문과 숫자를 포함해 6자 ~ 20자여야 합니다.")
+        private String pw;
     }
 
 

@@ -9,6 +9,7 @@ import com.dambae200.dambae200.global.error.exception.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.hibernate.sql.Delete;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -20,7 +21,8 @@ public class NotificationUpdateService {
     final NotificationRepository notificationRepository;
     final RepoUtils repoUtils;
 
-    public NotificationDto.GetListResponse markAsReadNotifiations(List<Long> idList) throws EntityNotFoundException {
+    @Transactional
+    public NotificationDto.GetListResponse markAsReadNotifiations(List<Long> idList) {
 
         List<Notification> notifications = notificationRepository.findAllById(idList).stream().map(item -> {
 //            System.out.println("notification id " + item.getId() + "를 읽겠습니다.");
@@ -32,6 +34,7 @@ public class NotificationUpdateService {
         return new NotificationDto.GetListResponse(notifications);
     }
 
+    @Transactional
     public DeleteResponse deleteNotification(Long id) throws EntityNotFoundException {
         // 유효성검사, 처리
         repoUtils.deleteOneElseThrowException(notificationRepository, id);

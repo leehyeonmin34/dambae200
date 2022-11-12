@@ -40,11 +40,14 @@ public class AccessService {
     final AccessNotificationGeneratorAndSender accessNotificationGeneratorAndSender;
     final EntityManager em;
 
+    @Transactional
     public AccessDto.GetListUserResponse findAllByStoreId(Long storeId){
         List<Access> accessList = accessRepository.findAllByStoreId(storeId);
         return new AccessDto.GetListUserResponse(accessList);
     }
 
+
+    @Transactional
     public AccessDto.GetStoreListResponse findAllByUserId(Long userId){
 
         final List<AccessDto.GetStoreResponse> accessList = accessRepository.findAllByUserId(userId).stream().map(access -> {
@@ -60,13 +63,16 @@ public class AccessService {
         return response;
     }
 
+
+    // 내가 관리자인(ADMIN access) Store라면, 지원자(WAITING access)가 있는지 여부 리턴
     private boolean applicatorExists(Access access){
-        if (access.getAccessType().equals(AccessType.ADMIN)){
+        if (access.getAccessType().equals(AccessType.ADMIN))
             return accessRepository.existsByStoreIdAndAccessType(access.getStore().getId(), AccessType.WAITING);
-        } else return false;
+        else return false;
     }
 
-    public AccessDto.GetResponse applyAccess(AccessDto.ApplyRequest request) throws EntityNotFoundException, CannotFindAccessNotificationType{
+    @Transactional
+    public AccessDto.GetResponse applyAccess(AccessDto.ApplyRequest request){
         Long userId = request.getUserId();
         Long storeId = request.getStoreId();
         if(accessRepository.existsByUserIdAndStoreId(userId, storeId))
@@ -75,8 +81,6 @@ public class AccessService {
         // 관련 엔티티 로드
         Store store = repoUtils.getOneElseThrowException(storeRepository, request.getStoreId());
         User user = repoUtils.getOneElseThrowException(userRepository, request.getUserId());
-
-
 
         // 액세스 생성 및 WAITING 상태 설정
         Access access = Access.builder()
@@ -94,7 +98,7 @@ public class AccessService {
     }
 
     @Transactional
-    public AccessDto.GetResponse updateAccess(Long id, String accessTypeCode, boolean byAdmin) throws EntityNotFoundException, InvalidAccessTypeCodeException, CannotFindAccessNotificationType, RuntimeException {
+    public AccessDto.GetResponse updateAccess(Long id, String accessTypeCode, boolean byAdmin){
         // 해당 엔티티 로드
         Access access = repoUtils.getOneElseThrowException(accessRepository, id);
 
@@ -102,7 +106,6 @@ public class AccessService {
         if(accessTypeCode.equals(AccessType.ADMIN.getCode())){
             Access adminUserAccess = findAdminAccessByStaffAccessId(id);
             adminUserAccess.changeAccessType(AccessType.ACCESSIBLE);
-            System.out.println(adminUserAccess);
         }
 
         // 처리 (엔티티 업데이트)
@@ -110,18 +113,14 @@ public class AccessService {
         AccessType newType = AccessType.ofCode(accessTypeCode);
         access.changeAccessType(newType);
 
-
-
         // 관련 알림 생성 및 전송
         accessNotificationGeneratorAndSender.from(prev, access, byAdmin);
 
         // 리턴
         return new AccessDto.GetResponse(access);
-
-
-
     }
 
+    @Transactional
     private Access findAdminAccessByStaffAccessId(Long id) throws RuntimeException{
         TypedQuery<Access> query = em.createQuery(
                 "SELECT A " +
@@ -135,16 +134,25 @@ public class AccessService {
         if (result == null) throw new RuntimeException(
                 "accessId" + id + "에 해당하는 관리자 access 엔티티를 찾을 수 없습니다."
         );
-        System.out.println(result);
-//        if(1 == 1)
-//            throw new RuntimeException("gigi");
         return result;
     }
 
+    @Transactional
     public DeleteResponse deleteAccess(Long id) throws EntityNotFoundException{
+
+        // 일반 스태프(ACCESSIBLE access)가 권한을 철회하는 거라면 목록 관리자에게 알림을 보내야 하기 때문에 알림용 정보 추출
+        Access access = repoUtils.getOneElseThrowException(accessRepository, id);
+        boolean isDeletedByAccessibleStaff = access.getAccessType().equals(AccessType.ACCESSIBLE);
+
         // 삭제
         repoUtils.deleteOneElseThrowException(accessRepository, id);
 
+        // 관련 알림 생성 및 전송
+        if(isDeletedByAccessibleStaff) {
+            access.changeAccessType(AccessType.INACCESSIBLE);
+            accessNotificationGeneratorAndSender.from(AccessType.ACCESSIBLE, access, false);
+            System.out.println("알림 보내져야합니다~~~~");
+        }
         // 리턴
         return new DeleteResponse("access", id);
     }
