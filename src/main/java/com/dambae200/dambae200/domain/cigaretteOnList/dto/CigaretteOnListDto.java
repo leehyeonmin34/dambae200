@@ -1,12 +1,14 @@
-package com.dambae200.dambae200.domain.cigaretteOnList.dto;
+package dambae200.dambae200.domain.cigaretteOnList.dto;
 
-import com.dambae200.dambae200.domain.cigarette.domain.Cigarette;
-import com.dambae200.dambae200.domain.cigaretteOnList.domain.CigaretteOnList;
-import com.dambae200.dambae200.global.common.BaseDto;
+import dambae200.dambae200.domain.cigarette.domain.Cigarette;
+import dambae200.dambae200.domain.cigaretteOnList.domain.CigaretteOnList;
+import dambae200.dambae200.global.common.BaseDto;
+import dambae200.dambae200.global.common.BaseEntity;
 import lombok.Builder;
 import lombok.Getter;
 
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -16,7 +18,7 @@ public class CigaretteOnListDto {
 
     @Getter
     public static class UpdateCountRequest{
-        @NotBlank
+        @NotNull
         private int count;
     }
 
@@ -27,10 +29,30 @@ public class CigaretteOnListDto {
     }
 
     @Getter
+    public static class ModifyRequest{
+        private Long cigaretteOnListId;
+        private String customizedName;
+    }
+
+    @Getter
     static public class AddCigaretteOnList{
         private Long cigaretteListId;
         private Long cigaretteId;
         private String customizedName;
+    }
+
+    /*
+    @Getter
+    static public class ReorderRequest{
+        private List<OrderInfo> orderInfos;
+    }
+    */
+
+    @Getter
+    static public class ReorderRequest{
+        private Long id;
+        private int display_order;
+        private int computerized_order;
     }
 
 
@@ -50,7 +72,7 @@ public class CigaretteOnListDto {
             this.customizedName = cigaretteOnList.getCustomizedName();
             this.count = cigaretteOnList.getCount();
             createdAt = cigaretteOnList.getCreatedAt();
-            updatedAt = cigaretteOnList.getUpdatedAt();
+            updateAt = cigaretteOnList.getUpdatedAt();
         }
     }
 

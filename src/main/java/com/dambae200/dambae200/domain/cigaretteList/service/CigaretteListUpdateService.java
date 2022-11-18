@@ -1,14 +1,18 @@
-package com.dambae200.dambae200.domain.cigaretteList.service;
+package dambae200.dambae200.domain.cigaretteList.service;
 
-import com.dambae200.dambae200.domain.cigaretteList.domain.CigaretteList;
-import com.dambae200.dambae200.domain.cigaretteList.dto.CigaretteListDto;
-import com.dambae200.dambae200.domain.cigaretteList.repository.CigaretteListRepository;
-import com.dambae200.dambae200.domain.cigaretteOnList.domain.CigaretteOnList;
-import com.dambae200.dambae200.domain.cigaretteOnList.repository.CigaretteOnListRepository;
-import com.dambae200.dambae200.global.common.DeleteResponse;
-import com.dambae200.dambae200.global.common.RepoUtils;
+import dambae200.dambae200.domain.cigaretteList.domain.CigaretteList;
+import dambae200.dambae200.domain.cigaretteList.dto.CigaretteListDto;
+import dambae200.dambae200.domain.cigaretteList.repository.CigaretteListRepository;
+import dambae200.dambae200.domain.cigaretteOnList.domain.CigaretteOnList;
+import dambae200.dambae200.domain.cigaretteOnList.repository.CigaretteOnListRepository;
+import dambae200.dambae200.domain.store.domain.Store;
+import dambae200.dambae200.domain.store.repository.StoreRepository;
+import dambae200.dambae200.global.common.DeleteResponse;
+import dambae200.dambae200.global.common.RepoUtils;
+import dambae200.dambae200.global.error.exception.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -19,9 +23,11 @@ public class CigaretteListUpdateService {
     private final CigaretteListRepository cigaretteListRepository ;
     private final CigaretteOnListRepository cigaretteOnListRepository;
     private final RepoUtils repoUtils;
+    private final StoreRepository storeRepository;
 
     //목록이름변경
-    public CigaretteListDto.GetResponse updateCigaretteList(Long id, CigaretteListDto.UpdateRequest request){
+    @Transactional
+    public CigaretteListDto.GetResponse updateCigaretteList(Long id, CigaretteListDto.UpdateRequest request) throws EntityNotFoundException {
 
         CigaretteList cigaretteList = repoUtils.getOneElseThrowException(cigaretteListRepository, id);
         cigaretteList.changeName(request.getName());
@@ -29,8 +35,18 @@ public class CigaretteListUpdateService {
         return new CigaretteListDto.GetResponse(cigaretteList);
     }
 
+    //목록 추가
+    @Transactional
+    public  CigaretteListDto.GetResponse addCigaretteList(CigaretteListDto.AddRequest request){
+        Store store = repoUtils.getOneElseThrowException(storeRepository, request.getStoreId());
+        CigaretteList cigaretteList = CigaretteList.createCigaretteList(store);
+
+        return new CigaretteListDto.GetResponse(cigaretteList);
+    }
+
+
     //목록 삭제
-    public DeleteResponse deleteCigaretteList(Long id){
+    public DeleteResponse deleteCigaretteList(Long id) throws EntityNotFoundException {
         CigaretteList cigaretteList = repoUtils.getOneElseThrowException(cigaretteListRepository, id);
 
         List<CigaretteOnList> cigaretteOnLists = cigaretteOnListRepository.findAllByCigaretteListId(id);
