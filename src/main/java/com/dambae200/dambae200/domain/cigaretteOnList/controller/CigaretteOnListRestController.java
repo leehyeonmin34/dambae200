@@ -1,9 +1,9 @@
-package com.dambae200.dambae200.domain.cigaretteOnList.controller;
+package dambae200.dambae200.domain.cigaretteOnList.controller;
 
-import com.dambae200.dambae200.domain.cigaretteOnList.dto.CigaretteOnListDto;
-import com.dambae200.dambae200.domain.cigaretteOnList.service.CigaretteOnListFindService;
-import com.dambae200.dambae200.domain.cigaretteOnList.service.CigaretteOnListUpdateService;
-import com.dambae200.dambae200.global.common.DeleteResponse;
+import dambae200.dambae200.domain.cigaretteOnList.dto.CigaretteOnListDto;
+import dambae200.dambae200.domain.cigaretteOnList.service.CigaretteOnListFindService;
+import dambae200.dambae200.domain.cigaretteOnList.service.CigaretteOnListUpdateService;
+import dambae200.dambae200.global.common.DeleteResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -83,6 +83,32 @@ public class CigaretteOnListRestController {
         return ResponseEntity.ok(response);
     }
 
+    @PutMapping("/modify")
+    public ResponseEntity<CigaretteOnListDto.GetCigaretteResponse> modifyCustomizeNmae(@RequestBody @Valid CigaretteOnListDto.ModifyRequest request){
+        CigaretteOnListDto.GetCigaretteResponse response = cigaretteOnListUpdateService.modifyCustomizeName(request.getCigaretteOnListId(), request.getCustomizedName());
+        return ResponseEntity.ok(response);
+    }
+
+    @PutMapping("/reorder_display")
+    public ResponseEntity<CigaretteOnListDto.GetListCigaretteResponse> reOrderDisplay(@RequestBody @Valid List<CigaretteOnListDto.ReorderRequest> request){
+        CigaretteOnListDto.GetListCigaretteResponse response = cigaretteOnListUpdateService.reOrderDisplay(request);
+        return ResponseEntity.ok(response);
+    }
+
+
+    @PutMapping("/reorder_computerized")
+    public ResponseEntity<CigaretteOnListDto.GetListCigaretteResponse> reOrderComputerized(@RequestBody @Valid List<CigaretteOnListDto.ReorderRequest> request){
+        CigaretteOnListDto.GetListCigaretteResponse response = cigaretteOnListUpdateService.reOrderComputerized(request);
+        return ResponseEntity.ok(response);
+    }
+
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<DeleteResponse> deleteCigaretteOnList(@PathVariable String id) {
+        DeleteResponse response = cigaretteOnListUpdateService.deleteCigaretteOnList(Long.valueOf(id));
+        return ResponseEntity.ok(response);
+    }
+
     /*
     @PutMapping("{id}/move_cigarette_by_select")
     public void moveCigaretteBySelect(){
@@ -96,10 +122,4 @@ public class CigaretteOnListRestController {
         //return ResponseEntity.ok(response);
     }
      */
-
-    @DeleteMapping("/{id}")
-    public ResponseEntity<DeleteResponse> deleteCigaretteOnList(@PathVariable String id) {
-        DeleteResponse response = cigaretteOnListUpdateService.deleteCigaretteOnList(Long.valueOf(id));
-        return ResponseEntity.ok(response);
-    }
 }
