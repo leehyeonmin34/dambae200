@@ -1,6 +1,9 @@
-package com.dambae200.dambae200.domain.cigaretteList.dto;
+package dambae200.dambae200.domain.cigaretteList.dto;
 
-import com.dambae200.dambae200.domain.cigaretteList.domain.CigaretteList;
+import dambae200.dambae200.domain.cigaretteList.domain.CigaretteList;
+import dambae200.dambae200.domain.cigaretteOnList.domain.CigaretteOnList;
+import dambae200.dambae200.domain.cigaretteOnList.dto.CigaretteOnListDto;
+import dambae200.dambae200.domain.store.dto.StoreDto;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -15,6 +18,11 @@ public class CigaretteListDto {
     static public class UpdateRequest {
         @NotBlank(message = "목록 이름을 입력해주세요")
         private String name;
+    }
+
+    @Getter
+    static public class AddRequest{
+        private Long storeId;
     }
 
     @Getter

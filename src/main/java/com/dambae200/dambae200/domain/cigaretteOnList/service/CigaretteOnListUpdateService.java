@@ -1,15 +1,16 @@
-package com.dambae200.dambae200.domain.cigaretteOnList.service;
+package dambae200.dambae200.domain.cigaretteOnList.service;
 
-import com.dambae200.dambae200.domain.cigarette.domain.Cigarette;
-import com.dambae200.dambae200.domain.cigarette.repository.CigaretteRepository;
-import com.dambae200.dambae200.domain.cigaretteList.domain.CigaretteList;
-import com.dambae200.dambae200.domain.cigaretteList.repository.CigaretteListRepository;
-import com.dambae200.dambae200.domain.cigaretteOnList.domain.CigaretteOnList;
-import com.dambae200.dambae200.domain.cigaretteOnList.dto.CigaretteOnListDto;
-import com.dambae200.dambae200.domain.cigaretteOnList.exception.DuplicateCigaretteOnListException;
-import com.dambae200.dambae200.domain.cigaretteOnList.repository.CigaretteOnListRepository;
-import com.dambae200.dambae200.global.common.DeleteResponse;
-import com.dambae200.dambae200.global.common.RepoUtils;
+import dambae200.dambae200.domain.cigarette.domain.Cigarette;
+import dambae200.dambae200.domain.cigarette.repository.CigaretteRepository;
+import dambae200.dambae200.domain.cigaretteList.domain.CigaretteList;
+import dambae200.dambae200.domain.cigaretteList.repository.CigaretteListRepository;
+import dambae200.dambae200.domain.cigaretteOnList.domain.CigaretteOnList;
+import dambae200.dambae200.domain.cigaretteOnList.dto.CigaretteOnListDto;
+import dambae200.dambae200.domain.cigaretteOnList.exception.DuplicateCigaretteOnListException;
+import dambae200.dambae200.domain.cigaretteOnList.repository.CigaretteOnListRepository;
+import dambae200.dambae200.global.common.DeleteResponse;
+import dambae200.dambae200.global.common.RepoUtils;
+import dambae200.dambae200.global.error.exception.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -87,6 +88,51 @@ public class CigaretteOnListUpdateService {
         return new CigaretteOnListDto.GetListCigaretteResponse(cigaretteOnListRepository.findAllByCigaretteListId(cigaretteListId));
     }
 
+    //customizeName 수정
+    @Transactional
+    public CigaretteOnListDto.GetCigaretteResponse modifyCustomizeName(Long cigarettOnListId, String customizedName){
+        CigaretteOnList cigaretteOnList = repoUtils.getOneElseThrowException(cigaretteOnListRepository, cigarettOnListId);
+        cigaretteOnList.changeCustomizedName(customizedName);
+
+        return new CigaretteOnListDto.GetCigaretteResponse(cigaretteOnList);
+    }
+
+    //reOrder(displayOrder)
+    @Transactional
+    public CigaretteOnListDto.GetListCigaretteResponse reOrderDisplay(List<CigaretteOnListDto.ReorderRequest> request){
+        //List<CigaretteOnListDto.OrderInfo> orderInfos = request.getOrderInfos();
+
+        for(CigaretteOnListDto.ReorderRequest orderInfo : request){
+            CigaretteOnList cigaretteOnList = repoUtils.getOneElseThrowException(cigaretteOnListRepository, orderInfo.getId());
+            cigaretteOnList.changeDisplayOrder(orderInfo.getDisplay_order());
+            cigaretteOnList.changeComputerizedOrder(orderInfo.getComputerized_order());
+        }
+
+        //cigaretteList 구하기
+        CigaretteOnList cigaretteOnList = repoUtils.getOneElseThrowException(cigaretteOnListRepository, request.get(0).getId());
+        List<CigaretteOnList> cigaretteOnLists = cigaretteOnListRepository.findAllByCigaretteListIdOrderByDisplay(cigaretteOnList.getCigaretteList().getId());
+
+        return new CigaretteOnListDto.GetListCigaretteResponse(cigaretteOnLists);
+    }
+
+
+    //reOrder(computerizedOrder)
+    @Transactional
+    public CigaretteOnListDto.GetListCigaretteResponse reOrderComputerized(List<CigaretteOnListDto.ReorderRequest> request){
+        //List<CigaretteOnListDto.OrderInfo> orderInfos = request.getOrderInfos();
+
+        for(CigaretteOnListDto.ReorderRequest orderInfo : request){
+            CigaretteOnList cigaretteOnList = repoUtils.getOneElseThrowException(cigaretteOnListRepository, orderInfo.getId());
+            cigaretteOnList.changeDisplayOrder(orderInfo.getDisplay_order());
+            cigaretteOnList.changeComputerizedOrder(orderInfo.getComputerized_order());
+        }
+
+        //cigaretteList 구하기
+        CigaretteOnList cigaretteOnList = repoUtils.getOneElseThrowException(cigaretteOnListRepository, request.get(0).getId());
+        List<CigaretteOnList> cigaretteOnLists = cigaretteOnListRepository.findAllByCigaretteListIdOrderByComputerized(cigaretteOnList.getCigaretteList().getId());
+
+        return new CigaretteOnListDto.GetListCigaretteResponse(cigaretteOnLists);
+    }
 
     //담배 추가(담배id)
     @Transactional

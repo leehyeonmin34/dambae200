@@ -1,10 +1,13 @@
-package com.dambae200.dambae200.domain.cigaretteList.controller;
+package dambae200.dambae200.domain.cigaretteList.controller;
 
-import com.dambae200.dambae200.domain.cigaretteList.dto.CigaretteListDto;
-import com.dambae200.dambae200.domain.cigaretteList.service.CigaretteListFindService;
-import com.dambae200.dambae200.domain.cigaretteList.service.CigaretteListUpdateService;
-import com.dambae200.dambae200.domain.cigaretteOnList.service.CigaretteOnListFindService;
-import com.dambae200.dambae200.global.common.DeleteResponse;
+import dambae200.dambae200.domain.cigaretteList.domain.CigaretteList;
+import dambae200.dambae200.domain.cigaretteList.dto.CigaretteListDto;
+import dambae200.dambae200.domain.cigaretteList.service.CigaretteListFindService;
+import dambae200.dambae200.domain.cigaretteList.service.CigaretteListUpdateService;
+import dambae200.dambae200.domain.cigaretteOnList.dto.CigaretteOnListDto;
+import dambae200.dambae200.domain.cigaretteOnList.service.CigaretteOnListFindService;
+import dambae200.dambae200.domain.cigaretteOnList.service.CigaretteOnListUpdateService;
+import dambae200.dambae200.global.common.DeleteResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -32,6 +35,12 @@ public class CigaretteListRestController {
     @PutMapping("/{id}")
     public ResponseEntity<CigaretteListDto.GetResponse> updateCigaretteListName(@PathVariable @NotNull Long id, @RequestBody @Valid CigaretteListDto.UpdateRequest request) {
         CigaretteListDto.GetResponse response = cigaretteListUpdateService.updateCigaretteList(id, request);
+        return ResponseEntity.ok(response);
+    }
+
+    @PostMapping("")
+    public  ResponseEntity<CigaretteListDto.GetResponse> addCigaretteList(@RequestBody @Valid CigaretteListDto.AddRequest request){
+        CigaretteListDto.GetResponse response = cigaretteListUpdateService.addCigaretteList(request);
         return ResponseEntity.ok(response);
     }
 
