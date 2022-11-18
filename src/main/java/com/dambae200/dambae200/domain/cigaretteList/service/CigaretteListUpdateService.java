@@ -27,7 +27,7 @@ public class CigaretteListUpdateService {
 
     //목록이름변경
     @Transactional
-    public CigaretteListDto.GetResponse updateCigaretteList(Long id, CigaretteListDto.UpdateRequest request) throws EntityNotFoundException {
+    public CigaretteListDto.GetResponse updateCigaretteList(Long id, CigaretteListDto.UpdateRequest request) {
 
         CigaretteList cigaretteList = repoUtils.getOneElseThrowException(cigaretteListRepository, id);
         cigaretteList.changeName(request.getName());
@@ -46,7 +46,7 @@ public class CigaretteListUpdateService {
 
 
     //목록 삭제
-    public DeleteResponse deleteCigaretteList(Long id) throws EntityNotFoundException {
+    public DeleteResponse deleteCigaretteList(Long id) {
         CigaretteList cigaretteList = repoUtils.getOneElseThrowException(cigaretteListRepository, id);
 
         List<CigaretteOnList> cigaretteOnLists = cigaretteOnListRepository.findAllByCigaretteListId(id);

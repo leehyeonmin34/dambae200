@@ -28,7 +28,7 @@ public class CigaretteOnListUpdateService {
 
     //담배 개수 입력
     @Transactional
-    public CigaretteOnListDto.GetCigaretteResponse inputCigaretteCount(Long id, int count) throws EntityNotFoundException {
+    public CigaretteOnListDto.GetCigaretteResponse inputCigaretteCount(Long id, int count){
         CigaretteOnList cigaretteOnList = repoUtils.getOneElseThrowException(cigaretteOnListRepository, id);
         cigaretteOnList.changeCount(count);
 
@@ -201,7 +201,7 @@ public class CigaretteOnListUpdateService {
 
 
     //삭제
-    public DeleteResponse deleteCigaretteOnList(Long id) throws EntityNotFoundException {
+    public DeleteResponse deleteCigaretteOnList(Long id) {
         CigaretteOnList cigaretteOnList = repoUtils.getOneElseThrowException(cigaretteOnListRepository, id);
         CigaretteList cigaretteList = cigaretteOnList.getCigaretteList();
         cigaretteList.deleteCigaretteOnList(cigaretteOnList);
