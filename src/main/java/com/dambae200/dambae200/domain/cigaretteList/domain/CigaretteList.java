@@ -11,7 +11,7 @@ import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
-@Entity
+//@Entity
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 //@ToString(callSuper = true)
@@ -35,7 +35,6 @@ public class CigaretteList extends BaseEntity {
     //연관관계 메서드
     public void changeStore(Store store) {
         this.store = store;
-        store.changeCigaretteList(this);
     }
 
     public void changeName(String name) {
@@ -45,7 +44,6 @@ public class CigaretteList extends BaseEntity {
 
     public void addCigaretteOnList(CigaretteOnList cigaretteOnList) {
         cigaretteOnLists.add(cigaretteOnList);
-        cigaretteOnList.changeCigaretteList(this);
     }
 
     public void deleteCigaretteOnList(CigaretteOnList cigaretteOnList) {

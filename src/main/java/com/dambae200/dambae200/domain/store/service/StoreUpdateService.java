@@ -3,6 +3,9 @@ package com.dambae200.dambae200.domain.store.service;
 import com.dambae200.dambae200.domain.access.domain.Access;
 import com.dambae200.dambae200.domain.access.domain.AccessType;
 import com.dambae200.dambae200.domain.access.repository.AccessRepository;
+import com.dambae200.dambae200.domain.cigaretteList.domain.CigaretteList;
+import com.dambae200.dambae200.domain.cigaretteOnList.domain.CigaretteOnList;
+import com.dambae200.dambae200.domain.cigaretteOnList.repository.CigaretteOnListRepository;
 import com.dambae200.dambae200.domain.notification.service.storeNotification.StoreNotificationGeneratorAndSender;
 import com.dambae200.dambae200.domain.notification.service.storeNotification.StoreNotificationType;
 import com.dambae200.dambae200.domain.store.domain.Store;
@@ -18,6 +21,7 @@ import com.dambae200.dambae200.global.common.RepoUtils;
 import com.dambae200.dambae200.global.error.exception.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -28,10 +32,12 @@ public class StoreUpdateService {
     final StoreRepository storeRepository;
     final UserRepository userRepository;
     final AccessRepository accessRepository;
+    final CigaretteOnListRepository cigaretteOnListRepository;
     final RepoUtils repoUtils;
     final StoreNotificationGeneratorAndSender storeNotificationGeneratorAndSender;
 
     //TODO 영속화 관련 테스트
+    @Transactional
     public StoreDto.GetResponse addStore(StoreDto.AddRequest request) throws EntityNotFoundException, InvalidStoreBrandCodeException, DuplicateStoreException {
 
         checkDuplicate(request.getName(), request.getStoreBrandCode());
@@ -59,6 +65,7 @@ public class StoreUpdateService {
 
 
 
+    @Transactional
     public StoreDto.GetResponse updateStore(Long id, StoreDto.UpdateRequest request) throws EntityNotFoundException, InvalidStoreBrandCodeException, DuplicateStoreException {
         checkDuplicate(request.getName(), request.getStoreBrandCode());
 
@@ -77,12 +84,14 @@ public class StoreUpdateService {
         return new StoreDto.GetResponse(store);
     }
 
+    @Transactional
     public DeleteResponse deleteStore(Long id) throws EntityNotFoundException{
         // 해당 엔티티 로드
         Store store = repoUtils.getOneElseThrowException(storeRepository, id);
         // 관련 엔티티 로드 및 삭제
         List<Access> accessList = accessRepository.findAllByStoreId(id);
         accessRepository.deleteAll(accessList);
+        cigaretteOnListRepository.deleteAllByStoreId(id);
 
         //해당 엔티티 삭제
         storeRepository.delete(store);

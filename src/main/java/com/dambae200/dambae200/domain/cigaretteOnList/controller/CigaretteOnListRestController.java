@@ -1,9 +1,9 @@
-package dambae200.dambae200.domain.cigaretteOnList.controller;
+package com.dambae200.dambae200.domain.cigaretteOnList.controller;
 
-import dambae200.dambae200.domain.cigaretteOnList.dto.CigaretteOnListDto;
-import dambae200.dambae200.domain.cigaretteOnList.service.CigaretteOnListFindService;
-import dambae200.dambae200.domain.cigaretteOnList.service.CigaretteOnListUpdateService;
-import dambae200.dambae200.global.common.DeleteResponse;
+import com.dambae200.dambae200.domain.cigaretteOnList.dto.CigaretteOnListDto;
+import com.dambae200.dambae200.domain.cigaretteOnList.service.CigaretteOnListFindService;
+import com.dambae200.dambae200.domain.cigaretteOnList.service.CigaretteOnListUpdateService;
+import com.dambae200.dambae200.global.common.DeleteResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -18,7 +18,7 @@ import java.util.Objects;
 import java.util.stream.Collectors;
 
 @RestController
-@RequestMapping("/api/cigaretteOnLists")
+@RequestMapping("/api/cigarette_on_lists")
 @RequiredArgsConstructor
 public class CigaretteOnListRestController {
 
@@ -27,15 +27,15 @@ public class CigaretteOnListRestController {
 
     //리스트에 있는 담배 보여주기(진열순서)
     @GetMapping("/{id}/display_order")
-    public ResponseEntity<CigaretteOnListDto.GetListCigaretteResponse> findAllByCigaretteListId(@PathVariable String id) {
-        CigaretteOnListDto.GetListCigaretteResponse response = cigaretteOnListFindService.findAllByCigaretteListIdOrderByDisplay(Long.valueOf(id));
+    public ResponseEntity<CigaretteOnListDto.GetListCigaretteResponse> findAllByStoreIdOrderByDisplay(@PathVariable String id) {
+        CigaretteOnListDto.GetListCigaretteResponse response = cigaretteOnListFindService.findAllByStoreIdOrderByDisplay(Long.valueOf(id));
         return ResponseEntity.ok(response);
     }
 
     //리스트에 있는 담배 보여주기(전산순서)
     @GetMapping("/{id}/computerized_order")
-    public ResponseEntity<CigaretteOnListDto.GetListCigaretteResponse> findAllByCigaretteListIdOrderByComputerized(@PathVariable String id) {
-        CigaretteOnListDto.GetListCigaretteResponse response = cigaretteOnListFindService.findAllByCigaretteListIdOrderByComputerized(Long.valueOf(id));
+    public ResponseEntity<CigaretteOnListDto.GetListCigaretteResponse> findAllByStoreIdOrderByComputerized(@PathVariable String id) {
+        CigaretteOnListDto.GetListCigaretteResponse response = cigaretteOnListFindService.findAllByStoreIdOrderByComputerized(Long.valueOf(id));
         return ResponseEntity.ok(response);
     }
 
@@ -70,22 +70,28 @@ public class CigaretteOnListRestController {
         return ResponseEntity.ok(response);
     }
 
-
-    @PutMapping("/{id}/draganddrop_display")
-    public ResponseEntity<CigaretteOnListDto.GetListCigaretteResponse> dragAndDropDisplayOrder(@PathVariable String id, @RequestBody @Valid CigaretteOnListDto.DragAndDropRequest request){
-        CigaretteOnListDto.GetListCigaretteResponse response = cigaretteOnListUpdateService.moveDisplayOrderByDragAndDrop(Long.valueOf(id), request.getAfterElementId(), request.getDraggableId());
+    @PutMapping("/initialize_count")
+    public ResponseEntity<CigaretteOnListDto.GetListCigaretteResponse> initializeCigaretteCount(@RequestParam(name = "store_id") String storeId) {
+        CigaretteOnListDto.GetListCigaretteResponse response = cigaretteOnListUpdateService.initializeCigaretteCount(Long.valueOf(storeId));
         return ResponseEntity.ok(response);
     }
 
-    @PutMapping("/{id}/draganddrop_computerized")
-    public ResponseEntity<CigaretteOnListDto.GetListCigaretteResponse> dragAndDropComputerizedOrder(@PathVariable String id, @RequestBody @Valid CigaretteOnListDto.DragAndDropRequest request){
-        CigaretteOnListDto.GetListCigaretteResponse response = cigaretteOnListUpdateService.moveComputerizedOrderByDragAndDrop(Long.valueOf(id), request.getAfterElementId(), request.getDraggableId());
-        return ResponseEntity.ok(response);
-    }
 
-    @PutMapping("/modify")
-    public ResponseEntity<CigaretteOnListDto.GetCigaretteResponse> modifyCustomizeNmae(@RequestBody @Valid CigaretteOnListDto.ModifyRequest request){
-        CigaretteOnListDto.GetCigaretteResponse response = cigaretteOnListUpdateService.modifyCustomizeName(request.getCigaretteOnListId(), request.getCustomizedName());
+//    @PutMapping("/{id}/draganddrop_display")
+//    public ResponseEntity<CigaretteOnListDto.GetListCigaretteResponse> dragAndDropDisplayOrder(@PathVariable String id, @RequestBody @Valid CigaretteOnListDto.DragAndDropRequest request){
+//        CigaretteOnListDto.GetListCigaretteResponse response = cigaretteOnListUpdateService.moveDisplayOrderByDragAndDrop(Long.valueOf(id), request.getAfterElementId(), request.getDraggableId());
+//        return ResponseEntity.ok(response);
+//    }
+//
+//    @PutMapping("/{id}/draganddrop_computerized")
+//    public ResponseEntity<CigaretteOnListDto.GetListCigaretteResponse> dragAndDropComputerizedOrder(@PathVariable String id, @RequestBody @Valid CigaretteOnListDto.DragAndDropRequest request){
+//        CigaretteOnListDto.GetListCigaretteResponse response = cigaretteOnListUpdateService.moveComputerizedOrderByDragAndDrop(Long.valueOf(id), request.getAfterElementId(), request.getDraggableId());
+//        return ResponseEntity.ok(response);
+//    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<CigaretteOnListDto.GetCigaretteResponse> modifyCustomizeName(@PathVariable String id, @RequestBody @Valid CigaretteOnListDto.ModifyRequest request){
+        CigaretteOnListDto.GetCigaretteResponse response = cigaretteOnListUpdateService.modifyCustomizeName(Long.valueOf(id), request.getCustomizedName());
         return ResponseEntity.ok(response);
     }
 
@@ -99,6 +105,12 @@ public class CigaretteOnListRestController {
     @PutMapping("/reorder_computerized")
     public ResponseEntity<CigaretteOnListDto.GetListCigaretteResponse> reOrderComputerized(@RequestBody @Valid List<CigaretteOnListDto.ReorderRequest> request){
         CigaretteOnListDto.GetListCigaretteResponse response = cigaretteOnListUpdateService.reOrderComputerized(request);
+        return ResponseEntity.ok(response);
+    }
+
+    @PutMapping("/reorder")
+    public ResponseEntity<CigaretteOnListDto.GetListCigaretteResponse> reOrderAll(@RequestBody @Valid List<CigaretteOnListDto.ReorderRequest> request){
+        CigaretteOnListDto.GetListCigaretteResponse response = cigaretteOnListUpdateService.reOrderAll(request);
         return ResponseEntity.ok(response);
     }
 

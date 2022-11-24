@@ -20,7 +20,11 @@ import java.io.IOException;
 @RequiredArgsConstructor
 public class LoginCheckFilter implements Filter {
 
-    private static final String[] whitelist = {"/","/null/swagger-resources/*","/v3/*","/swagger-ui.html", "/swagger-ui.html#/*", "/swagger-resources","/swagger-resources/*", "/webjars/springfox-swagger-ui/*", "/api/login", "/api/logout", "/api/favicon.ico", "/api/users", "/swagger-ui", "/swagger-ui/*"};
+    private static final String[] whitelist = {
+            "/","/null/swagger-resources/*","/v3/*","/swagger-ui.html", "/swagger-ui.html#/*"
+            , "/swagger-resources","/swagger-resources/*", "/webjars/springfox-swagger-ui/*", "/api/login", "/api/logout"
+            ,"/api/users/exists_by_email","/api/users/exists_by_nickname", "/api/favicon.ico", "/api/users", "/swagger-ui", "/swagger-ui/*"
+    };
 
 
     private final SessionService sessionService;

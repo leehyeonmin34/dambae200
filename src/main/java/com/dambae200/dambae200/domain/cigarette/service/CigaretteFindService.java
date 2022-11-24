@@ -16,6 +16,11 @@ public class CigaretteFindService {
 
     private final CigaretteRepository cigaretteRepository;
 
+    public CigaretteDto.GetListResponse findAllCigarettes() {
+        List<Cigarette> cigarettes = cigaretteRepository.findAll();
+        return new CigaretteDto.GetListResponse(cigarettes);
+    }
+
     public CigaretteDto.GetListResponse findAllByOfficialNameLike(String name) {
         List<Cigarette> cigarettes = cigaretteRepository.findAllByOfficialNameLike("%" + name + "%");
         return new CigaretteDto.GetListResponse(cigarettes);

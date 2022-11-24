@@ -12,6 +12,7 @@ import com.dambae200.dambae200.global.error.exception.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -24,23 +25,50 @@ public class CigaretteUpdateService {
 
     public CigaretteDto.GetResponse addCigarette(CigaretteDto.CigaretteRequest request){
 
-        checkDuplicate(request.getOfficialName());
+        checkDuplicate(request.getOfficial_name());
 
         Cigarette cigarette = Cigarette.builder()
-                .officialName(request.getOfficialName())
-                .simpleName(request.getSimpleName())
+                .officialName(request.getOfficial_name())
+                .simpleName(request.getCustomized_name())
+                .filePathLarge(request.getFile_path_large())
+                .filePathMedium(request.getFile_path_medium())
+                .vertical(request.isVertical())
+                .id(request.getId())
                 .build();
 
         Cigarette savedCigarette = cigaretteRepository.save(cigarette);
         return new CigaretteDto.GetResponse(savedCigarette);
     }
 
+    public CigaretteDto.GetListResponse addAllCigarette(List<CigaretteDto.CigaretteRequest> request){
+
+        List<Cigarette> cigarettes = new ArrayList<>();
+
+        for(CigaretteDto.CigaretteRequest requestItem : request) {
+            checkDuplicate(requestItem.getOfficial_name());
+
+            Cigarette cigarette = Cigarette.builder()
+                    .officialName(requestItem.getOfficial_name())
+                    .simpleName(requestItem.getCustomized_name())
+                    .filePathLarge(requestItem.getFile_path_large())
+                    .filePathMedium(requestItem.getFile_path_medium())
+                    .vertical(requestItem.isVertical())
+                    .id(requestItem.getId())
+                    .build();
+            cigarettes.add(cigarette);
+        }
+
+
+        List<Cigarette> savedCigarettes = cigaretteRepository.saveAll(cigarettes);
+        return new CigaretteDto.GetListResponse(savedCigarettes);
+    }
+
     public CigaretteDto.GetResponse updateCigarette(Long id, CigaretteDto.CigaretteRequest request){
 
-        checkDuplicate(request.getOfficialName());
+        checkDuplicate(request.getOfficial_name());
 
         Cigarette cigarette = repoUtils.getOneElseThrowException(cigaretteRepository, id);
-        cigarette.updateCigarette(request.getOfficialName(), request.getSimpleName());
+        cigarette.updateCigarette(request.getOfficial_name(), request.getCustomized_name());
 
         return new CigaretteDto.GetResponse(cigarette);
     }

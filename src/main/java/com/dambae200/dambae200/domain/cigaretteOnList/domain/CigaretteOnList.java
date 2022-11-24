@@ -2,18 +2,18 @@ package com.dambae200.dambae200.domain.cigaretteOnList.domain;
 
 
 import com.dambae200.dambae200.domain.cigarette.domain.Cigarette;
-import com.dambae200.dambae200.domain.cigaretteList.domain.CigaretteList;
+import com.dambae200.dambae200.domain.store.domain.Store;
 import com.dambae200.dambae200.global.common.BaseEntity;
-import lombok.AccessLevel;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.ToString;
+import lombok.*;
+import org.springframework.lang.Nullable;
 
 import javax.persistence.*;
 
 @Entity
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
+@Builder
+@AllArgsConstructor
 //@ToString(callSuper = true)
 public class CigaretteOnList extends BaseEntity {
 
@@ -22,14 +22,20 @@ public class CigaretteOnList extends BaseEntity {
     @Column(name = "cigaretteOnList_id")
     private Long id;
 
+
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "cigaretteList_id")
-    private CigaretteList cigaretteList;
+    @JoinColumn(name = "store_id")
+    private Store store;
+
+//    @ManyToOne(fetch = FetchType.LAZY)
+//    @JoinColumn(name = "cigaretteList_id")
+//    private CigaretteList cigaretteList;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "cigarette_id")
     private Cigarette cigarette;
 
+    @Column(name = "count", nullable = true, updatable = true)
     private int count;
 
     private int displayOrder;
@@ -39,11 +45,14 @@ public class CigaretteOnList extends BaseEntity {
     private String customizedName;
 
 
-    public void changeCigaretteList(CigaretteList cigaretteList) {
-        if (this.cigaretteList != null) {
-            this.cigaretteList.getCigaretteOnLists().remove(this);
-        }
-        this.cigaretteList = cigaretteList;
+//    public void changeCigaretteList(CigaretteList cigaretteList) {
+//        if (this.cigaretteList != null) {
+//            this.cigaretteList.getCigaretteOnLists().remove(this);
+//        }
+//        this.cigaretteList = cigaretteList;
+//    }
+    public void changeStore(Store store) {
+        this.store = store;
     }
 
 
@@ -56,17 +65,27 @@ public class CigaretteOnList extends BaseEntity {
     public void changeComputerizedOrder(int computerizedOrder){
         this.computerizedOrder = computerizedOrder;}
 
+    public void changeOrderInfo(int displayOrder, int computerizedOrder){
+        changeDisplayOrder(displayOrder);
+        changeComputerizedOrder(computerizedOrder);
+    }
+
     public void changeCount(int count) {
         this.count = count;
     }
 
+    public void changeCustomizedName(String name){
+        this.customizedName = name;
+    }
+
     //생성 메서드
-    public static CigaretteOnList createCigaretteOnList(Cigarette cigarette, String customizedName) {
+    public static CigaretteOnList createCigaretteOnList(Store store, Cigarette cigarette, String customizedName) {
         CigaretteOnList cigaretteOnList = new CigaretteOnList();
+        cigaretteOnList.changeStore(store);
         cigaretteOnList.changeCigarette(cigarette);
         //cigaretteOnList.cigarette.updateCigaretteSimpleName(simpleName);
         cigaretteOnList.customizedName = customizedName;
-        cigaretteOnList.changeCount(0); //등록할때는 0으로
+        cigaretteOnList.changeCount(-1); // 빈 값은 -1로 표현.
 
         return cigaretteOnList;
     }

@@ -20,8 +20,8 @@ public class Store extends BaseEntity {
     @Convert(converter = StoreBrandConverter.class)
     private StoreBrand brand;
 
-    @OneToOne(mappedBy = "store",fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    private CigaretteList cigaretteList;
+//    @OneToOne(mappedBy = "store",fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+//    private CigaretteList cigaretteList;
 
     @Builder
     public Store(String name, StoreBrand brand){
@@ -38,9 +38,9 @@ public class Store extends BaseEntity {
         return this.brand.getDesc() + " " + this.name;
     }
 
-    public void changeCigaretteList(CigaretteList cigaretteList) {
-        this.cigaretteList = cigaretteList;
-    }
+//    public void changeCigaretteList(CigaretteList cigaretteList) {
+//        this.cigaretteList = cigaretteList;
+//    }
 
 
 }

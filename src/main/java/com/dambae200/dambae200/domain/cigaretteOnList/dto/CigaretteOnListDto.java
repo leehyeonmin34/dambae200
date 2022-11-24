@@ -1,11 +1,11 @@
-package dambae200.dambae200.domain.cigaretteOnList.dto;
+package com.dambae200.dambae200.domain.cigaretteOnList.dto;
 
-import dambae200.dambae200.domain.cigarette.domain.Cigarette;
-import dambae200.dambae200.domain.cigaretteOnList.domain.CigaretteOnList;
-import dambae200.dambae200.global.common.BaseDto;
-import dambae200.dambae200.global.common.BaseEntity;
+import com.dambae200.dambae200.domain.cigarette.domain.Cigarette;
+import com.dambae200.dambae200.domain.cigaretteOnList.domain.CigaretteOnList;
+import com.dambae200.dambae200.global.common.BaseDto;
 import lombok.Builder;
 import lombok.Getter;
+import org.springframework.lang.Nullable;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
@@ -14,11 +14,11 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 
-public class CigaretteOnListDto {
+public class CigaretteOnListDto{
 
     @Getter
     public static class UpdateCountRequest{
-        @NotNull
+        @Nullable
         private int count;
     }
 
@@ -30,13 +30,12 @@ public class CigaretteOnListDto {
 
     @Getter
     public static class ModifyRequest{
-        private Long cigaretteOnListId;
         private String customizedName;
     }
 
     @Getter
     static public class AddCigaretteOnList{
-        private Long cigaretteListId;
+        private Long storeId;
         private Long cigaretteId;
         private String customizedName;
     }
@@ -59,10 +58,16 @@ public class CigaretteOnListDto {
 
     @Getter
     static public class GetCigaretteResponse extends BaseDto {
-        private Long id;
         private String officialName;
         private String customizedName;
         private int count;
+        private Long cigaretteId;
+        private boolean vertical ;
+        private String filePathMedium;
+        private String filePathLarge;
+
+        private int computerizedOrder;
+        private int displayOrder;
 
         public GetCigaretteResponse(CigaretteOnList cigaretteOnList) {
             Cigarette cigarette = cigaretteOnList.getCigarette();
@@ -71,8 +76,14 @@ public class CigaretteOnListDto {
             this.officialName = cigarette.getOfficialName();
             this.customizedName = cigaretteOnList.getCustomizedName();
             this.count = cigaretteOnList.getCount();
-            createdAt = cigaretteOnList.getCreatedAt();
-            updateAt = cigaretteOnList.getUpdatedAt();
+            this.cigaretteId = cigarette.getId();
+            this.computerizedOrder = cigaretteOnList.getComputerizedOrder();
+            this.displayOrder = cigaretteOnList.getDisplayOrder();
+            this.vertical = cigarette.isVertical();
+            this.filePathLarge = cigarette.getFilePathLarge();
+            this.filePathMedium = cigarette.getFilePathMedium();
+            this.createdAt = cigaretteOnList.getCreatedAt();
+            this.updatedAt = cigaretteOnList.getUpdatedAt();
         }
     }
 

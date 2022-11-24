@@ -38,7 +38,7 @@ public enum ErrorCode {
     OFFICIAL_DUPLICATION(HttpStatus.INTERNAL_SERVER_ERROR.value(), "CG001", "Duplicated Official Cigarette Name. Try other name"),
 
     // CigaretteOnList
-    DUPLICATE_CIGARETTE_ON_LIST(HttpStatus.INTERNAL_SERVER_ERROR.value(), "CGL001", "Duplicated Cigarette is already on the List")
+    DUPLICATE_CIGARETTE_ON_LIST(HttpStatus.BAD_REQUEST.value(), "CGL001", "Duplicated Cigarette is already on the List")
 
 
     ;

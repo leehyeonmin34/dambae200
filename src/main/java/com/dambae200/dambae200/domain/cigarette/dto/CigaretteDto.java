@@ -15,10 +15,18 @@ public class CigaretteDto {
     @Getter
     static public class CigaretteRequest {
         @NotBlank(message = "공식이름을 입력해주세요")
-        private String officialName;
+        private String official_name;
 
         @NotNull(message = "간편이름을 입력해주세요")
-        private String simpleName;
+        private String customized_name;
+
+        private Long id;
+
+        private String file_path_medium;
+
+        private String file_path_large;
+
+        private boolean vertical;
     }
 
 
@@ -30,6 +38,9 @@ public class CigaretteDto {
         private LocalDateTime updatedAt;
         private String officialName;
         private String simpleName;
+        private String filePathMedium;
+        private String filePathLarge;
+        private boolean vertical;
 
 
         public GetResponse(Cigarette cigarette) {
@@ -38,6 +49,9 @@ public class CigaretteDto {
             updatedAt = cigarette.getUpdatedAt();
             officialName = cigarette.getOfficialName();
             simpleName = cigarette.getSimpleName();
+            filePathMedium = cigarette.getFilePathMedium();
+            filePathLarge = cigarette.getFilePathLarge();
+            vertical = cigarette.isVertical();
         }
     }
 

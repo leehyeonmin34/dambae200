@@ -151,7 +151,6 @@ public class AccessService {
         if(isDeletedByAccessibleStaff) {
             access.changeAccessType(AccessType.INACCESSIBLE);
             accessNotificationGeneratorAndSender.from(AccessType.ACCESSIBLE, access, false);
-            System.out.println("알림 보내져야합니다~~~~");
         }
         // 리턴
         return new DeleteResponse("access", id);

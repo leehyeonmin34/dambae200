@@ -12,6 +12,7 @@ import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import java.net.URLDecoder;
 import java.nio.charset.Charset;
+import java.util.List;
 
 @RestController
 @RequestMapping("/api/cigarettes")
@@ -20,6 +21,13 @@ public class CigaretteRestController {
 
     final CigaretteFindService cigaretteFindService;
     final CigaretteUpdateService cigaretteUpdateService;
+
+
+    @GetMapping("/all")
+    public ResponseEntity<CigaretteDto.GetListResponse> findAllCigarette() {
+        CigaretteDto.GetListResponse response = cigaretteFindService.findAllCigarettes();
+        return ResponseEntity.ok(response);
+    }
 
     @GetMapping("/drop_box")
     public ResponseEntity<CigaretteDto.GetListResponse> findAllByOfficialNameLike(@RequestParam @NotNull String name) {
@@ -31,6 +39,12 @@ public class CigaretteRestController {
     @PostMapping("")
     public ResponseEntity<CigaretteDto.GetResponse> addCigarette(@RequestBody @Valid CigaretteDto.CigaretteRequest request) {
         CigaretteDto.GetResponse response = cigaretteUpdateService.addCigarette(request);
+        return ResponseEntity.ok(response);
+    }
+
+    @PostMapping("/multiple")
+    public ResponseEntity<CigaretteDto.GetListResponse> addCigarettes(@RequestBody @Valid List<CigaretteDto.CigaretteRequest> request) {
+        CigaretteDto.GetListResponse response = cigaretteUpdateService.addAllCigarette(request);
         return ResponseEntity.ok(response);
     }
 
