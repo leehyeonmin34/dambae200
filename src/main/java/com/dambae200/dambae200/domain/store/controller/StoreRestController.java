@@ -1,10 +1,14 @@
 package com.dambae200.dambae200.domain.store.controller;
 
-import com.dambae200.dambae200.domain.store.dto.StoreDto;
+import com.dambae200.dambae200.domain.access.service.AccessService;
+import com.dambae200.dambae200.domain.store.dto.StoreAddRequest;
+import com.dambae200.dambae200.domain.store.dto.StoreGetListResponse;
+import com.dambae200.dambae200.domain.store.dto.StoreGetResponse;
+import com.dambae200.dambae200.domain.store.dto.StoreUpdateRequest;
 import com.dambae200.dambae200.domain.store.service.StoreFindService;
 import com.dambae200.dambae200.domain.store.service.StoreUpdateService;
-import com.dambae200.dambae200.domain.user.dto.UserDto;
 import com.dambae200.dambae200.global.common.DeleteResponse;
+import com.dambae200.dambae200.global.common.StandardResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -21,31 +25,34 @@ public class StoreRestController {
 
     final StoreFindService storeFindService;
     final StoreUpdateService storeUpdateService;
+    final AccessService accessService;
 
 
     @GetMapping("")
-    public ResponseEntity<StoreDto.GetListResponse> findAllByName(@RequestParam @NotNull String name){
+    public ResponseEntity<StandardResponse<StoreGetListResponse>> findAllByName(@RequestParam @NotNull String name){
         String decodedName = URLDecoder.decode(name, Charset.forName("UTF-8"));
-        StoreDto.GetListResponse response = storeFindService.findByNameLike(decodedName);
-        return ResponseEntity.ok(response);
+        StoreGetListResponse response = storeFindService.findByNameLike(decodedName);
+        return StandardResponse.ofOk(response);
     }
 
     @PostMapping("")
-    public ResponseEntity<StoreDto.GetResponse> addStore(@RequestBody @Valid StoreDto.AddRequest request){
-        StoreDto.GetResponse response = storeUpdateService.addStore(request);
-        return ResponseEntity.ok(response);
+    public ResponseEntity<StandardResponse<StoreGetResponse>> addStore(@RequestBody @Valid StoreAddRequest request){
+        StoreGetResponse response = storeUpdateService.addStore(request);
+        return StandardResponse.ofOk(response);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<StoreDto.GetResponse> updateStore(@PathVariable @NotNull Long id, @RequestBody @Valid StoreDto.UpdateRequest request){
-        StoreDto.GetResponse response = storeUpdateService.updateStore(id, request);
-        return ResponseEntity.ok(response);
+    public ResponseEntity<StandardResponse<StoreGetResponse>> updateStore(@PathVariable @NotNull Long id, @RequestBody @Valid StoreUpdateRequest request){
+        accessService.checkAdminAccess(request.getUserId(), id);
+        StoreGetResponse response = storeUpdateService.updateStore(id, request);
+        return StandardResponse.ofOk(response);
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<DeleteResponse> deleteStore(@PathVariable String id){
+    public ResponseEntity<StandardResponse<DeleteResponse>> deleteStore(@PathVariable @NotNull String id, @RequestParam @NotNull String userId){
+        accessService.checkAdminAccess(Long.valueOf(userId), Long.valueOf(id));
         DeleteResponse response = storeUpdateService.deleteStore(Long.valueOf(id));
-        return ResponseEntity.ok(response);
+        return StandardResponse.ofOk(response);
     }
 
 

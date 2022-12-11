@@ -3,15 +3,15 @@ package com.dambae200.dambae200.domain.store.service;
 import com.dambae200.dambae200.domain.access.domain.Access;
 import com.dambae200.dambae200.domain.access.domain.AccessType;
 import com.dambae200.dambae200.domain.access.repository.AccessRepository;
-import com.dambae200.dambae200.domain.cigaretteList.domain.CigaretteList;
-import com.dambae200.dambae200.domain.cigaretteOnList.domain.CigaretteOnList;
 import com.dambae200.dambae200.domain.cigaretteOnList.repository.CigaretteOnListRepository;
 import com.dambae200.dambae200.domain.notification.service.storeNotification.StoreNotificationGeneratorAndSender;
 import com.dambae200.dambae200.domain.notification.service.storeNotification.StoreNotificationType;
 import com.dambae200.dambae200.domain.store.domain.Store;
 import com.dambae200.dambae200.domain.store.domain.StoreBrand;
-import com.dambae200.dambae200.domain.store.dto.StoreDto;
-import com.dambae200.dambae200.domain.store.exception.DuplicateStoreException;
+import com.dambae200.dambae200.domain.store.dto.StoreAddRequest;
+import com.dambae200.dambae200.domain.store.dto.StoreGetResponse;
+import com.dambae200.dambae200.domain.store.dto.StoreUpdateRequest;
+import com.dambae200.dambae200.domain.store.exception.DuplicatedStoreException;
 import com.dambae200.dambae200.domain.store.exception.InvalidStoreBrandCodeException;
 import com.dambae200.dambae200.domain.store.repository.StoreRepository;
 import com.dambae200.dambae200.domain.user.domain.User;
@@ -38,7 +38,7 @@ public class StoreUpdateService {
 
     //TODO 영속화 관련 테스트
     @Transactional
-    public StoreDto.GetResponse addStore(StoreDto.AddRequest request) throws EntityNotFoundException, InvalidStoreBrandCodeException, DuplicateStoreException {
+    public StoreGetResponse addStore(StoreAddRequest request) throws EntityNotFoundException, InvalidStoreBrandCodeException, DuplicatedStoreException {
 
         checkDuplicate(request.getName(), request.getStoreBrandCode());
 
@@ -60,13 +60,13 @@ public class StoreUpdateService {
 
         accessRepository.save(access);
 
-        return new StoreDto.GetResponse(savedStore);
+        return new StoreGetResponse(savedStore);
     }
 
 
 
     @Transactional
-    public StoreDto.GetResponse updateStore(Long id, StoreDto.UpdateRequest request) throws EntityNotFoundException, InvalidStoreBrandCodeException, DuplicateStoreException {
+    public StoreGetResponse updateStore(Long id, StoreUpdateRequest request) throws EntityNotFoundException, InvalidStoreBrandCodeException, DuplicatedStoreException {
         checkDuplicate(request.getName(), request.getStoreBrandCode());
 
         // 해당 엔티티 로드
@@ -81,7 +81,7 @@ public class StoreUpdateService {
         storeNotificationGeneratorAndSender.generateAndSend(store, StoreNotificationType.STORE_UPDATED, oldName);
 
         // 리턴
-        return new StoreDto.GetResponse(store);
+        return new StoreGetResponse(store);
     }
 
     @Transactional
@@ -105,7 +105,7 @@ public class StoreUpdateService {
 
     private void checkDuplicate(String name, String brandCode){
         if(storeRepository.existsByNameAndBrand(name, StoreBrand.ofCode(brandCode))) {
-            throw new DuplicateStoreException(name, brandCode);
+            throw new DuplicatedStoreException(name, brandCode);
         }
     }
 

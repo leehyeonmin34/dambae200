@@ -5,6 +5,7 @@ import com.dambae200.dambae200.global.common.BaseEntity;
 import lombok.*;
 
 import javax.persistence.*;
+import java.io.Serializable;
 
 @Entity
 @Getter
@@ -12,7 +13,7 @@ import javax.persistence.*;
 @ToString(callSuper = true)
 @Builder
 @AllArgsConstructor
-public class Cigarette extends BaseEntity {
+public class Cigarette extends BaseEntity implements Serializable {
 
     @Id
     @GeneratedValue(strategy=GenerationType.IDENTITY)

@@ -2,8 +2,6 @@ package com.dambae200.dambae200.domain.access.repository;
 
 import com.dambae200.dambae200.domain.access.domain.Access;
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.jpa.repository.Query;
-import org.springframework.data.repository.query.Param;
 import com.dambae200.dambae200.domain.access.domain.AccessType;
 
 
@@ -14,6 +12,7 @@ public interface AccessRepository extends JpaRepository<Access, Long> {
     List<Access> findAllByUserId(Long userId);
     List<Access> findAllByStoreId(Long storeId);
     void deleteAllByUserId(Long userId);
+    Optional<Access> findByUserIdAndStoreId(Long userId, Long storeId);
     boolean existsByUserIdAndStoreId(Long userId, Long storeId);
     boolean existsByStoreIdAndAccessType(Long storeId, AccessType accessType);
 //    @Query(value =

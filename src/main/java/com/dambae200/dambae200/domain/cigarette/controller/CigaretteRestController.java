@@ -1,9 +1,13 @@
 package com.dambae200.dambae200.domain.cigarette.controller;
 
-import com.dambae200.dambae200.domain.cigarette.dto.CigaretteDto;
+import com.dambae200.dambae200.domain.cigarette.dto.CigaretteAddRequest;
+import com.dambae200.dambae200.domain.cigarette.dto.CigaretteGetListResponse;
+import com.dambae200.dambae200.domain.cigarette.dto.CigaretteGetResponse;
+import com.dambae200.dambae200.domain.cigarette.dto.CigaretteUpdateRequest;
 import com.dambae200.dambae200.domain.cigarette.service.CigaretteFindService;
 import com.dambae200.dambae200.domain.cigarette.service.CigaretteUpdateService;
 import com.dambae200.dambae200.global.common.DeleteResponse;
+import com.dambae200.dambae200.global.common.StandardResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -24,40 +28,40 @@ public class CigaretteRestController {
 
 
     @GetMapping("/all")
-    public ResponseEntity<CigaretteDto.GetListResponse> findAllCigarette() {
-        CigaretteDto.GetListResponse response = cigaretteFindService.findAllCigarettes();
-        return ResponseEntity.ok(response);
+    public ResponseEntity<StandardResponse<CigaretteGetListResponse>> findAllCigarette() {
+        CigaretteGetListResponse response = cigaretteFindService.findAllCigarettes();
+        return StandardResponse.ofOk(response);
     }
 
     @GetMapping("/drop_box")
-    public ResponseEntity<CigaretteDto.GetListResponse> findAllByOfficialNameLike(@RequestParam @NotNull String name) {
+    public ResponseEntity<StandardResponse<CigaretteGetListResponse>> findAllByOfficialNameLike(@RequestParam @NotNull String name) {
         String decodedName = URLDecoder.decode(name, Charset.forName("UTF-8"));
-        CigaretteDto.GetListResponse response = cigaretteFindService.findAllByOfficialNameLike(decodedName);
-        return ResponseEntity.ok(response);
+        CigaretteGetListResponse response = cigaretteFindService.findAllByOfficialNameLike(decodedName);
+        return StandardResponse.ofOk(response);
     }
 
     @PostMapping("")
-    public ResponseEntity<CigaretteDto.GetResponse> addCigarette(@RequestBody @Valid CigaretteDto.CigaretteRequest request) {
-        CigaretteDto.GetResponse response = cigaretteUpdateService.addCigarette(request);
-        return ResponseEntity.ok(response);
+    public ResponseEntity<StandardResponse<CigaretteGetResponse>> addCigarette(@RequestBody @Valid CigaretteAddRequest request) {
+        CigaretteGetResponse response = cigaretteUpdateService.addCigarette(request);
+        return StandardResponse.ofOk(response);
     }
 
     @PostMapping("/multiple")
-    public ResponseEntity<CigaretteDto.GetListResponse> addCigarettes(@RequestBody @Valid List<CigaretteDto.CigaretteRequest> request) {
-        CigaretteDto.GetListResponse response = cigaretteUpdateService.addAllCigarette(request);
-        return ResponseEntity.ok(response);
+    public ResponseEntity<StandardResponse<CigaretteGetListResponse>> addCigarettes(@RequestBody @Valid List<CigaretteAddRequest> request) {
+        CigaretteGetListResponse response = cigaretteUpdateService.addAllCigarette(request);
+        return StandardResponse.ofOk(response);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<CigaretteDto.GetResponse> updateCigarette(@PathVariable @NotNull Long id, @RequestBody @Valid CigaretteDto.CigaretteRequest request) {
-        CigaretteDto.GetResponse response = cigaretteUpdateService.updateCigarette(id, request);
-        return ResponseEntity.ok(response);
+    public ResponseEntity<StandardResponse<CigaretteGetResponse>> updateCigarette(@PathVariable @NotNull Long id, @RequestBody @Valid CigaretteUpdateRequest request) {
+        CigaretteGetResponse response = cigaretteUpdateService.updateCigarette(id, request);
+        return StandardResponse.ofOk(response);
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<DeleteResponse> deleteCigarette(@PathVariable String id) {
+    public ResponseEntity<StandardResponse<DeleteResponse>> deleteCigarette(@PathVariable String id) {
         DeleteResponse response = cigaretteUpdateService.deleteCigarette(Long.valueOf(id));
-        return ResponseEntity.ok(response);
+        return StandardResponse.ofOk(response);
     }
 
 

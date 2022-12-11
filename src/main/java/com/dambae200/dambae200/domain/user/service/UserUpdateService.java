@@ -3,10 +3,14 @@ package com.dambae200.dambae200.domain.user.service;
 import com.dambae200.dambae200.domain.access.repository.AccessRepository;
 import com.dambae200.dambae200.domain.notification.repository.NotificationRepository;
 import com.dambae200.dambae200.domain.user.domain.User;
-import com.dambae200.dambae200.domain.user.dto.UserDto;
-import com.dambae200.dambae200.domain.user.exception.EmailDuplicationException;
+import com.dambae200.dambae200.domain.user.dto.UserAddRequest;
+import com.dambae200.dambae200.domain.user.dto.UserChangePasswordRequest;
+import com.dambae200.dambae200.domain.user.dto.UserGetResponse;
+import com.dambae200.dambae200.domain.user.dto.UserUpdateRequest;
+import com.dambae200.dambae200.domain.user.exception.DuplicatedEmailException;
+import com.dambae200.dambae200.domain.user.exception.EmailNotFoundException;
 import com.dambae200.dambae200.domain.user.exception.LoginInfoNotMatched;
-import com.dambae200.dambae200.domain.user.exception.NicknameDuplicationException;
+import com.dambae200.dambae200.domain.user.exception.DuplicatedNicknameException;
 import com.dambae200.dambae200.domain.user.repository.UserRepository;
 import com.dambae200.dambae200.global.common.DeleteResponse;
 import com.dambae200.dambae200.global.common.RepoUtils;
@@ -28,7 +32,7 @@ public class UserUpdateService {
     final RepoUtils repoUtils;
 
     @Transactional
-    public UserDto.GetResponse addUser(UserDto.AddRequest request){
+    public UserGetResponse addUser(UserAddRequest request){
 
         validateEmail(request.getEmail());
         validateNickname(request.getNickname());
@@ -39,25 +43,41 @@ public class UserUpdateService {
                 .pw(request.getPw())
                 .build();
         User saved = userRepository.save(user);
-        return new UserDto.GetResponse(saved);
+        return new UserGetResponse(saved);
     }
 
 
     @Transactional
-    public UserDto.GetResponse updateUser(Long id, UserDto.UpdateRequest request) throws EntityNotFoundException, NicknameDuplicationException {
+    public UserGetResponse updateUser(Long id, UserUpdateRequest request){
         validateNickname(request.getNickname());
         User user = repoUtils.getOneElseThrowException(userRepository, id);
         user.changeNickname(request.getNickname());
         User saved = userRepository.save(user);
-        return new UserDto.GetResponse(saved);
+        return new UserGetResponse(saved);
     }
 
     @Transactional
-    public UserDto.GetResponse changeUserPassword(Long id, UserDto.ChangePasswordRequest request) throws EntityNotFoundException, LoginInfoNotMatched {
+    public UserGetResponse changeUserPassword(Long id, UserChangePasswordRequest request){
         User user = repoUtils.getOneElseThrowException(userRepository, id);
         user.changePw(request.getOldPw(), request.getNewPw());
         User saved = userRepository.save(user);
-        return new UserDto.GetResponse(saved);
+        return new UserGetResponse(saved);
+    }
+
+    @Transactional
+    public void sendNewPwAndChangePw(String email){
+        User user = findByEmail(email);
+
+        // Transaction 덕분에 비밀번호를 재지정한 뒤 알림 메일 전송이 실패해도, 비밀번호가 제대로 돌아옴
+        String code = PasswordGenerator.generatePw();
+        user.changePw(user.getPw(), code);
+
+        PasswordSender.send(code, email);
+    }
+
+    private User findByEmail(String email){
+        return userRepository.findByEmail(email)
+                .orElseThrow(() -> { throw new EmailNotFoundException(email);});
     }
 
     @Transactional
@@ -80,13 +100,13 @@ public class UserUpdateService {
     @Transactional(readOnly = true)
     private void validateEmail(String email){
         if (userRepository.existsByEmail(email))
-            throw new EmailDuplicationException();
+            throw new DuplicatedEmailException();
     }
 
     @Transactional(readOnly = true)
     private void validateNickname(String nickname){
         if (userRepository.existsByNickname(nickname))
-            throw new NicknameDuplicationException();
+            throw new DuplicatedNicknameException();
     }
 
 }

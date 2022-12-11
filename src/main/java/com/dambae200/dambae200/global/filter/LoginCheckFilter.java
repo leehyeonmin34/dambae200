@@ -2,11 +2,9 @@ package com.dambae200.dambae200.global.filter;
 
 import com.dambae200.dambae200.domain.sessionInfo.exception.SessionInfoNotExistsException;
 import com.dambae200.dambae200.domain.sessionInfo.service.SessionService;
-import com.dambae200.dambae200.global.utils.RequestJsonMapper;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.core.annotation.Order;
-import org.springframework.http.HttpMethod;
 import org.springframework.stereotype.Component;
 import org.springframework.util.PatternMatchUtils;
 
@@ -21,14 +19,16 @@ import java.io.IOException;
 public class LoginCheckFilter implements Filter {
 
     private static final String[] whitelist = {
-            "/","/null/swagger-resources/*","/v3/*","/swagger-ui.html", "/swagger-ui.html#/*"
-            , "/swagger-resources","/swagger-resources/*", "/webjars/springfox-swagger-ui/*", "/api/login", "/api/logout"
-            ,"/api/users/exists_by_email","/api/users/exists_by_nickname", "/api/favicon.ico", "/api/users", "/swagger-ui", "/swagger-ui/*"
+            "/","/null/swagger-resources/*","/v3/*","/swagger-ui.html", "/swagger-ui.html#/*",
+            "/swagger-resources","/swagger-resources/*", "/webjars/springfox-swagger-ui/*",
+            "/api/favicon.ico", "/swagger-ui", "/swagger-ui/*",
+            "/api/login", "/api/logout", "/api/forgot_pw", "/api/users",
+            "/api/users/exists_by_email","/api/users/exists_by_nickname",
+            "/stomp/store/*"
     };
 
 
     private final SessionService sessionService;
-    private final RequestJsonMapper requestJsonMapper;
 
     @Override
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
@@ -38,12 +38,11 @@ public class LoginCheckFilter implements Filter {
         try {
             // 인증 체크가 필요한 URL이라면 인증 체크함
             if (isLoginCheckPath(requestURI)) {
-//                StandardRequest<Object> requestBody = requestJsonMapper.mapToJson(request, StandardRequest.class);
                 String accessToken = ((HttpServletRequest) request).getHeader("Authorization");
-                log.info("accessToken" + accessToken);
+                log.info("accessToken : " + accessToken);
                 if (accessToken == null || !sessionService.existsByToken(accessToken)) {
                     log.info("미인증 사용자 요청 {}", requestURI);
-                    // 로그인 안되었다는 예외 발생 후 종료
+                    // 로그인 안되었다는 예외 발생 후 종료 - 바깥 필터에서 처리
                     throw new SessionInfoNotExistsException();
                 }
             }

@@ -1,5 +1,6 @@
 package com.dambae200.dambae200.global.error;
 
+import com.dambae200.dambae200.global.common.StandardResponse;
 import com.dambae200.dambae200.global.error.exception.BusinessException;
 import com.dambae200.dambae200.global.error.exception.ErrorCode;
 import lombok.extern.slf4j.Slf4j;
@@ -16,75 +17,88 @@ import java.nio.file.AccessDeniedException;
 
 @ControllerAdvice
 @Slf4j
-public class GlobalExceptionHandler {
+public class GlobalExceptionHandler implements GlobalExceptionHandlerInterface{
     /**
      *  javax.validation.Valid or @Validated 으로 binding error 발생시 발생한다.
      *  HttpMessageConverter 에서 등록한 HttpMessageConverter binding 못할경우 발생
      *  주로 @RequestBody, @RequestPart 어노테이션에서 발생
+     * @return
      */
+    @Override
     @ExceptionHandler(MethodArgumentNotValidException.class)
-    protected ResponseEntity<ErrorResponse> handleMethodArgumentNotValidException(MethodArgumentNotValidException e) {
+    public ResponseEntity<StandardResponse<ErrorResponse>> handleMethodArgumentNotValidException(MethodArgumentNotValidException e) {
         log.error("handleMethodArgumentNotValidException", e);
-        final ErrorResponse response = ErrorResponse.of(ErrorCode.INVALID_INPUT_VALUE, e.getBindingResult());
-        return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
+        final ErrorResponse errorResponse = ErrorResponse.of(ErrorCode.INVALID_INPUT_VALUE, e.getBindingResult());
+        final StandardResponse response = StandardResponse.builder().errorResponse(errorResponse).status(ErrorCode.INVALID_INPUT_VALUE.getStatus()).build();
+        return new ResponseEntity<>(response, HttpStatus.valueOf(ErrorCode.INVALID_INPUT_VALUE.getStatus()));
     }
 
     /**
      * @ModelAttribute 으로 binding error 발생시 BindException 발생한다.
      * ref https://docs.spring.io/spring/docs/current/spring-framework-reference/web.html#mvc-ann-modelattrib-method-args
+     * @return
      */
+    @Override
     @ExceptionHandler(BindException.class)
-    protected ResponseEntity<ErrorResponse> handleBindException(BindException e) {
+    public ResponseEntity<StandardResponse<ErrorResponse>> handleBindException(BindException e) {
         log.error("handleBindException", e);
-        final ErrorResponse response = ErrorResponse.of(ErrorCode.INVALID_INPUT_VALUE, e.getBindingResult());
-        return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
+        final ErrorResponse errorResponse = ErrorResponse.of(ErrorCode.INVALID_INPUT_VALUE, e.getBindingResult());
+        return StandardResponse.of(errorResponse);
     }
 
     /**
      * enum type 일치하지 않아 binding 못할 경우 발생
      * 주로 @RequestParam enum으로 binding 못했을 경우 발생
+     * @return
      */
+    @Override
     @ExceptionHandler(MethodArgumentTypeMismatchException.class)
-    protected ResponseEntity<ErrorResponse> handleMethodArgumentTypeMismatchException(MethodArgumentTypeMismatchException e) {
+    public ResponseEntity<StandardResponse<ErrorResponse>> handleMethodArgumentTypeMismatchException(MethodArgumentTypeMismatchException e) {
         log.error("handleMethodArgumentTypeMismatchException", e);
-        final ErrorResponse response = ErrorResponse.of(e);
-        return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
+        final ErrorResponse errorResponse = ErrorResponse.of(e);
+        return StandardResponse.of(errorResponse);
     }
 
     /**
      * 지원하지 않은 HTTP method 호출 할 경우 발생
+     * @return
      */
+    @Override
     @ExceptionHandler(HttpRequestMethodNotSupportedException.class)
-    protected ResponseEntity<ErrorResponse> handleHttpRequestMethodNotSupportedException(HttpRequestMethodNotSupportedException e) {
+    public ResponseEntity<StandardResponse<ErrorResponse>> handleHttpRequestMethodNotSupportedException(HttpRequestMethodNotSupportedException e) {
         log.error("handleHttpRequestMethodNotSupportedException", e);
-        final ErrorResponse response = ErrorResponse.of(ErrorCode.METHOD_NOT_ALLOWED);
-        return new ResponseEntity<>(response, HttpStatus.METHOD_NOT_ALLOWED);
+        final ErrorResponse errorResponse = ErrorResponse.of(ErrorCode.METHOD_NOT_ALLOWED);
+        return StandardResponse.of(errorResponse);
     }
 
     /**
      * Authentication 객체가 필요한 권한을 보유하지 않은 경우 발생합
      */
+    @Override
     @ExceptionHandler(AccessDeniedException.class)
-    protected ResponseEntity<ErrorResponse> handleAccessDeniedException(AccessDeniedException e) {
+    public ResponseEntity<StandardResponse<ErrorResponse>> handleAccessDeniedException(AccessDeniedException e) {
         log.error("handleAccessDeniedException", e);
-        final ErrorResponse response = ErrorResponse.of(ErrorCode.HANDLE_ACCESS_DENIED);
-        return new ResponseEntity<>(response, HttpStatus.valueOf(ErrorCode.HANDLE_ACCESS_DENIED.getStatus()));
+        final ErrorResponse errorResponse = ErrorResponse.of(ErrorCode.HANDLE_ACCESS_DENIED);
+        return StandardResponse.of(errorResponse);
     }
 
     // business 로직에 의해 처리되어야할 예외 ex) 중복된 아이디, 쿠폰 기한 만료
+    @Override
     @ExceptionHandler(BusinessException.class)
-    protected ResponseEntity<ErrorResponse> handleBusinessException(final BusinessException e) {
-        log.error("handleEntityNotFoundException", e);
+    public ResponseEntity<StandardResponse<ErrorResponse>> handleBusinessException(final BusinessException e) {
+        log.error("handleBusinessException", e);
         final ErrorCode errorCode = e.getErrorCode();
-        final ErrorResponse response = ErrorResponse.of(errorCode, e.getMessage());
-        return new ResponseEntity<>(response, HttpStatus.valueOf(errorCode.getStatus()));
+        final ErrorResponse errorResponse = ErrorResponse.of(errorCode, e.getMessage());
+        return StandardResponse.of(errorResponse);
     }
 
     // 그 외 모든 예외
+    @Override
     @ExceptionHandler(Exception.class)
-    protected ResponseEntity<ErrorResponse> handleException(Exception e) {
-        log.error("handleEntityNotFoundException", e);
-        final ErrorResponse response = ErrorResponse.of(ErrorCode.INTERNAL_SERVER_ERROR);
-        return new ResponseEntity<>(response, HttpStatus.INTERNAL_SERVER_ERROR);
+    public ResponseEntity<StandardResponse<ErrorResponse>> handleException(Exception e) {
+        log.error("Exception", e);
+        final ErrorResponse errorResponse = ErrorResponse.of(ErrorCode.INTERNAL_SERVER_ERROR);
+        return StandardResponse.of(errorResponse);
     }
+
 }

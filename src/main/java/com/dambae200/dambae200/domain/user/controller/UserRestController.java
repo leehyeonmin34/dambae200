@@ -1,22 +1,19 @@
 package com.dambae200.dambae200.domain.user.controller;
 
-import com.dambae200.dambae200.domain.access.dto.AccessDto;
-import com.dambae200.dambae200.domain.access.repository.AccessRepository;
+import com.dambae200.dambae200.domain.access.dto.AccessGetStoreListResponse;
 import com.dambae200.dambae200.domain.access.service.AccessService;
 import com.dambae200.dambae200.domain.notification.service.NotificationFindService;
-import com.dambae200.dambae200.domain.user.dto.UserDto;
-import com.dambae200.dambae200.domain.user.dto.UserHomeDto;
+import com.dambae200.dambae200.domain.user.dto.*;
 import com.dambae200.dambae200.domain.user.service.UserFindService;
 import com.dambae200.dambae200.domain.user.service.UserUpdateService;
 import com.dambae200.dambae200.global.common.DeleteResponse;
-import io.swagger.models.Response;
+import com.dambae200.dambae200.global.common.StandardResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
 
 @RestController
 @RequestMapping("/api/users")
@@ -29,63 +26,58 @@ public class UserRestController {
     final NotificationFindService notificationFindService;
 
     @GetMapping("/exists_by_email")
-    public ResponseEntity<Boolean> existsByEmail(@RequestParam @NotBlank String email){
+    public ResponseEntity<StandardResponse<Boolean>> existsByEmail(@RequestParam @NotBlank String email){
         Boolean response = userFindService.existsByEmail(email);
-        return ResponseEntity.ok(response);
+        return StandardResponse.ofOk(response);
     }
 
     @GetMapping("/exists_by_nickname")
-    public ResponseEntity<Boolean> existsByNickname(@RequestParam @NotBlank String nickname){
+    public ResponseEntity<StandardResponse<Boolean>> existsByNickname(@RequestParam @NotBlank String nickname){
         Boolean response = userFindService.existsByNickname(nickname);
-        return ResponseEntity.ok(response);
+        return StandardResponse.ofOk(response);
     }
 
     @GetMapping("/{id}/home")
-    public ResponseEntity<UserHomeDto> findHomeInfoById(@PathVariable String id){
-
-
+    public ResponseEntity<StandardResponse<UserHomeDto>> findHomeInfoById(@PathVariable String id){
         boolean newNoti = notificationFindService.unreadExistByUserId(Long.valueOf(id));
-        AccessDto.GetStoreListResponse stores = accessService.findAllByUserId(Long.valueOf(id));
+        AccessGetStoreListResponse stores = accessService.findAllByUserId(Long.valueOf(id));
         UserHomeDto response = UserHomeDto.builder()
                 .myStores(stores)
                 .newNotification(newNoti)
                 .build();
         System.out.println(response);
-        return ResponseEntity.ok(response);
+        return StandardResponse.ofOk(response);
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<UserDto.GetResponse> findById(@PathVariable String id){
-        UserDto.GetResponse response = userFindService.findById(Long.valueOf(id));
-        return ResponseEntity.ok(response);
+    public ResponseEntity<StandardResponse<UserGetResponse>> findById(@PathVariable String id){
+        UserGetResponse response = userFindService.findById(Long.valueOf(id));
+        return StandardResponse.ofOk(response);
     }
 
-    // TODO Password 받는 법
     @PostMapping("")
-    public ResponseEntity<UserDto.GetResponse> addUser(@RequestBody @Valid UserDto.AddRequest request){
-        UserDto.GetResponse response = userUpdateService.addUser(request);
-        return ResponseEntity.ok(response);
+    public ResponseEntity<StandardResponse<UserGetResponse>> addUser(@RequestBody @Valid UserAddRequest request){
+        UserGetResponse response = userUpdateService.addUser(request);
+        return StandardResponse.ofOk(response);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<UserDto.GetResponse> updateUser(@PathVariable String id, @RequestBody @Valid UserDto.UpdateRequest request){
-        UserDto.GetResponse response = userUpdateService.updateUser(Long.valueOf(id), request);
-        return ResponseEntity.ok(response);
+    public ResponseEntity<StandardResponse<UserGetResponse>> updateUser(@PathVariable String id, @RequestBody @Valid UserUpdateRequest request){
+        UserGetResponse response = userUpdateService.updateUser(Long.valueOf(id), request);
+        return StandardResponse.ofOk(response);
     }
 
 
-    // TODO Password 받는 법
     @PutMapping("/{id}/change_pw")
-    public ResponseEntity<UserDto.GetResponse> changeUserPassword(@PathVariable String id, @RequestBody @Valid UserDto.ChangePasswordRequest request){
-        UserDto.GetResponse response = userUpdateService.changeUserPassword(Long.valueOf(id), request);
-        return ResponseEntity.ok(response);
+    public ResponseEntity<StandardResponse<UserGetResponse>> changeUserPassword(@PathVariable String id, @RequestBody @Valid UserChangePasswordRequest request){
+        UserGetResponse response = userUpdateService.changeUserPassword(Long.valueOf(id), request);
+        return StandardResponse.ofOk(response);
     }
 
-    // TODO password 받는 법
     @DeleteMapping("/{id}")
-    public ResponseEntity<DeleteResponse> deleteUser(@PathVariable String id, @RequestParam String pw){
+    public ResponseEntity<StandardResponse<DeleteResponse>> deleteUser(@PathVariable String id, @RequestParam String pw){
         DeleteResponse response = userUpdateService.deleteUser(Long.valueOf(id), pw);
-        return ResponseEntity.ok(response);
+        return StandardResponse.ofOk(response);
     }
 
 

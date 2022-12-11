@@ -1,7 +1,7 @@
 package com.dambae200.dambae200.domain.user.service;
 
 import com.dambae200.dambae200.domain.user.domain.User;
-import com.dambae200.dambae200.domain.user.dto.UserDto;
+import com.dambae200.dambae200.domain.user.dto.UserGetResponse;
 import com.dambae200.dambae200.domain.user.exception.LoginInfoNotMatched;
 import com.dambae200.dambae200.domain.user.repository.UserRepository;
 import com.dambae200.dambae200.global.common.RepoUtils;
@@ -19,11 +19,13 @@ public class UserLoginServiceImpl implements UserLoginService{
 
     @Override
     @Transactional
-    public UserDto.GetResponse authenticate(String email, String pw) throws LoginInfoNotMatched {
+    public UserGetResponse authenticate(String email, String pw) throws LoginInfoNotMatched {
         User user = userRepository.findByEmail(email)
                 .orElseThrow(LoginInfoNotMatched::new);
         user.authenticate(pw);
-        return new UserDto.GetResponse(user);
+        return new UserGetResponse(user);
     }
+
+
 
 }

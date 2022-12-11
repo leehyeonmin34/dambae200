@@ -1,7 +1,7 @@
 package com.dambae200.dambae200.domain.notification.service;
 
 import com.dambae200.dambae200.domain.notification.domain.Notification;
-import com.dambae200.dambae200.domain.notification.dto.NotificationDto;
+import com.dambae200.dambae200.domain.notification.dto.NotificationGetResponse;
 import com.dambae200.dambae200.domain.notification.repository.NotificationRepository;
 import com.dambae200.dambae200.global.common.RepoUtils;
 import com.dambae200.dambae200.global.error.exception.EntityNotFoundException;
@@ -11,8 +11,6 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.List;
-
 @Service
 @RequiredArgsConstructor
 public class NotificationFindService {
@@ -21,9 +19,9 @@ public class NotificationFindService {
     final RepoUtils repoUtils;
 
     @Transactional(readOnly = true)
-    public Page<NotificationDto.GetResponse> findByUserId(Long userId, Pageable pageable){
+    public Page<NotificationGetResponse> findByUserId(Long userId, Pageable pageable){
         Page<Notification> entities = notificationRepository.findByUserId(userId, pageable);
-        return entities.map(NotificationDto.GetResponse::new);
+        return entities.map(NotificationGetResponse::new);
     }
 
     @Transactional(readOnly = true)
@@ -32,9 +30,9 @@ public class NotificationFindService {
     }
 
     @Transactional(readOnly = true)
-    public NotificationDto.GetResponse findById(Long id) throws EntityNotFoundException {
+    public NotificationGetResponse findById(Long id) throws EntityNotFoundException {
         Notification entity = repoUtils.getOneElseThrowException(notificationRepository, id);
-        return new NotificationDto.GetResponse(entity);
+        return new NotificationGetResponse(entity);
     }
 
 }

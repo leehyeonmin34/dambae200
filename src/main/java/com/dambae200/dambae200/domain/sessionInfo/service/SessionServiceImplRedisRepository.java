@@ -6,11 +6,9 @@ import com.dambae200.dambae200.domain.sessionInfo.exception.AccessedExpiredSessi
 import com.dambae200.dambae200.domain.sessionInfo.exception.SessionInfoNotExistsException;
 import com.dambae200.dambae200.domain.sessionInfo.repository.SessionInfoRedisRepository;
 import com.dambae200.dambae200.domain.sessionInfo.repository.SessionInfoRepository;
-import com.dambae200.dambae200.domain.user.dto.UserDto;
+import com.dambae200.dambae200.domain.user.dto.UserGetResponse;
 import lombok.RequiredArgsConstructor;
-import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 import java.util.Optional;
@@ -18,14 +16,12 @@ import java.util.UUID;
 
 @RequiredArgsConstructor
 @Service
-@Primary
 public class SessionServiceImplRedisRepository implements SessionService{
 
     final private SessionInfoRedisRepository redisRepository;
     final private SessionInfoRepository jpaRepository;
 
     @Override
-    @Transactional(readOnly = true)
     public boolean existsByToken(String accessToken){
         try {
             getSessionElseThrow(accessToken);
@@ -36,7 +32,6 @@ public class SessionServiceImplRedisRepository implements SessionService{
     }
 
     @Override
-    @Transactional(readOnly = true)
     public SessionInfo getSessionElseThrow(String accessToken){
 
         SessionInfo sessionInfo;
@@ -65,7 +60,6 @@ public class SessionServiceImplRedisRepository implements SessionService{
     }
 
 
-    @Transactional
     private void removeIfExpired(SessionInfo sessionInfo){
         try {
             sessionInfo.checkExpiration();
@@ -77,14 +71,13 @@ public class SessionServiceImplRedisRepository implements SessionService{
 
     // 세션 키 등록
     @Override
-    @Transactional
-    public SessionInfo registerSession(UserDto.GetResponse user, String userAgent) {
+    public SessionInfo registerSession(UserGetResponse user, String userAgent) {
 
         // 세션정보 생성
         String accessToken = UUID.randomUUID().toString();
         SessionInfo sessionInfo = new SessionInfo.Builder(accessToken, user.getId())
                 .userAgent(userAgent)
-                .expirationTime(LocalDateTime.now().plusDays(1))
+//                .expirationTime(LocalDateTime.now().plusDays(1))
                 .build();
 
         // 캐시와 DB에 저장
@@ -97,12 +90,13 @@ public class SessionServiceImplRedisRepository implements SessionService{
 
     // 세션 키 삭제
     @Override
-    @Transactional
     public void removeSession(String accessToken) {
-        if (redisRepository.existsById(accessToken))
-            redisRepository.deleteById(accessToken);
-        if (jpaRepository.existsById(accessToken))
-            jpaRepository.deleteById(accessToken);
+        if (accessToken != null) {
+            if (redisRepository.existsById(accessToken))
+                redisRepository.deleteById(accessToken);
+            if (jpaRepository.existsById(accessToken))
+                jpaRepository.deleteById(accessToken);
+        }
     }
 
 

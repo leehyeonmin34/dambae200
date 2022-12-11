@@ -6,6 +6,7 @@ import com.dambae200.dambae200.global.common.BaseEntity;
 import lombok.*;
 
 import javax.persistence.*;
+import java.io.Serializable;
 
 @Entity
 @NoArgsConstructor(access = AccessLevel.PROTECTED)

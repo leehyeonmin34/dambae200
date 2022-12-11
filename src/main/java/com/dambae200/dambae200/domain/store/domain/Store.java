@@ -1,10 +1,12 @@
 package com.dambae200.dambae200.domain.store.domain;
 
-import com.dambae200.dambae200.domain.cigaretteList.domain.CigaretteList;
 import com.dambae200.dambae200.global.common.BaseEntity;
 import lombok.*;
+import org.springframework.web.socket.WebSocketSession;
 
 import javax.persistence.*;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
@@ -19,9 +21,6 @@ public class Store extends BaseEntity {
     @Column(name = "brand", nullable = false)
     @Convert(converter = StoreBrandConverter.class)
     private StoreBrand brand;
-
-//    @OneToOne(mappedBy = "store",fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-//    private CigaretteList cigaretteList;
 
     @Builder
     public Store(String name, StoreBrand brand){

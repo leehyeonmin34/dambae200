@@ -1,14 +1,14 @@
 package com.dambae200.dambae200.domain.notification.controller;
 
 
-import com.dambae200.dambae200.domain.access.dto.AccessDto;
-import com.dambae200.dambae200.domain.notification.domain.Notification;
-import com.dambae200.dambae200.domain.notification.dto.NotificationDto;
+import com.dambae200.dambae200.domain.notification.dto.NotificationGetListResponse;
+import com.dambae200.dambae200.domain.notification.dto.NotificationGetResponse;
+import com.dambae200.dambae200.domain.notification.dto.NotificationMarkAsReadRequest;
 import com.dambae200.dambae200.domain.notification.service.NotificationFindService;
 import com.dambae200.dambae200.domain.notification.service.NotificationUpdateService;
 import com.dambae200.dambae200.global.common.DeleteResponse;
+import com.dambae200.dambae200.global.common.StandardResponse;
 import com.dambae200.dambae200.global.error.exception.EntityNotFoundException;
-import io.swagger.models.Response;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -28,36 +28,36 @@ public class NotificationRestController {
     final NotificationFindService notificationFindService;
 
     @GetMapping("/{id}")
-    public ResponseEntity<NotificationDto.GetResponse> getNotificationById(@PathVariable String id){
-        NotificationDto.GetResponse response = notificationFindService.findById(Long.valueOf(id));
-        return ResponseEntity.ok(response);
+    public ResponseEntity<StandardResponse<NotificationGetResponse>> getNotificationById(@PathVariable String id){
+        NotificationGetResponse response = notificationFindService.findById(Long.valueOf(id));
+        return StandardResponse.ofOk(response);
     }
 
     // TODO 어떻게 보면 /user/{id}/notifications 인데 이렇게 하는 게 괜찮은가?
     @GetMapping("")
-    public ResponseEntity<Page<NotificationDto.GetResponse>> getNotificationsByUserId(
+    public ResponseEntity<StandardResponse<Page<NotificationGetResponse>>> getNotificationsByUserId(
             @RequestParam @NotNull String userId,
             @PageableDefault(size = 5, sort = "createdAt",  direction = Sort.Direction.DESC) Pageable pageable){
-        Page<NotificationDto.GetResponse> response = notificationFindService.findByUserId(Long.valueOf(userId), pageable);
-        return ResponseEntity.ok(response);
+        Page<NotificationGetResponse> response = notificationFindService.findByUserId(Long.valueOf(userId), pageable);
+        return StandardResponse.ofOk(response);
     }
 
     @PutMapping("/read")
-    public ResponseEntity<NotificationDto.GetListResponse> markAsRead(@RequestBody NotificationDto.MarkAsReadRequest request) throws EntityNotFoundException {
-        NotificationDto.GetListResponse response = notificationUpdateService.markAsReadNotifiations(request.getIdList());
-        return ResponseEntity.ok(response);
+    public ResponseEntity<StandardResponse<NotificationGetListResponse>> markAsRead(@RequestBody NotificationMarkAsReadRequest request) throws EntityNotFoundException {
+        NotificationGetListResponse response = notificationUpdateService.markAsReadNotifiations(request.getIdList());
+        return StandardResponse.ofOk(response);
     }
 
     @GetMapping("/read")
-    public ResponseEntity<Boolean> unreadExistsByUserId(Long userId){
+    public ResponseEntity<StandardResponse<Boolean>> unreadExistsByUserId(Long userId){
         Boolean response = (Boolean)notificationFindService.unreadExistByUserId(userId);
-        return ResponseEntity.ok(response);
+        return StandardResponse.ofOk(response);
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<DeleteResponse> deleteNotification(@PathVariable String id){
+    public ResponseEntity<StandardResponse<DeleteResponse>> deleteNotification(@PathVariable String id){
         DeleteResponse response = notificationUpdateService.deleteNotification(Long.valueOf(id));
-        return ResponseEntity.ok(response);
+        return StandardResponse.ofOk(response);
     }
 
 }

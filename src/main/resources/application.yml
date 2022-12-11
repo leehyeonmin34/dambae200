@@ -27,3 +27,7 @@ spring:
     port: 6379
 server:
   port: 8060
+#mail:
+#  smtp:
+#    ssl:
+#      protocols: TLSv1.2

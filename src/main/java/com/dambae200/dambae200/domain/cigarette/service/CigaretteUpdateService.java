@@ -1,7 +1,10 @@
 package com.dambae200.dambae200.domain.cigarette.service;
 
 import com.dambae200.dambae200.domain.cigarette.domain.Cigarette;
-import com.dambae200.dambae200.domain.cigarette.dto.CigaretteDto;
+import com.dambae200.dambae200.domain.cigarette.dto.CigaretteAddRequest;
+import com.dambae200.dambae200.domain.cigarette.dto.CigaretteGetListResponse;
+import com.dambae200.dambae200.domain.cigarette.dto.CigaretteGetResponse;
+import com.dambae200.dambae200.domain.cigarette.dto.CigaretteUpdateRequest;
 import com.dambae200.dambae200.domain.cigarette.exception.OfficaialNameDuplicationException;
 import com.dambae200.dambae200.domain.cigarette.repository.CigaretteRepository;
 import com.dambae200.dambae200.domain.cigaretteOnList.domain.CigaretteOnList;
@@ -23,7 +26,7 @@ public class CigaretteUpdateService {
     private final CigaretteOnListRepository cigaretteOnListRepository;
     private final RepoUtils repoUtils;
 
-    public CigaretteDto.GetResponse addCigarette(CigaretteDto.CigaretteRequest request){
+    public CigaretteGetResponse addCigarette(CigaretteAddRequest request){
 
         checkDuplicate(request.getOfficial_name());
 
@@ -37,14 +40,14 @@ public class CigaretteUpdateService {
                 .build();
 
         Cigarette savedCigarette = cigaretteRepository.save(cigarette);
-        return new CigaretteDto.GetResponse(savedCigarette);
+        return new CigaretteGetResponse(savedCigarette);
     }
 
-    public CigaretteDto.GetListResponse addAllCigarette(List<CigaretteDto.CigaretteRequest> request){
+    public CigaretteGetListResponse addAllCigarette(List<CigaretteAddRequest> request){
 
         List<Cigarette> cigarettes = new ArrayList<>();
 
-        for(CigaretteDto.CigaretteRequest requestItem : request) {
+        for(CigaretteAddRequest requestItem : request) {
             checkDuplicate(requestItem.getOfficial_name());
 
             Cigarette cigarette = Cigarette.builder()
@@ -60,17 +63,17 @@ public class CigaretteUpdateService {
 
 
         List<Cigarette> savedCigarettes = cigaretteRepository.saveAll(cigarettes);
-        return new CigaretteDto.GetListResponse(savedCigarettes);
+        return new CigaretteGetListResponse(savedCigarettes);
     }
 
-    public CigaretteDto.GetResponse updateCigarette(Long id, CigaretteDto.CigaretteRequest request){
+    public CigaretteGetResponse updateCigarette(Long id, CigaretteUpdateRequest request){
 
         checkDuplicate(request.getOfficial_name());
 
         Cigarette cigarette = repoUtils.getOneElseThrowException(cigaretteRepository, id);
         cigarette.updateCigarette(request.getOfficial_name(), request.getCustomized_name());
 
-        return new CigaretteDto.GetResponse(cigarette);
+        return new CigaretteGetResponse(cigarette);
     }
 
     public DeleteResponse deleteCigarette(Long id) throws EntityNotFoundException {

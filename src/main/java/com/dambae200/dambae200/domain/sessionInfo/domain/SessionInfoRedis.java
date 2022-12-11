@@ -1,13 +1,11 @@
 package com.dambae200.dambae200.domain.sessionInfo.domain;
 
-import com.dambae200.dambae200.domain.sessionInfo.domain.SessionInfo;
 import com.dambae200.dambae200.domain.sessionInfo.exception.AccessedExpiredSessionTokenException;
 import lombok.*;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.redis.core.RedisHash;
 
 import javax.persistence.Column;
-import javax.persistence.Entity;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 

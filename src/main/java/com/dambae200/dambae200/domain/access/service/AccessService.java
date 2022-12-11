@@ -2,30 +2,23 @@ package com.dambae200.dambae200.domain.access.service;
 
 import com.dambae200.dambae200.domain.access.domain.Access;
 import com.dambae200.dambae200.domain.access.domain.AccessType;
-import com.dambae200.dambae200.domain.access.dto.AccessDto;
-import com.dambae200.dambae200.domain.access.exception.DuplicateAccessApply;
-import com.dambae200.dambae200.domain.access.exception.InvalidAccessTypeCodeException;
+import com.dambae200.dambae200.domain.access.dto.*;
+import com.dambae200.dambae200.domain.access.exception.AccessNotAllowedException;
+import com.dambae200.dambae200.domain.access.exception.DuplicatedAccessApply;
 import com.dambae200.dambae200.domain.access.repository.AccessRepository;
-import com.dambae200.dambae200.domain.notification.domain.Notification;
-import com.dambae200.dambae200.domain.notification.exception.CannotFindAccessNotificationType;
-import com.dambae200.dambae200.domain.notification.service.NotificationSender;
-import com.dambae200.dambae200.domain.notification.service.accessNotification.AccessNotificationGenerator;
 import com.dambae200.dambae200.domain.notification.service.accessNotification.AccessNotificationGeneratorAndSender;
 import com.dambae200.dambae200.domain.store.domain.Store;
-import com.dambae200.dambae200.domain.store.dto.StoreDto;
 import com.dambae200.dambae200.domain.store.repository.StoreRepository;
 import com.dambae200.dambae200.domain.user.domain.User;
 import com.dambae200.dambae200.domain.user.repository.UserRepository;
 import com.dambae200.dambae200.global.common.DeleteResponse;
 import com.dambae200.dambae200.global.common.RepoUtils;
-import com.dambae200.dambae200.global.error.exception.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
-import javax.swing.text.html.parser.Entity;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -41,21 +34,21 @@ public class AccessService {
     final EntityManager em;
 
     @Transactional
-    public AccessDto.GetListUserResponse findAllByStoreId(Long storeId){
+    public AccessGetUserListResponse findAllByStoreId(Long storeId){
         List<Access> accessList = accessRepository.findAllByStoreId(storeId);
-        return new AccessDto.GetListUserResponse(accessList);
+        return new AccessGetUserListResponse(accessList);
     }
 
 
     @Transactional
-    public AccessDto.GetStoreListResponse findAllByUserId(Long userId){
+    public AccessGetStoreListResponse findAllByUserId(Long userId){
 
-        final List<AccessDto.GetStoreResponse> accessList = accessRepository.findAllByUserId(userId).stream().map(access -> {
+        final List<AccessGetStoreResponse> accessList = accessRepository.findAllByUserId(userId).stream().map(access -> {
             final boolean applicatorExists = applicatorExists(access);
-            return new AccessDto.GetStoreResponse(access, applicatorExists);
+            return new AccessGetStoreResponse(access, applicatorExists);
         }).collect(Collectors.toList());
 
-        final AccessDto.GetStoreListResponse response = AccessDto.GetStoreListResponse.builder()
+        final AccessGetStoreListResponse response = AccessGetStoreListResponse.builder()
                 .accesses(accessList)
                 .total(accessList.size())
                 .build();
@@ -72,11 +65,11 @@ public class AccessService {
     }
 
     @Transactional
-    public AccessDto.GetResponse applyAccess(AccessDto.ApplyRequest request){
+    public AccessGetResponse applyAccess(AccessApplyRequest request){
         Long userId = request.getUserId();
         Long storeId = request.getStoreId();
         if(accessRepository.existsByUserIdAndStoreId(userId, storeId))
-            throw new DuplicateAccessApply(userId, storeId);
+            throw new DuplicatedAccessApply(userId, storeId);
 
         // 관련 엔티티 로드
         Store store = repoUtils.getOneElseThrowException(storeRepository, request.getStoreId());
@@ -93,12 +86,12 @@ public class AccessService {
         // 관련 알림 생성 및 전송
         accessNotificationGeneratorAndSender.from(AccessType.INACCESSIBLE, access, false);
 
-        return new AccessDto.GetResponse(saved);
+        return new AccessGetResponse(saved);
 
     }
 
     @Transactional
-    public AccessDto.GetResponse updateAccess(Long id, String accessTypeCode, boolean byAdmin){
+    public AccessGetResponse updateAccess(Long id, String accessTypeCode, boolean byAdmin){
         // 해당 엔티티 로드
         Access access = repoUtils.getOneElseThrowException(accessRepository, id);
 
@@ -117,11 +110,11 @@ public class AccessService {
         accessNotificationGeneratorAndSender.from(prev, access, byAdmin);
 
         // 리턴
-        return new AccessDto.GetResponse(access);
+        return new AccessGetResponse(access);
     }
 
     @Transactional
-    private Access findAdminAccessByStaffAccessId(Long id) throws RuntimeException{
+    private Access findAdminAccessByStaffAccessId(Long id){
         TypedQuery<Access> query = em.createQuery(
                 "SELECT A " +
                 "FROM Access A " +
@@ -138,7 +131,35 @@ public class AccessService {
     }
 
     @Transactional
-    public DeleteResponse deleteAccess(Long id) throws EntityNotFoundException{
+    public void checkAccess(Long userId, Long storeId){
+
+        // 해당 entity 찾기. 없으면 권한이 없으므로 접근 불가
+        Access access = accessRepository.findByUserIdAndStoreId(userId, storeId)
+                .orElseThrow(() ->  new AccessNotAllowedException(userId, storeId, AccessType.ACCESSIBLE));
+
+        // 접근 불가 상태거나 신청이 승인 대기중이라면 접근 불가
+        switch (access.getAccessType()){
+            case INACCESSIBLE:
+            case WAITING:
+                throw new AccessNotAllowedException(userId, storeId, AccessType.ACCESSIBLE);
+        }
+    }
+
+    @Transactional
+    public void checkAdminAccess(Long userId, Long storeId){
+
+        // 해당 entity 찾기. 없으면 권한이 없으므로 접근 불가
+        Access access = accessRepository.findByUserIdAndStoreId(userId, storeId)
+                .orElseThrow(() ->  new AccessNotAllowedException(userId, storeId, AccessType.ADMIN));
+
+        // 해당 권한이 '관리자' 타입이 아니라면 접근 불가
+        if(!access.getAccessType().equals(AccessType.ADMIN))
+            throw new AccessNotAllowedException(userId, storeId, AccessType.ADMIN);
+    }
+
+
+    @Transactional
+    public DeleteResponse deleteAccess(Long id){
 
         // 일반 스태프(ACCESSIBLE access)가 권한을 철회하는 거라면 목록 관리자에게 알림을 보내야 하기 때문에 알림용 정보 추출
         Access access = repoUtils.getOneElseThrowException(accessRepository, id);
@@ -155,5 +176,7 @@ public class AccessService {
         // 리턴
         return new DeleteResponse("access", id);
     }
+
+
 
 }

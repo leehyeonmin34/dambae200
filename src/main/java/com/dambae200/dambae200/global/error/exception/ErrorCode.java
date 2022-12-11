@@ -12,13 +12,15 @@ public enum ErrorCode {
     ENTITY_NOT_FOUND(HttpStatus.NOT_FOUND.value(), "C003", "Entity Not Found"),
     INTERNAL_SERVER_ERROR(HttpStatus.INTERNAL_SERVER_ERROR.value(), "C004", "Server Error"),
     INVALID_TYPE_VALUE(HttpStatus.BAD_REQUEST.value(), "C005", " Invalid Type Value"),
-    HANDLE_ACCESS_DENIED(HttpStatus.FORBIDDEN.value(), "C006", "Access is Denied"), // Authentication 객체가 필요한 권한을 보유하지 않은 경우 발생
+    HANDLE_ACCESS_DENIED(HttpStatus.FORBIDDEN.value(), "C006", "Access is Denied"),
+    DUPLICATED_ENTITY(HttpStatus.BAD_REQUEST.value(), "C007", "Duplicated Entity"),
 
     // User
     NOT_LOGGED_IN(HttpStatus.BAD_REQUEST.value(), "U001", "Not Logged in"),
     LOGIN_INFO_NOT_MATCHED(HttpStatus.BAD_REQUEST.value(), "U002", "Login info is not matched"),
     EMAIL_DUPLICATION(HttpStatus.BAD_REQUEST.value(), "U003", "Email is Duplication"),
     NICKNAME_DUPLICATION(HttpStatus.BAD_REQUEST.value(), "U004", "Nickname is Duplication"),
+    EMAIL_NOT_FOUND(HttpStatus.BAD_REQUEST.value(), "U005", "The email doesn't exist"),
 
     // Session
     ACCESSED_EXPIRED_SESSION_TOKEN(HttpStatus.UNAUTHORIZED.value(), "S001", "만료된 세션 정보에 접근했습니다."),
@@ -33,12 +35,17 @@ public enum ErrorCode {
     CANNOT_FIND_ACCESS_NOTIFCATION_TYPE(HttpStatus.INTERNAL_SERVER_ERROR.value(), "A002", "Cannot Find Access Notification Type"),
     CANNOT_FIND_ACCESS_SITUATION_TYPE(HttpStatus.INTERNAL_SERVER_ERROR.value(), "A003", "Cannot Find Access Situation Type"),
     DUPLICATED_ACCESS_APPLY(HttpStatus.BAD_REQUEST.value(), "A004", "Duplicate Access Registered"),
+    ACCESS_NOT_ALLOWED(HttpStatus.BAD_REQUEST.value(), "A005", "Access is not allowed to the store"),
 
     // Cigarette
     OFFICIAL_DUPLICATION(HttpStatus.INTERNAL_SERVER_ERROR.value(), "CG001", "Duplicated Official Cigarette Name. Try other name"),
 
     // CigaretteOnList
-    DUPLICATE_CIGARETTE_ON_LIST(HttpStatus.BAD_REQUEST.value(), "CGL001", "Duplicated Cigarette is already on the List")
+    DUPLICATE_CIGARETTE_ON_LIST(HttpStatus.BAD_REQUEST.value(), "CGL001", "Duplicated Cigarette is already on the List"),
+    INVALID_ORDER_TYPE_EXCEPTION(HttpStatus.BAD_REQUEST.value(), "CGL002", "Invalid Order Type Exception" ),
+
+    // Socket
+    INVALID_SUBSCRIBE_SOCKET_CHANNEL(HttpStatus.BAD_REQUEST.value(), "SCK01", "Invalid Subscribe Socket Channel"),
 
 
     ;

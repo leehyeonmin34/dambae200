@@ -1,12 +1,11 @@
 package com.dambae200.dambae200.domain.user.service;
 
-import com.dambae200.dambae200.domain.access.domain.Access;
 import com.dambae200.dambae200.domain.access.repository.AccessRepository;
 import com.dambae200.dambae200.domain.user.domain.User;
-import com.dambae200.dambae200.domain.user.dto.UserDto;
+import com.dambae200.dambae200.domain.user.dto.UserGetListResponse;
+import com.dambae200.dambae200.domain.user.dto.UserGetResponse;
 import com.dambae200.dambae200.domain.user.repository.UserRepository;
 import com.dambae200.dambae200.global.common.RepoUtils;
-import com.dambae200.dambae200.global.error.exception.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -23,16 +22,16 @@ public class UserFindService {
     final RepoUtils repoUtils;
 
     @Transactional(readOnly = true)
-    public UserDto.GetListResponse findAllByStoreId(Long storeId){
+    public UserGetListResponse findAllByStoreId(Long storeId){
         List<User> users = accessRepository.findAllByStoreId(storeId)
                 .stream().map(access -> access.getUser()).collect(Collectors.toList());
-        return new UserDto.GetListResponse(users);
+        return new UserGetListResponse(users);
     }
 
     @Transactional(readOnly = true)
-    public UserDto.GetResponse findById(Long id) {
+    public UserGetResponse findById(Long id) {
         User user = repoUtils.getOneElseThrowException(userRepository, id);
-        return new UserDto.GetResponse(user);
+        return new UserGetResponse(user);
     }
 
     @Transactional(readOnly = true)

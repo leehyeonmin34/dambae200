@@ -8,6 +8,7 @@ import lombok.*;
 import org.springframework.lang.Nullable;
 
 import javax.persistence.*;
+import java.io.Serializable;
 
 @Entity
 @Getter
@@ -15,7 +16,7 @@ import javax.persistence.*;
 @Builder
 @AllArgsConstructor
 //@ToString(callSuper = true)
-public class CigaretteOnList extends BaseEntity {
+public class CigaretteOnList extends BaseEntity implements Serializable {
 
     @Id
     @GeneratedValue

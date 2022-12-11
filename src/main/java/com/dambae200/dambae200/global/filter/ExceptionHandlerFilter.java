@@ -39,7 +39,8 @@ public class ExceptionHandlerFilter extends OncePerRequestFilter {
         // HTML이 UTF-8 형식이라는 것을 브라우저에게 전달
         response.setStatus(status.value());
         response.setContentType("application/json; charset=utf-8");
-        System.out.println(ex);
+
+        ex.printStackTrace();
         ErrorCode errorCode = ex instanceof BusinessException ? ((BusinessException) ex).getErrorCode() : ErrorCode.INTERNAL_SERVER_ERROR;
         ErrorResponse errorResponse = ErrorResponse.of(errorCode, ex.getMessage());
         try{
