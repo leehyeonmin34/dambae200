@@ -1,6 +1,6 @@
-package com.dambae200.dambae200.global.config;
+package com.dambae200.dambae200.domain.user.service.socket.config;
 
-import com.dambae200.dambae200.global.common.CustomHandshakeHandler;
+import com.dambae200.dambae200.domain.user.service.socket.dto.CustomHandshakeHandler;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.messaging.simp.config.MessageBrokerRegistry;
 import org.springframework.web.socket.config.annotation.EnableWebSocketMessageBroker;

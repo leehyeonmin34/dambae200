@@ -3,8 +3,8 @@ package com.dambae200.dambae200.domain.cigaretteOnList.service;
 import com.dambae200.dambae200.domain.cigaretteOnList.domain.CigaretteOnList;
 import com.dambae200.dambae200.domain.cigaretteOnList.dto.CigaretteOnListGetListResponse;
 import com.dambae200.dambae200.domain.cigaretteOnList.repository.CigaretteOnListRepository;
-import com.dambae200.dambae200.global.config.CacheEnv;
-import com.dambae200.dambae200.global.service.HashCacheModule;
+import com.dambae200.dambae200.global.cache.config.CacheEnv;
+import com.dambae200.dambae200.global.cache.service.HashCacheModule;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 

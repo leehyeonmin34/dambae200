@@ -1,13 +1,11 @@
-package com.dambae200.dambae200.global.service;
+package com.dambae200.dambae200.global.cache.service;
 
 import org.slf4j.Logger;
-import org.springframework.data.redis.core.ListOperations;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.core.SetOperations;
 import org.springframework.stereotype.Component;
 
 import java.util.*;
-import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.function.UnaryOperator;
 import java.util.stream.Collectors;

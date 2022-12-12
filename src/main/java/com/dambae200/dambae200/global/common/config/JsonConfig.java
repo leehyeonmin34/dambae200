@@ -1,4 +1,4 @@
-package com.dambae200.dambae200.global.config;
+package com.dambae200.dambae200.global.common.config;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;

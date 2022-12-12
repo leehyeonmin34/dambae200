@@ -2,7 +2,7 @@ package com.dambae200.dambae200.domain.cigaretteOnList.dto;
 
 import com.dambae200.dambae200.domain.cigarette.domain.Cigarette;
 import com.dambae200.dambae200.domain.cigaretteOnList.domain.CigaretteOnList;
-import com.dambae200.dambae200.global.common.BaseDto;
+import com.dambae200.dambae200.global.common.dto.BaseDto;
 import lombok.Getter;
 
 @Getter

@@ -1,6 +1,5 @@
-package com.dambae200.dambae200.global.service;
+package com.dambae200.dambae200.global.cache.service;
 
-import com.dambae200.dambae200.global.config.CacheEnv;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.redis.core.HashOperations;
 import org.springframework.data.redis.core.RedisTemplate;
