@@ -1,6 +1,6 @@
 package com.dambae200.dambae200.domain.notification.domain;
 
-import com.dambae200.dambae200.global.common.BaseEntity;
+import com.dambae200.dambae200.global.common.dto.BaseEntity;
 import lombok.*;
 
 import javax.persistence.Column;

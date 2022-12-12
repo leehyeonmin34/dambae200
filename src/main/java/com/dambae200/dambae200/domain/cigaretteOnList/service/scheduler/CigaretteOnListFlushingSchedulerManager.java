@@ -2,11 +2,9 @@ package com.dambae200.dambae200.domain.cigaretteOnList.service.scheduler;
 
 import com.dambae200.dambae200.domain.cigaretteOnList.domain.CigaretteOnList;
 import com.dambae200.dambae200.domain.cigaretteOnList.repository.CigaretteOnListRepository;
-import com.dambae200.dambae200.global.config.CacheEnv;
-import com.dambae200.dambae200.global.service.CacheModule;
-import com.dambae200.dambae200.global.service.HashCacheModule;
-import com.dambae200.dambae200.global.service.SchedulerService;
-import com.dambae200.dambae200.global.service.SetCacheModule;
+import com.dambae200.dambae200.global.cache.config.CacheEnv;
+import com.dambae200.dambae200.global.scheduler.service.SchedulerService;
+import com.dambae200.dambae200.global.cache.service.SetCacheModule;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 

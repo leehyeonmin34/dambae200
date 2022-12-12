@@ -16,8 +16,8 @@ import com.dambae200.dambae200.domain.store.exception.InvalidStoreBrandCodeExcep
 import com.dambae200.dambae200.domain.store.repository.StoreRepository;
 import com.dambae200.dambae200.domain.user.domain.User;
 import com.dambae200.dambae200.domain.user.repository.UserRepository;
-import com.dambae200.dambae200.global.common.DeleteResponse;
-import com.dambae200.dambae200.global.common.RepoUtils;
+import com.dambae200.dambae200.global.common.dto.DeleteResponse;
+import com.dambae200.dambae200.global.common.service.RepoUtils;
 import com.dambae200.dambae200.global.error.exception.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;

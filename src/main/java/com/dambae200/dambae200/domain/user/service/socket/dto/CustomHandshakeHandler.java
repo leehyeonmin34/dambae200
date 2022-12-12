@@ -1,4 +1,4 @@
-package com.dambae200.dambae200.global.common;
+package com.dambae200.dambae200.domain.user.service.socket.dto;
 
 import org.springframework.http.server.ServerHttpRequest;
 import org.springframework.web.socket.WebSocketHandler;

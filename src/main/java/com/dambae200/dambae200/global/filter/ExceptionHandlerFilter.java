@@ -6,7 +6,6 @@ import com.dambae200.dambae200.global.error.ErrorResponse;
 import com.dambae200.dambae200.global.error.exception.BusinessException;
 import com.dambae200.dambae200.global.error.exception.ErrorCode;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.core.Ordered;
 import org.springframework.core.annotation.Order;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;

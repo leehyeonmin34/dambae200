@@ -1,7 +1,10 @@
-package com.dambae200.dambae200.global.error;
+package com.dambae200.dambae200.domain.user.service.socket.exeption;
 
-import com.dambae200.dambae200.global.common.SocketRequest;
-import com.dambae200.dambae200.global.common.StandardResponse;
+import com.dambae200.dambae200.domain.user.service.socket.dto.SocketRequest;
+import com.dambae200.dambae200.global.error.ErrorResponse;
+import com.dambae200.dambae200.global.error.GlobalExceptionHandler;
+import com.dambae200.dambae200.global.error.GlobalExceptionHandlerInterface;
+import com.dambae200.dambae200.global.common.dto.StandardResponse;
 import com.dambae200.dambae200.global.error.exception.BusinessException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -31,7 +34,7 @@ public class GlobalMessageExceptionHandler implements GlobalExceptionHandlerInte
 
 //    @Override
     @MessageExceptionHandler(MethodArgumentNotValidException.class)
-    public void handleMethodArgumentNotValidException(Principal principal, @Payload SocketRequest request,MethodArgumentNotValidException e) {
+    public void handleMethodArgumentNotValidException(Principal principal, @Payload SocketRequest request, MethodArgumentNotValidException e) {
         template.convertAndSendToUser(principal.getName(), request.getResponseChannel(), handleMethodArgumentNotValidException(e).getBody());
     }
 

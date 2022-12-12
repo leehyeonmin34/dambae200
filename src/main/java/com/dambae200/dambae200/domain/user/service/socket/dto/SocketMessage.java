@@ -1,4 +1,4 @@
-package com.dambae200.dambae200.global.common;
+package com.dambae200.dambae200.domain.user.service.socket.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
