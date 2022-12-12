@@ -6,8 +6,8 @@ import com.dambae200.dambae200.domain.sessionInfo.exception.AccessedExpiredSessi
 import com.dambae200.dambae200.domain.sessionInfo.exception.SessionInfoNotExistsException;
 import com.dambae200.dambae200.domain.sessionInfo.repository.SessionInfoRepository;
 import com.dambae200.dambae200.domain.user.dto.UserGetResponse;
-import com.dambae200.dambae200.global.service.CacheModule;
-import com.dambae200.dambae200.global.config.CacheEnv;
+import com.dambae200.dambae200.global.cache.service.CacheModule;
+import com.dambae200.dambae200.global.cache.config.CacheEnv;
 import lombok.RequiredArgsConstructor;
 import org.springframework.cache.Cache;
 import org.springframework.context.annotation.Primary;

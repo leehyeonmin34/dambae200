@@ -9,8 +9,8 @@ import com.dambae200.dambae200.domain.cigarette.exception.OfficaialNameDuplicati
 import com.dambae200.dambae200.domain.cigarette.repository.CigaretteRepository;
 import com.dambae200.dambae200.domain.cigaretteOnList.domain.CigaretteOnList;
 import com.dambae200.dambae200.domain.cigaretteOnList.repository.CigaretteOnListRepository;
-import com.dambae200.dambae200.global.common.DeleteResponse;
-import com.dambae200.dambae200.global.common.RepoUtils;
+import com.dambae200.dambae200.global.common.dto.DeleteResponse;
+import com.dambae200.dambae200.global.common.service.RepoUtils;
 import com.dambae200.dambae200.global.error.exception.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;

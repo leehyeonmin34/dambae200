@@ -1,7 +1,7 @@
 package com.dambae200.dambae200.domain.user.domain;
 
 import com.dambae200.dambae200.domain.user.exception.LoginInfoNotMatched;
-import com.dambae200.dambae200.global.common.BaseEntity;
+import com.dambae200.dambae200.global.common.dto.BaseEntity;
 import lombok.*;
 
 import javax.persistence.Column;
