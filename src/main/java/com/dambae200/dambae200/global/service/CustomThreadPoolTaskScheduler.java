@@ -1,4 +1,4 @@
-package com.dambae200.dambae200.global.scheduler.service;
+package com.dambae200.dambae200.global.service;
 
 import org.springframework.scheduling.concurrent.ThreadPoolTaskScheduler;
 import org.springframework.stereotype.Component;

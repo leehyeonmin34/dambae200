@@ -2,10 +2,11 @@ package com.dambae200.dambae200.domain.access.domain;
 
 import com.dambae200.dambae200.domain.store.domain.Store;
 import com.dambae200.dambae200.domain.user.domain.User;
-import com.dambae200.dambae200.global.common.dto.BaseEntity;
+import com.dambae200.dambae200.global.common.BaseEntity;
 import lombok.*;
 
 import javax.persistence.*;
+import java.io.Serializable;
 
 @Entity
 @NoArgsConstructor(access = AccessLevel.PROTECTED)

@@ -3,8 +3,9 @@ package com.dambae200.dambae200.domain.cigaretteOnList.domain;
 
 import com.dambae200.dambae200.domain.cigarette.domain.Cigarette;
 import com.dambae200.dambae200.domain.store.domain.Store;
-import com.dambae200.dambae200.global.common.dto.BaseEntity;
+import com.dambae200.dambae200.global.common.BaseEntity;
 import lombok.*;
+import org.springframework.lang.Nullable;
 
 import javax.persistence.*;
 import java.io.Serializable;

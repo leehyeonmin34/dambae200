@@ -1,4 +1,4 @@
-package com.dambae200.dambae200.domain.user.service.socket.dto;
+package com.dambae200.dambae200.global.common;
 
 import java.security.Principal;
 

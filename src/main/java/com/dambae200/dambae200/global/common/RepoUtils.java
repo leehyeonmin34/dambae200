@@ -1,6 +1,5 @@
-package com.dambae200.dambae200.global.common.service;
+package com.dambae200.dambae200.global.common;
 
-import com.dambae200.dambae200.global.common.dto.BaseEntity;
 import com.dambae200.dambae200.global.error.exception.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.jpa.repository.JpaRepository;

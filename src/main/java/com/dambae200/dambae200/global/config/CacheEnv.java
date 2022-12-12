@@ -1,4 +1,4 @@
-package com.dambae200.dambae200.global.cache.config;
+package com.dambae200.dambae200.global.config;
 
 import com.dambae200.dambae200.domain.sessionInfo.repository.SessionInfoRepository;
 import lombok.Getter;

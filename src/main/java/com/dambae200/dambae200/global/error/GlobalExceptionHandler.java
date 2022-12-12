@@ -1,6 +1,6 @@
 package com.dambae200.dambae200.global.error;
 
-import com.dambae200.dambae200.global.common.dto.StandardResponse;
+import com.dambae200.dambae200.global.common.StandardResponse;
 import com.dambae200.dambae200.global.error.exception.BusinessException;
 import com.dambae200.dambae200.global.error.exception.ErrorCode;
 import lombok.extern.slf4j.Slf4j;

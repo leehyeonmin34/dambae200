@@ -6,8 +6,8 @@ import com.dambae200.dambae200.domain.notification.service.NotificationFindServi
 import com.dambae200.dambae200.domain.user.dto.*;
 import com.dambae200.dambae200.domain.user.service.UserFindService;
 import com.dambae200.dambae200.domain.user.service.UserUpdateService;
-import com.dambae200.dambae200.global.common.dto.DeleteResponse;
-import com.dambae200.dambae200.global.common.dto.StandardResponse;
+import com.dambae200.dambae200.global.common.DeleteResponse;
+import com.dambae200.dambae200.global.common.StandardResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

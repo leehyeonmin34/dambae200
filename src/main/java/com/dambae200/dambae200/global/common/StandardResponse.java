@@ -1,4 +1,4 @@
-package com.dambae200.dambae200.global.common.dto;
+package com.dambae200.dambae200.global.common;
 
 import com.dambae200.dambae200.global.error.ErrorResponse;
 import com.dambae200.dambae200.global.error.exception.BusinessException;

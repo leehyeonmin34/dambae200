@@ -1,4 +1,4 @@
-package com.dambae200.dambae200.global.common.service;
+package com.dambae200.dambae200.global.service;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;

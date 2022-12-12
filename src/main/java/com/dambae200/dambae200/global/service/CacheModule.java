@@ -1,10 +1,13 @@
-package com.dambae200.dambae200.global.cache.service;
+package com.dambae200.dambae200.global.service;
 
+import com.dambae200.dambae200.domain.sessionInfo.domain.SessionInfo;
+import com.dambae200.dambae200.global.config.CacheEnv;
 import lombok.RequiredArgsConstructor;
 import org.springframework.cache.Cache;
 import org.springframework.cache.CacheManager;
 import org.springframework.stereotype.Component;
 
+import java.util.List;
 import java.util.Optional;
 import java.util.function.Consumer;
 import java.util.function.Function;

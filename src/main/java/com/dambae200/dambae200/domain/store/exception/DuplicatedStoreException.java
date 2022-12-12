@@ -1,5 +1,6 @@
 package com.dambae200.dambae200.domain.store.exception;
 
+import com.dambae200.dambae200.global.error.exception.BusinessException;
 import com.dambae200.dambae200.global.error.exception.DuplicatedEntityException;
 import com.dambae200.dambae200.global.error.exception.ErrorCode;
 

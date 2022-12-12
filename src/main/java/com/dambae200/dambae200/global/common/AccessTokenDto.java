@@ -1,4 +1,4 @@
-package com.dambae200.dambae200.global.common.dto;
+package com.dambae200.dambae200.global.common;
 
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;

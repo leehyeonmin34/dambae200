@@ -1,4 +1,4 @@
-package com.dambae200.dambae200.global.scheduler.service;
+package com.dambae200.dambae200.global.service;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

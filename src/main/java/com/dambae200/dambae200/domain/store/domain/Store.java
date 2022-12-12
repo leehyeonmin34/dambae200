@@ -1,9 +1,12 @@
 package com.dambae200.dambae200.domain.store.domain;
 
-import com.dambae200.dambae200.global.common.dto.BaseEntity;
+import com.dambae200.dambae200.global.common.BaseEntity;
 import lombok.*;
+import org.springframework.web.socket.WebSocketSession;
 
 import javax.persistence.*;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @NoArgsConstructor(access = AccessLevel.PROTECTED)

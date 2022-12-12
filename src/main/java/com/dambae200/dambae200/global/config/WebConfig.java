@@ -1,4 +1,4 @@
-package com.dambae200.dambae200.global.common.config;
+package com.dambae200.dambae200.global.config;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Configuration;

@@ -9,12 +9,14 @@ import com.dambae200.dambae200.domain.user.exception.LoginInfoNotMatched;
 import com.dambae200.dambae200.domain.user.service.UserFindService;
 import com.dambae200.dambae200.domain.user.service.UserLoginService;
 import com.dambae200.dambae200.domain.user.service.UserUpdateService;
-import com.dambae200.dambae200.global.common.dto.StandardResponse;
+import com.dambae200.dambae200.global.common.StandardResponse;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 

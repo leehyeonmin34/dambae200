@@ -1,7 +1,7 @@
 package com.dambae200.dambae200.domain.user.dto;
 
 import com.dambae200.dambae200.domain.user.domain.User;
-import com.dambae200.dambae200.global.common.dto.BaseDto;
+import com.dambae200.dambae200.global.common.BaseDto;
 import lombok.Getter;
 
 @Getter

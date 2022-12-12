@@ -3,7 +3,7 @@ package com.dambae200.dambae200.domain.notification.service;
 import com.dambae200.dambae200.domain.notification.domain.Notification;
 import com.dambae200.dambae200.domain.notification.dto.NotificationGetResponse;
 import com.dambae200.dambae200.domain.notification.repository.NotificationRepository;
-import com.dambae200.dambae200.global.common.service.RepoUtils;
+import com.dambae200.dambae200.global.common.RepoUtils;
 import com.dambae200.dambae200.global.error.exception.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;

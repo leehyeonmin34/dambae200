@@ -1,5 +1,6 @@
 package com.dambae200.dambae200.domain.sessionInfo.exception;
 
+import com.dambae200.dambae200.global.error.exception.BusinessException;
 import com.dambae200.dambae200.global.error.exception.EntityNotFoundException;
 import com.dambae200.dambae200.global.error.exception.ErrorCode;
 
