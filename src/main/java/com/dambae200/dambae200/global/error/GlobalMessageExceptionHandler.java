@@ -1,8 +1,8 @@
 package com.dambae200.dambae200.global.error;
 
-import com.dambae200.dambae200.global.common.SocketRequest;
-import com.dambae200.dambae200.global.common.StandardResponse;
+import com.dambae200.dambae200.global.common.dto.StandardResponse;
 import com.dambae200.dambae200.global.error.exception.BusinessException;
+import com.dambae200.dambae200.global.socket.dto.SocketRequest;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
@@ -31,7 +31,7 @@ public class GlobalMessageExceptionHandler implements GlobalExceptionHandlerInte
 
 //    @Override
     @MessageExceptionHandler(MethodArgumentNotValidException.class)
-    public void handleMethodArgumentNotValidException(Principal principal, @Payload SocketRequest request,MethodArgumentNotValidException e) {
+    public void handleMethodArgumentNotValidException(Principal principal, @Payload SocketRequest request, MethodArgumentNotValidException e) {
         template.convertAndSendToUser(principal.getName(), request.getResponseChannel(), handleMethodArgumentNotValidException(e).getBody());
     }
 
