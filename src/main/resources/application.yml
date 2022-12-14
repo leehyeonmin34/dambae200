@@ -18,9 +18,9 @@ spring:
       ddl-auto: update
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://localhost:3306/dambae_200
-    username: connectuser
-    password: connect123!@#
+    url: jdbc:mysql://118.67.135.98:9876/dambae_200
+    username: leehyeonmin34
+    password: 2737
     initialization-mode: always
   redis:
     host: localhost

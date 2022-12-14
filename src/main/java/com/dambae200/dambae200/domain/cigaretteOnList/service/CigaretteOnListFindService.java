@@ -7,6 +7,7 @@ import com.dambae200.dambae200.global.cache.config.CacheEnv;
 import com.dambae200.dambae200.global.cache.service.HashCacheModule;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Comparator;
 import java.util.List;

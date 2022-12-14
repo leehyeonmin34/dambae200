@@ -14,8 +14,11 @@ import java.io.Serializable;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Builder
 @AllArgsConstructor
-//@ToString(callSuper = true)
-public class CigaretteOnList extends BaseEntity implements Serializable {
+//@ToString
+@ToString(callSuper = true)
+public class CigaretteOnList extends BaseEntity{
+
+    private static final long serialVersionUID = -455965069912515404L;
 
     @Id
     @GeneratedValue
@@ -26,10 +29,6 @@ public class CigaretteOnList extends BaseEntity implements Serializable {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "store_id")
     private Store store;
-
-//    @ManyToOne(fetch = FetchType.LAZY)
-//    @JoinColumn(name = "cigaretteList_id")
-//    private CigaretteList cigaretteList;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "cigarette_id")

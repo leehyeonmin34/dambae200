@@ -39,7 +39,9 @@ public class RedisConfig {
                 .disableCachingNullValues() // null value 캐시안함
                 .entryTtl(Duration.ofSeconds(CacheEnv.DEFAULT_EXPIRE_SEC)) // 캐시의 기본 유효시간 설정
                 .computePrefixWith(CacheKeyPrefix.simple()) // prefix = "CacheName:"
-                .serializeKeysWith(RedisSerializationContext.SerializationPair.fromSerializer(new StringRedisSerializer())); // redis 캐시 데이터 저장방식을 StringSeriallizer로 지정
+                .serializeKeysWith(RedisSerializationContext.SerializationPair.fromSerializer(new StringRedisSerializer()))
+//                .serializeValuesWith()
+                ; // redis 캐시 데이터 저장방식을 StringSeriallizer로 지정
 
 
         // 캐시키별 default 유효시간 설정
@@ -48,6 +50,8 @@ public class RedisConfig {
                 .entryTtl(Duration.ofSeconds(CacheEnv.SESSION_INFO_EXPIRE_SEC)));
         cacheConfigurations.put(CacheEnv.TEST, RedisCacheConfiguration.defaultCacheConfig()
                 .entryTtl(Duration.ofSeconds(CacheEnv.DEFAULT_EXPIRE_SEC)));
+        cacheConfigurations.put(CacheEnv.CIGARETTE_LIST, RedisCacheConfiguration.defaultCacheConfig()
+                .entryTtl(Duration.ofSeconds(CacheEnv.CIGARETTE_LIST_SEC)));
 
         return RedisCacheManager.RedisCacheManagerBuilder.fromConnectionFactory(connectionFactory).cacheDefaults(configuration)
                 .disableCreateOnMissingCache() // cacheManager.getCache(cacheName) 했을 때, 존재하지 않는 cacheName에 대한 Cache를 생성하지 않음
