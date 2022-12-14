@@ -1,9 +1,13 @@
 package com.dambae200.dambae200.global.socket.dto;
 
-import lombok.Getter;
-import lombok.NonNull;
+import lombok.*;
+
+import java.io.Serializable;
 
 @Getter
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
 public class SocketRequest<T> {
 
     @NonNull

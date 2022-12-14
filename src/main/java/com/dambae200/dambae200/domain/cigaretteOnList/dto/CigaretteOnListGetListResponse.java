@@ -15,7 +15,7 @@ public class CigaretteOnListGetListResponse {
 
     public CigaretteOnListGetListResponse(List<CigaretteOnList> cigaretteOnList) {
         this.cigaretteOnLists = cigaretteOnList.stream()
-                .map(item -> new CigaretteOnListGetResponse(item))
+                .map(CigaretteOnListGetResponse::new)
                 .collect(Collectors.toList());
         this.total = cigaretteOnLists.size();
     }

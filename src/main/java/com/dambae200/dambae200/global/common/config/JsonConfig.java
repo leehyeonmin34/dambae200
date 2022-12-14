@@ -13,7 +13,6 @@ public class JsonConfig {
     @Bean("objectMapper")
     public ObjectMapper objectMapper() {
         return Jackson2ObjectMapperBuilder.json()
-
                 .featuresToDisable(SerializationFeature.FAIL_ON_EMPTY_BEANS)
                 .featuresToDisable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS)
                 .modules(new JavaTimeModule())

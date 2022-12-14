@@ -16,6 +16,7 @@ import com.dambae200.dambae200.global.cache.service.CacheModule;
 import com.dambae200.dambae200.global.cache.service.HashCacheModule;
 import com.dambae200.dambae200.global.cache.service.SetCacheModule;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -25,6 +26,7 @@ import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
+@Slf4j
 public class CigaretteOnListUpdateService {
 
     private final CigaretteOnListRepository cigaretteOnListRepository;
@@ -43,17 +45,16 @@ public class CigaretteOnListUpdateService {
         CigaretteOnList cigaretteOnList = hashCacheModule.getCacheOrLoad(CacheEnv.CIGARETTE_LIST, storeId, id
                 , (_id) -> cigaretteOnListRepository.findById(_id).orElseThrow(EntityNotFoundException::new));
 
+        log.info(cigaretteOnList.toString());
+
         // 처리
         cigaretteOnList.changeCount(count);
 
-        // 목록 캐시에 저장
-        hashCacheModule.put(CacheEnv.CIGARETTE_LIST, storeId, id, cigaretteOnList);
-        // dirty entity 캐시에 추가
-        setCacheModule.put(CacheEnv.CIGARETTE_DIRTY, storeId, cigaretteOnList);
-        // dirty 캐시를 주기적으로 flush 해주는 타이머 ON
-        cigaretteOnListStopFlushingSchedulerManager.startIfNotStarted(storeId);
+        // 캐시, DB에 저장
+        hashCacheModule.writeThrough(CacheEnv.CIGARETTE_LIST, storeId, id, cigaretteOnList, cigaretteOnListRepository::save);
+//        cigaretteOnListRepository.save(cigaretteOnList);
+//        hashCacheModule.put(CacheEnv.CIGARETTE_LIST, storeId, id, cigaretteOnList);
 
-        // 리턴
         return new CigaretteOnListGetResponse(cigaretteOnList);
     }
 
