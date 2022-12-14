@@ -4,6 +4,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.redis.core.HashOperations;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Map;
@@ -28,13 +29,10 @@ public class HashCacheModule {
     //    cacheName, key에 해당하는 캐시들을 먼저 조회한 뒤, 캐시에 없으면 다른 저장소 조회(loadFunction 수행)
     public <K, HK, V> V getCacheOrLoad(String cacheName, K key, HK hashKey, Function<HK, V> dbLoadFunction) {
 
-        // 캐시 값 가져오기
-
-
         // 캐시가 있다면 바로 리턴
         if (ops.hasKey(getCacheKey(cacheName, key), hashKey)) {
             V cached = get(cacheName, key, hashKey);
-            log.info("캐시 사용" + cached);
+            log.info(String.format("캐시 사용 - cachaName: %s, key: %s, hashKey: %s", cacheName, key.toString(), hashKey.toString()));
             return cached;
         }
 
@@ -49,12 +47,13 @@ public class HashCacheModule {
 
         // 캐시에 값 있을 때 바로 리턴
         if (!cached.isEmpty()) {
-            log.info("캐시 사용" + cached);
+            log.info(String.format("캐시 사용 - cachaName: %s, key: %s", cacheName, key.toString()));
             return cached;
         }
 
         // 캐시에 값 없을 땐 다른 저장소 조회, 캐시에 저장
         List<V> loaded = dbLoadFunction.apply(key);
+        log.info("DB에서 불러옴" + loaded);
         putAll(cacheName, key, loaded, keyExtractor);
 
         // map으로 변환 후 리턴
@@ -75,6 +74,7 @@ public class HashCacheModule {
     // 캐시, DB에 모두 저장
     public <K, HK, V> V writeThrough(String cacheName, K key, HK hashKey, V value, UnaryOperator<V> dbWriteFunction){
         V saved = dbWriteFunction.apply(value);
+
         put(cacheName, key, hashKey, saved);
         return saved;
     }
@@ -100,13 +100,8 @@ public class HashCacheModule {
 
     public <K, HK, V> void put(String cacheName, K key, HK hashKey, V value){
         String cacheKey = getCacheKey(cacheName, key);
+        log.info("캐시 저장" + value.toString());
         ops.put(cacheKey, hashKey, value);
-    }
-
-    public <K, HK, V> void replaceAll(String cacheName, K key, Map<HK, V> values){
-        evictAll(cacheName, key);
-        String cacheKey = getCacheKey(cacheName, key);
-        ops.putAll(cacheKey, values);
     }
 
     public <K, HK, V> void putAll(String cacheName, K key, List<V> values, Function<V, HK> keyExtractor){
