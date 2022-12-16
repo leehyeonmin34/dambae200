@@ -24,7 +24,8 @@ public class LoginCheckFilter implements Filter {
             "/api/favicon.ico", "/swagger-ui", "/swagger-ui/*",
             "/api/login", "/api/logout", "/api/forgot_pw", "/api/users",
             "/api/users/exists_by_email","/api/users/exists_by_nickname",
-            "/stomp/store/*"
+            "/stomp/store/*",
+            "/api/cigarettes/multiple"
     };
 
 

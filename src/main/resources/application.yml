@@ -18,9 +18,12 @@ spring:
       ddl-auto: update
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://118.67.135.98:9876/dambae_200
-    username: leehyeonmin34
-    password: 2737
+#    url: jdbc:mysql://118.67.135.98:9876/dambae_200
+    url: jdbc:mysql://localhost:3306/dambae_200 # mysql에서 database 생성 필요합니다.
+#    username: leehyeonmin34 # mysql에서 유저 생성 필요합니다
+    username: connectuser # mysql에서 유저 생성 필요합니다
+#    password: 2737 # mysql에서 비밀번호 설정 필요합니다.
+    password: connect123!@# # mysql에서 비밀번호 설정 필요합니다.
     initialization-mode: always
   redis:
     host: localhost
