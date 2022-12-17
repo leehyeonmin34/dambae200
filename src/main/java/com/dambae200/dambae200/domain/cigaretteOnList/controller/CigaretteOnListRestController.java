@@ -19,20 +19,20 @@ public class CigaretteOnListRestController {
     final AccessService accessService;
 
     //리스트에 있는 담배 보여주기(진열순서)
-    @GetMapping("/{id}/display_order")
-    public ResponseEntity<StandardResponse<CigaretteOnListGetListResponse>> findAllByStoreIdOrderByDisplay(@PathVariable String id, @RequestParam String requestUserId) {
-        accessService.checkAccess(Long.valueOf(requestUserId), Long.valueOf(id));
-        CigaretteOnListGetListResponse response = cigaretteOnListFindService.findAllByStoreIdOrderByDisplay(Long.valueOf(id), Long.valueOf(requestUserId));
+    @GetMapping("/display_order")
+    public ResponseEntity<StandardResponse<CigaretteOnListGetListResponse>> findAllByStoreIdOrderByDisplay(@RequestParam String storeId, @RequestParam String requestUserId) {
+        accessService.checkAccess(Long.valueOf(requestUserId), Long.valueOf(storeId));
+        CigaretteOnListGetListResponse response = cigaretteOnListFindService.findAllByStoreIdOrderByDisplay(Long.valueOf(storeId), Long.valueOf(requestUserId));
         return StandardResponse.ofOk(response);
     }
 
-    //리스트에 있는 담배 보여주기(전산순서)
-    @GetMapping("/{id}/computerized_order")
-    public ResponseEntity<StandardResponse<CigaretteOnListGetListResponse>> findAllByStoreIdOrderByComputerized(@PathVariable String id, @RequestParam String requestUserId) {
-        accessService.checkAccess(Long.valueOf(requestUserId), Long.valueOf(id));
-        CigaretteOnListGetListResponse response = cigaretteOnListFindService.findAllByStoreIdOrderByComputerized(Long.valueOf(id), Long.valueOf(requestUserId));
-        return StandardResponse.ofOk(response);
-    }
+//    //리스트에 있는 담배 보여주기(전산순서)
+//    @GetMapping("/{id}/computerized_order")
+//    public ResponseEntity<StandardResponse<CigaretteOnListGetListResponse>> findAllByStoreIdOrderByComputerized(@PathVariable String id, @RequestParam String requestUserId) {
+//        accessService.checkAccess(Long.valueOf(requestUserId), Long.valueOf(id));
+//        CigaretteOnListGetListResponse response = cigaretteOnListFindService.findAllByStoreIdOrderByComputerized(Long.valueOf(id), Long.valueOf(requestUserId));
+//        return StandardResponse.ofOk(response);
+//    }
 
 //    @PutMapping("/{id}/draganddrop_display")
 //    public ResponseEntity<CigaretteOnListGetListResponse> dragAndDropDisplayOrder(@PathVariable String id, @RequestBody @Valid CigaretteOnListDto.DragAndDropRequest request){
