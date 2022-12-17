@@ -14,9 +14,8 @@ public class StompWebSocketConfig implements WebSocketMessageBrokerConfigurer {
     @Override
     public void registerStompEndpoints(StompEndpointRegistry registry) {
         registry
-//                .setErrorHandler(new CustomStompErrorHandler())
                 .addEndpoint("/stomp/store")
-                .setAllowedOriginPatterns("http://*:5500", "http://*.*.*.*:5500")
+                .setAllowedOriginPatterns("http://*:80", "http://*.*.*.*:80")
                 .setHandshakeHandler(new CustomHandshakeHandler())
                 .withSockJS();
     }
