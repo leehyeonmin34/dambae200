@@ -25,7 +25,4 @@ public class UserLoginServiceImpl implements UserLoginService{
         user.authenticate(pw);
         return new UserGetResponse(user);
     }
-
-
-
 }

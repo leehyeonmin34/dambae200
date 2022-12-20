@@ -6,8 +6,14 @@ import lombok.Getter;
 import java.util.List;
 
 @Getter
-@Builder
+
 public class AccessGetStoreListResponse {
     private List<AccessGetStoreResponse> accesses;
     private int total;
+
+    public AccessGetStoreListResponse(List<AccessGetStoreResponse> list){
+        this.accesses = list;
+        this.total = list.size();
+    }
+
 }

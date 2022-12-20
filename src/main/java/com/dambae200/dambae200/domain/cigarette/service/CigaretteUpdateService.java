@@ -9,6 +9,10 @@ import com.dambae200.dambae200.domain.cigarette.exception.OfficaialNameDuplicati
 import com.dambae200.dambae200.domain.cigarette.repository.CigaretteRepository;
 import com.dambae200.dambae200.domain.cigaretteOnList.domain.CigaretteOnList;
 import com.dambae200.dambae200.domain.cigaretteOnList.repository.CigaretteOnListRepository;
+import com.dambae200.dambae200.global.cache.config.CacheEnv;
+import com.dambae200.dambae200.global.cache.service.CacheModule;
+import com.dambae200.dambae200.global.cache.service.CacheableRepository;
+import com.dambae200.dambae200.global.cache.service.HashCacheModule;
 import com.dambae200.dambae200.global.common.dto.DeleteResponse;
 import com.dambae200.dambae200.global.common.service.RepoUtils;
 import com.dambae200.dambae200.global.error.exception.EntityNotFoundException;
@@ -16,7 +20,10 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -24,6 +31,9 @@ public class CigaretteUpdateService {
 
     private final CigaretteRepository cigaretteRepository;
     private final CigaretteOnListRepository cigaretteOnListRepository;
+    private final CacheableRepository<Long, Cigarette, CigaretteRepository> cigaretteCacheableRepository;
+    private final HashCacheModule hashCacheModule;
+//    private final CacheableRepository<Long, CigaretteOnList, CigaretteOnListRepository> cigaretteOnListCacheableRepository;
     private final RepoUtils repoUtils;
 
     public CigaretteGetResponse addCigarette(CigaretteAddRequest request){
@@ -39,8 +49,9 @@ public class CigaretteUpdateService {
                 .id(request.getId())
                 .build();
 
-        Cigarette savedCigarette = cigaretteRepository.save(cigarette);
-        return new CigaretteGetResponse(savedCigarette);
+        cigaretteCacheableRepository.evict(0L); // 목록 evict
+        Cigarette saved = cigaretteRepository.save(cigarette);
+        return new CigaretteGetResponse(saved);
     }
 
     public CigaretteGetListResponse addAllCigarette(List<CigaretteAddRequest> request){
@@ -61,32 +72,47 @@ public class CigaretteUpdateService {
             cigarettes.add(cigarette);
         }
 
-
-        List<Cigarette> savedCigarettes = cigaretteRepository.saveAll(cigarettes);
-        return new CigaretteGetListResponse(savedCigarettes);
+        cigaretteCacheableRepository.evict(0L); // 목록 evict
+        List<Cigarette> saved = cigaretteRepository.saveAll(cigarettes);
+        return new CigaretteGetListResponse(saved);
     }
 
     public CigaretteGetResponse updateCigarette(Long id, CigaretteUpdateRequest request){
 
         checkDuplicate(request.getOfficial_name());
 
-        Cigarette cigarette = repoUtils.getOneElseThrowException(cigaretteRepository, id);
+        Cigarette cigarette = cigaretteCacheableRepository.getCacheOrLoad(id);
         cigarette.updateCigarette(request.getOfficial_name(), request.getCustomized_name());
 
-        return new CigaretteGetResponse(cigarette);
+        cigaretteCacheableRepository.evict(0L); // 목록 evict
+        Cigarette saved = cigaretteRepository.save(cigarette);
+
+        return new CigaretteGetResponse(saved);
     }
 
     public DeleteResponse deleteCigarette(Long id) throws EntityNotFoundException {
-        Cigarette cigarette = repoUtils.getOneElseThrowException(cigaretteRepository, id);
+        Cigarette cigarette = cigaretteCacheableRepository.getCacheOrLoad(id);;
 
-        List<CigaretteOnList> cigaretteOnLists = cigaretteOnListRepository.findAllByCigaretteId(id);
-        cigaretteOnListRepository.deleteAll(cigaretteOnLists);
+        // 연관된 엔티티 제거
+        Set<Long> relatedStoreIdSet = new HashSet<>();
+        Set<Long> cigaretteOnListIdSet = new HashSet<>();
 
+        cigaretteOnListRepository.findAllByCigaretteId(id)
+                .forEach(item -> {
+                    relatedStoreIdSet.add(item.getStore().getId());
+                    cigaretteOnListIdSet.add(item.getId());
+                });
+        cigaretteOnListRepository.deleteAllById(cigaretteOnListIdSet);
 
+        // 관련 캐시 제거
+        relatedStoreIdSet.forEach(storeId
+                -> hashCacheModule.evictAll(CacheEnv.CIGARETTE_LIST, storeId));
+
+        // 목표 엔티티 제거
+        cigaretteCacheableRepository.evict(0L); // 목록 evict
         cigaretteRepository.delete(cigarette);
         return new DeleteResponse("cigarette", id);
     }
-
 
     private void checkDuplicate(String name) {
         if (cigaretteRepository.existsByOfficialName(name)) {

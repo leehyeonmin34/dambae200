@@ -18,13 +18,12 @@ public class User extends BaseEntity {
     @Column(name = "email", nullable = false, updatable = false, unique = true)
     private String email;
 
-    @Column(name = "pw", nullable = false)
+    @Column(name = "pw", nullable = false, updatable = true, unique = false)
     private String pw;
 
-    @Column(name = "nickname", nullable = false, unique = true)
+    @Column(name = "nickname", nullable = false, updatable = true, unique = true)
     private String nickname;
 
-    @Builder
     public User(String email, String pw, String nickname){
         this.email = email;
         this.pw = pw;

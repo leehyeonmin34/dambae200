@@ -35,7 +35,7 @@ public enum ErrorCode {
     CANNOT_FIND_ACCESS_NOTIFCATION_TYPE(HttpStatus.INTERNAL_SERVER_ERROR.value(), "A002", "Cannot Find Access Notification Type"),
     CANNOT_FIND_ACCESS_SITUATION_TYPE(HttpStatus.INTERNAL_SERVER_ERROR.value(), "A003", "Cannot Find Access Situation Type"),
     DUPLICATED_ACCESS_APPLY(HttpStatus.BAD_REQUEST.value(), "A004", "Duplicate Access Registered"),
-    ACCESS_NOT_ALLOWED(HttpStatus.BAD_REQUEST.value(), "A005", "Access is not allowed to the store"),
+    ACCESS_NOT_ALLOWED(HttpStatus.UNAUTHORIZED.value(), "A005", "Access is not allowed to the store"),
 
     // Cigarette
     OFFICIAL_DUPLICATION(HttpStatus.INTERNAL_SERVER_ERROR.value(), "CG001", "Duplicated Official Cigarette Name. Try other name"),

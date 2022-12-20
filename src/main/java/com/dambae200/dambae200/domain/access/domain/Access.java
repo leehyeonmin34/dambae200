@@ -13,18 +13,19 @@ import javax.persistence.*;
 @Getter
 @Table(name = "access")
 public class Access extends BaseEntity {
+    @Column(name = "access_type", nullable = false, updatable = true)
     @Convert(converter = AccessTypeConverter.class)
     private AccessType accessType;
 
     @ManyToOne
-    @JoinColumn(name = "store_id", nullable = false)
+    @JoinColumn(name = "store_id", nullable = false, updatable = false)
     private Store store;
 
     @ManyToOne
-    @JoinColumn(name = "user_id", nullable = false)
+    @JoinColumn(name = "user_id", nullable = false, updatable = false)
     private User user;
 
-    @Builder
+
     public Access(AccessType accessType, Store store, User user){
         this.accessType = accessType;
         this.store = store;

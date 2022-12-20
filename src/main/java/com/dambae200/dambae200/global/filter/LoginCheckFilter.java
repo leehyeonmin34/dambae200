@@ -11,6 +11,7 @@ import org.springframework.util.PatternMatchUtils;
 import javax.servlet.*;
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
+import java.nio.file.AccessDeniedException;
 
 @Slf4j
 @Order(2)
@@ -35,7 +36,6 @@ public class LoginCheckFilter implements Filter {
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
         HttpServletRequest httpRequest = (HttpServletRequest) request;
         String requestURI = httpRequest.getRequestURI();
-
         try {
             // 인증 체크가 필요한 URL이라면 인증 체크함
             if (isLoginCheckPath(requestURI)) {

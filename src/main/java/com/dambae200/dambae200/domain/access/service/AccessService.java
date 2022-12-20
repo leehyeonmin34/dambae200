@@ -11,6 +11,7 @@ import com.dambae200.dambae200.domain.store.domain.Store;
 import com.dambae200.dambae200.domain.store.repository.StoreRepository;
 import com.dambae200.dambae200.domain.user.domain.User;
 import com.dambae200.dambae200.domain.user.repository.UserRepository;
+import com.dambae200.dambae200.global.cache.service.CacheModule;
 import com.dambae200.dambae200.global.common.dto.DeleteResponse;
 import com.dambae200.dambae200.global.common.service.RepoUtils;
 import lombok.RequiredArgsConstructor;
@@ -32,13 +33,13 @@ public class AccessService {
     final UserRepository userRepository;
     final AccessNotificationGeneratorAndSender accessNotificationGeneratorAndSender;
     final EntityManager em;
+    final CacheModule cacheModule;
 
     @Transactional
     public AccessGetUserListResponse findAllByStoreId(Long storeId){
         List<Access> accessList = accessRepository.findAllByStoreId(storeId);
         return new AccessGetUserListResponse(accessList);
     }
-
 
     @Transactional
     public AccessGetStoreListResponse findAllByUserId(Long userId){
@@ -48,14 +49,9 @@ public class AccessService {
             return new AccessGetStoreResponse(access, applicatorExists);
         }).collect(Collectors.toList());
 
-        final AccessGetStoreListResponse response = AccessGetStoreListResponse.builder()
-                .accesses(accessList)
-                .total(accessList.size())
-                .build();
-
+        final AccessGetStoreListResponse response = new AccessGetStoreListResponse(accessList);
         return response;
     }
-
 
     // 내가 관리자인(ADMIN access) Store라면, 지원자(WAITING access)가 있는지 여부 리턴
     private boolean applicatorExists(Access access){
@@ -76,11 +72,7 @@ public class AccessService {
         User user = repoUtils.getOneElseThrowException(userRepository, request.getUserId());
 
         // 액세스 생성 및 WAITING 상태 설정
-        Access access = Access.builder()
-                .store(store)
-                .user(user)
-                .accessType(AccessType.WAITING)
-                .build();
+        Access access = new Access(AccessType.WAITING, store, user);
         Access saved = accessRepository.save(access);
 
         // 관련 알림 생성 및 전송
@@ -133,6 +125,9 @@ public class AccessService {
     @Transactional
     public void checkAccess(Long userId, Long storeId){
 
+        if(userId == null || storeId == null)
+            throw new AccessNotAllowedException(userId, storeId, AccessType.ACCESSIBLE);
+
         // 해당 entity 찾기. 없으면 권한이 없으므로 접근 불가
         Access access = accessRepository.findByUserIdAndStoreId(userId, storeId)
                 .orElseThrow(() ->  new AccessNotAllowedException(userId, storeId, AccessType.ACCESSIBLE));
@@ -147,6 +142,9 @@ public class AccessService {
 
     @Transactional
     public void checkAdminAccess(Long userId, Long storeId){
+
+        if(userId == null || storeId == null)
+            throw new AccessNotAllowedException(userId, storeId, AccessType.ACCESSIBLE);
 
         // 해당 entity 찾기. 없으면 권한이 없으므로 접근 불가
         Access access = accessRepository.findByUserIdAndStoreId(userId, storeId)

@@ -33,7 +33,6 @@ public class AccessNotificationGenerator {
         String storeName = access.getStore().getFullname();
         Long userId = access.getUser().getId();
         String userNickname = access.getUser().getNickname();
-        // TODO admin ID를 이렇게 구하는 게 맞을까?
         Long adminId = accessRepository.findAllByStoreId(access.getStore().getId())
                 .stream().filter(item -> item.getAccessType().equals(AccessType.ADMIN))
                 .findAny().get().getUser().getId();
@@ -43,11 +42,7 @@ public class AccessNotificationGenerator {
             Long receiverId = item.getToAdmin() ? adminId : userId;
             String title = item.getTitleFrom(storeName, userNickname);
             String content = item.getContentFrom(storeName, userNickname);
-            Notification notification = Notification.builder()
-                    .title(title)
-                    .content(content)
-                    .userId(receiverId)
-                    .build();
+            Notification notification = new Notification(receiverId, title, content);
             return notification;
         }).collect(Collectors.toList());
 

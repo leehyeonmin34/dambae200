@@ -20,18 +20,18 @@ import java.time.LocalDateTime;
 public class SessionInfo implements Serializable {
 
     @Id
-    @Column(name = "access_token", unique = true, nullable = false, updatable = false)
+    @Column(name = "access_token", nullable = false, updatable = false, unique = true)
     private String accessToken;
 
-    @Column(name = "user_id", nullable = false, updatable = false)
+    @Column(name = "user_id", nullable = false, updatable = false, unique = true)
     @Getter
     private Long userId;
 
-    @Column(name = "user_agent")
+    @Column(name = "user_agent", nullable = true, updatable = true, unique = false)
     @Getter
     private String userAgent;
 
-    @Column(name = "expiration_time")
+    @Column(name = "expiration_time", nullable = true, updatable = true, unique = false)
     @Getter
     private LocalDateTime expirationTime;
 
@@ -51,7 +51,6 @@ public class SessionInfo implements Serializable {
             this.userAgent = userAgent;
             return this;
         }
-
 
         public Builder expirationTime(LocalDateTime expirationTime){
             this.expirationTime = expirationTime;

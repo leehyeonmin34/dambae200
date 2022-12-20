@@ -14,7 +14,6 @@ public class StoreFindService {
 
     final StoreRepository storeRepository;
 
-    // TODO 테스트 필요
     public StoreGetListResponse findByNameLike(String name){
         List<Store> stores = storeRepository.findByNameLike("%"+ name+ "%");
         return new StoreGetListResponse(stores);

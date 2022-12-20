@@ -31,7 +31,6 @@ public class UserLoginRestController {
     final UserFindService userFindService;
     final UserUpdateService userUpdateService;
     final SessionService sessionService;
-//    final RedisTemplate<String, Object> redisTemplate;
 
     @PostMapping("/login")
     @ApiOperation(value = "아이디와 비밀번호를 받아 로그인하고, Access Token을 응답받는다")
@@ -61,7 +60,6 @@ public class UserLoginRestController {
     public ResponseEntity<StandardResponse<String>> forgotPw(@RequestParam String email){
         userUpdateService.sendNewPwAndChangePw(email);
         return StandardResponse.ofOk("이메일을 전송했습니다.");
-
     }
 
 

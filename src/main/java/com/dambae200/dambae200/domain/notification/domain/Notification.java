@@ -14,18 +14,19 @@ import javax.persistence.Table;
 @Getter
 @Table(name = "notification")
 public class Notification extends BaseEntity {
+
+    @Column(name = "is_read", nullable = false, updatable = true, unique = false)
     private Boolean isRead = false;
 
-    @JoinColumn(name = "userId", nullable = false)
+    @JoinColumn(name = "userId", nullable = false, updatable = false, unique = false)
     private Long userId;
 
-    @Column(name = "title", nullable = false)
+    @Column(name = "title", nullable = false, updatable = false, unique = false)
     private String title;
 
-    @Column(name = "content", nullable = false)
+    @Column(name = "content", nullable = false, updatable = false, unique = false)
     private String content;
 
-    @Builder
     public Notification(Long userId, String title, String content){
         this.userId = userId;
         this.title = title;

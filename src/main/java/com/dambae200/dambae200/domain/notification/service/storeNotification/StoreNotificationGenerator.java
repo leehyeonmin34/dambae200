@@ -28,12 +28,7 @@ public class StoreNotificationGenerator {
         // 해당 사용자들에게 전달할 알림 생성
         String title = type.getTitleFrom(store.getName());
         String content = type.getTitleFrom(store.getName(), oldName);
-        return recieverIdList.stream().map(id ->
-                Notification.builder()
-                    .content(content)
-                    .title(title)
-                    .userId(id)
-                    .build()
+        return recieverIdList.stream().map(id -> new Notification(id, title, content)
         ).collect(Collectors.toList());
     }
 

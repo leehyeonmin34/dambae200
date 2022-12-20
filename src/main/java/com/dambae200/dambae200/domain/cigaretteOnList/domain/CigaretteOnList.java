@@ -22,38 +22,32 @@ public class CigaretteOnList extends BaseEntity{
 
     @Id
     @GeneratedValue
-    @Column(name = "cigaretteOnList_id")
+    @Column(name = "cigarette_on_list_id")
     private Long id;
 
-
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "store_id")
+    @ManyToOne
+    @JoinColumn(name = "store_id", nullable = false, updatable = false, unique = false)
     private Store store;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "cigarette_id")
+    @ManyToOne
+    @JoinColumn(name = "cigarette_id", nullable = true, updatable = true, unique = false)
     private Cigarette cigarette;
 
-    @Column(name = "count", nullable = true, updatable = true)
+    @Column(name = "count", nullable = true, updatable = true, unique = false)
     private int count;
 
+    @Column(name = "display_order", nullable = true, updatable = true, unique = false)
     private int displayOrder;
 
+    @Column(name = "computerized_order", nullable = true, updatable = true, unique = false)
     private int computerizedOrder;
 
+    @Column(name = "customized_name", nullable = true, updatable = true, unique = false)
     private String customizedName;
 
-
-//    public void changeCigaretteList(CigaretteList cigaretteList) {
-//        if (this.cigaretteList != null) {
-//            this.cigaretteList.getCigaretteOnLists().remove(this);
-//        }
-//        this.cigaretteList = cigaretteList;
-//    }
     public void changeStore(Store store) {
         this.store = store;
     }
-
 
     private void changeCigarette(Cigarette cigarette) {
         this.cigarette = cigarette;
@@ -77,15 +71,11 @@ public class CigaretteOnList extends BaseEntity{
         this.customizedName = name;
     }
 
-    //생성 메서드
-    public static CigaretteOnList createCigaretteOnList(Store store, Cigarette cigarette, String customizedName) {
-        CigaretteOnList cigaretteOnList = new CigaretteOnList();
-        cigaretteOnList.changeStore(store);
-        cigaretteOnList.changeCigarette(cigarette);
-        //cigaretteOnList.cigarette.updateCigaretteSimpleName(simpleName);
-        cigaretteOnList.customizedName = customizedName;
-        cigaretteOnList.changeCount(-1); // 빈 값은 -1로 표현.
-
-        return cigaretteOnList;
+    //생성자
+    public CigaretteOnList(Store store, Cigarette cigarette, String customizedName) {
+        this.store = store;
+        this.cigarette = cigarette;
+        this.customizedName = customizedName;
+        this.count = -1; // 빈 값은 -1로 표현
     }
 }

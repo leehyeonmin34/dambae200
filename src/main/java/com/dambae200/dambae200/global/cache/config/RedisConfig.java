@@ -12,6 +12,8 @@ import org.springframework.data.redis.connection.RedisConnectionFactory;
 import org.springframework.data.redis.connection.lettuce.LettuceConnectionFactory;
 import org.springframework.data.redis.serializer.RedisSerializationContext;
 import org.springframework.data.redis.serializer.StringRedisSerializer;
+import org.springframework.orm.jpa.JpaTransactionManager;
+import org.springframework.transaction.PlatformTransactionManager;
 
 import java.time.Duration;
 import java.util.HashMap;
@@ -50,11 +52,30 @@ public class RedisConfig {
                 .entryTtl(Duration.ofSeconds(CacheEnv.SESSION_INFO_EXPIRE_SEC)));
         cacheConfigurations.put(CacheEnv.TEST, RedisCacheConfiguration.defaultCacheConfig()
                 .entryTtl(Duration.ofSeconds(CacheEnv.DEFAULT_EXPIRE_SEC)));
+        cacheConfigurations.put(CacheEnv.STORE, RedisCacheConfiguration.defaultCacheConfig()
+                .entryTtl(Duration.ofSeconds(CacheEnv.STORE_SEC)));
+        cacheConfigurations.put(CacheEnv.ACCESS, RedisCacheConfiguration.defaultCacheConfig()
+                .entryTtl(Duration.ofSeconds(CacheEnv.ACCESS_SEC)));
+        cacheConfigurations.put(CacheEnv.NOTIFICATION, RedisCacheConfiguration.defaultCacheConfig()
+                .entryTtl(Duration.ofSeconds(CacheEnv.NOTIFICATION_SEC)));
+        cacheConfigurations.put(CacheEnv.USER, RedisCacheConfiguration.defaultCacheConfig()
+                .entryTtl(Duration.ofSeconds(CacheEnv.USER_SEC)));
+        cacheConfigurations.put(CacheEnv.CIGARETTE, RedisCacheConfiguration.defaultCacheConfig()
+                .entryTtl(Duration.ofSeconds(CacheEnv.CIGARETTE_SEC)));
         cacheConfigurations.put(CacheEnv.CIGARETTE_LIST, RedisCacheConfiguration.defaultCacheConfig()
                 .entryTtl(Duration.ofSeconds(CacheEnv.CIGARETTE_LIST_SEC)));
+        cacheConfigurations.put(CacheEnv.CIGARETTE_DIRTY, RedisCacheConfiguration.defaultCacheConfig()
+                .entryTtl(Duration.ofSeconds(CacheEnv.CIGARETTE_DIRTY_SEC)));
+
 
         return RedisCacheManager.RedisCacheManagerBuilder.fromConnectionFactory(connectionFactory).cacheDefaults(configuration)
                 .disableCreateOnMissingCache() // cacheManager.getCache(cacheName) 했을 때, 존재하지 않는 cacheName에 대한 Cache를 생성하지 않음
-                .withInitialCacheConfigurations(cacheConfigurations).build();
+                .withInitialCacheConfigurations(cacheConfigurations)
+                .build();
+    }
+
+    @Bean
+    public PlatformTransactionManager transactionManager() {
+        return new JpaTransactionManager();
     }
 }

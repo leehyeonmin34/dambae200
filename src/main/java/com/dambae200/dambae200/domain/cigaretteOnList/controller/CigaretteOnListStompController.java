@@ -28,8 +28,6 @@ public class CigaretteOnListStompController {
 
     @MessageMapping("/store/cigar_num") // -> pub/store/cigar_num
     public void cigarNum(@Payload SocketRequest<CigaretteOnListUpdateCountRequest> request){
-        accessService.checkAccess(request.getRequestUserId(), request.getContent().getStoreId());
-
         CigaretteOnListUpdateCountRequest messageContent = request.getContent();
         String destination = "/sub/store/" + messageContent.getStoreId() + "/cigar_num";
 
@@ -40,8 +38,6 @@ public class CigaretteOnListStompController {
 
     @MessageMapping("/store/add_cigar")
     public void addCigaretteOnListById(Principal principal, @Payload @Valid SocketRequest<CigaretteOnListAddRequest> request) {
-        accessService.checkAccess(request.getRequestUserId(), request.getContent().getStoreId());
-
         String destination = "/sub/store/" + request.getContent().getStoreId() + "/add_cigar";
         CigaretteOnListGetResponse response = cigaretteOnListUpdateService.addCigaretteOnListById(request.getContent());
         StandardResponse<SocketMessage<CigaretteOnListGetResponse>> message = StandardResponse.ok(new SocketMessage<>(request.getRequestUserId(), response));
@@ -50,8 +46,6 @@ public class CigaretteOnListStompController {
 
     @MessageMapping("/store/initialize_count")
     public void initializeCigaretteCount(@Payload SocketRequest<CigaretteOnListInitializeCountRequest> request) {
-        accessService.checkAccess(request.getRequestUserId(), request.getContent().getStoreId());
-
         CigaretteOnListInitializeCountRequest requestContent = request.getContent();
         CigaretteOnListGetListResponse response = cigaretteOnListUpdateService.initializeCigaretteCount(requestContent.getStoreId());
 
@@ -62,10 +56,8 @@ public class CigaretteOnListStompController {
 
     @MessageMapping("/store/delete_cigar")
     public void deleteCigaretteOnList(@Payload SocketRequest<CigaretteOnListDeleteRequest> request) {
-        accessService.checkAccess(request.getRequestUserId(), request.getContent().getStoreId());
-
         CigaretteOnListDeleteRequest requestContent = request.getContent();
-        DeleteResponse response = cigaretteOnListUpdateService.deleteCigaretteOnList(requestContent.getId());
+        DeleteResponse response = cigaretteOnListUpdateService.deleteCigaretteOnList(requestContent.getStoreId(), requestContent.getId());
 
         String destination = "/sub/store/" + requestContent.getStoreId() + "/delete_cigar";
         StandardResponse<SocketMessage<DeleteResponse>> message = StandardResponse.ok(new SocketMessage<>(request.getRequestUserId(), response));
@@ -74,10 +66,8 @@ public class CigaretteOnListStompController {
 
     @MessageMapping("/store/modify_cigar")
     public void modifyCigaretteOnList(@Payload SocketRequest<CigaretteOnListModifyRequest> request) {
-        accessService.checkAccess(request.getRequestUserId(), request.getContent().getStoreId());
-
         CigaretteOnListModifyRequest requestContent = request.getContent();
-        CigaretteOnListGetResponse response = cigaretteOnListUpdateService.modifyCustomizeName(requestContent.getId(), requestContent.getCustomizedName());
+        CigaretteOnListGetResponse response = cigaretteOnListUpdateService.modifyCustomizeName(requestContent.getStoreId(), requestContent.getId(), requestContent.getCustomizedName());
 
         String destination = "/sub/store/" + requestContent.getStoreId() + "/modify_cigar";
         StandardResponse<SocketMessage<CigaretteOnListGetResponse>> message = StandardResponse.ok(new SocketMessage<>(request.getRequestUserId(), response));
@@ -86,8 +76,6 @@ public class CigaretteOnListStompController {
 
     @MessageMapping("/store/reorder")
     public void reorder(@Payload SocketRequest<CigaretteOnListReorderRequest> request) {
-        accessService.checkAccess(request.getRequestUserId(), request.getContent().getStoreId());
-
         CigaretteOnListReorderRequest requestContent = request.getContent();
         CigaretteOnListReorderResponse response = cigaretteOnListUpdateService.reOrderAll(requestContent);
 
@@ -95,7 +83,5 @@ public class CigaretteOnListStompController {
         StandardResponse<SocketMessage<CigaretteOnListReorderResponse>> message = StandardResponse.ok(new SocketMessage<>(request.getRequestUserId(), response));
         template.convertAndSend(destination, message);
     }
-
-
 
 }

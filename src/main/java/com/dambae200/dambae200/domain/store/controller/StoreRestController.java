@@ -1,7 +1,7 @@
 package com.dambae200.dambae200.domain.store.controller;
 
 import com.dambae200.dambae200.domain.access.service.AccessService;
-import com.dambae200.dambae200.domain.store.dto.StoreAddRequest;
+import com.dambae200.dambae200.domain.store.dto.StoreCreateRequest;
 import com.dambae200.dambae200.domain.store.dto.StoreGetListResponse;
 import com.dambae200.dambae200.domain.store.dto.StoreGetResponse;
 import com.dambae200.dambae200.domain.store.dto.StoreUpdateRequest;
@@ -36,8 +36,8 @@ public class StoreRestController {
     }
 
     @PostMapping("")
-    public ResponseEntity<StandardResponse<StoreGetResponse>> addStore(@RequestBody @Valid StoreAddRequest request){
-        StoreGetResponse response = storeUpdateService.addStore(request);
+    public ResponseEntity<StandardResponse<StoreGetResponse>> addStore(@RequestBody @Valid StoreCreateRequest request){
+        StoreGetResponse response = storeUpdateService.createStore(request);
         return StandardResponse.ofOk(response);
     }
 

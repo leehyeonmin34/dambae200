@@ -29,7 +29,7 @@ public class ExceptionHandlerFilter extends OncePerRequestFilter {
         } catch (SessionInfoNotExistsException ex) {
             log.error("exception exception handler filter");
             setErrorResponse(HttpStatus.valueOf(ex.getErrorCode().getStatus()), response, ex);
-        }catch (RuntimeException ex){
+        } catch (RuntimeException ex){
             log.error("runtime exception exception handler filter");
             setErrorResponse(HttpStatus.INTERNAL_SERVER_ERROR,response,ex);
         }

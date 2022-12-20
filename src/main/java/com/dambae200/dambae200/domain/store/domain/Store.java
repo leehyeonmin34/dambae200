@@ -12,14 +12,13 @@ import javax.persistence.*;
 @Table(name = "store")
 public class Store extends BaseEntity {
 
-    @Column(name = "name", nullable = false)
+    @Column(name = "name", nullable = false, updatable = true, unique = false)
     private String name;
 
-    @Column(name = "brand", nullable = false)
+    @Column(name = "brand", nullable = false, updatable = true, unique = false)
     @Convert(converter = StoreBrandConverter.class)
     private StoreBrand brand;
 
-    @Builder
     public Store(String name, StoreBrand brand){
         this.name = name;
         this.brand = brand;

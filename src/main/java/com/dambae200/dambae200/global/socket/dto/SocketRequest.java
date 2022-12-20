@@ -8,6 +8,7 @@ import java.io.Serializable;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
+@ToString
 public class SocketRequest<T> {
 
     @NonNull

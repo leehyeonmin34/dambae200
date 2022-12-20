@@ -37,11 +37,7 @@ public class UserUpdateService {
         validateEmail(request.getEmail());
         validateNickname(request.getNickname());
 
-        User user = User.builder()
-                .email(request.getEmail())
-                .nickname(request.getNickname())
-                .pw(request.getPw())
-                .build();
+        User user = new User(request.getEmail(), request.getNickname(), request.getPw());
         User saved = userRepository.save(user);
         return new UserGetResponse(saved);
     }

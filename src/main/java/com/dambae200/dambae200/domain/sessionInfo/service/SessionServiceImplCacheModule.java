@@ -1,6 +1,7 @@
 package com.dambae200.dambae200.domain.sessionInfo.service;
 
 
+import com.dambae200.dambae200.domain.access.exception.AccessNotAllowedException;
 import com.dambae200.dambae200.domain.sessionInfo.domain.SessionInfo;
 import com.dambae200.dambae200.domain.sessionInfo.exception.AccessedExpiredSessionTokenException;
 import com.dambae200.dambae200.domain.sessionInfo.exception.SessionInfoNotExistsException;
@@ -43,9 +44,6 @@ public class SessionServiceImplCacheModule implements SessionService {
     public SessionInfo getSessionElseThrow(String accessToken){
 
         // 캐시, DB 조회
-        Cache cache = cacheManager.getCache(CacheEnv.SESSION_INFO);
-        assert cache != null;
-
         SessionInfo sessionInfo = cacheModule.getCacheOrLoad(CacheEnv.SESSION_INFO,
                 accessToken,
                 key -> sessionInfoRepository.findById(key)
@@ -93,6 +91,7 @@ public class SessionServiceImplCacheModule implements SessionService {
         if (accessToken != null)
             cacheModule.deleteThrough(CacheEnv.SESSION_INFO, accessToken, this::deleteIfExists);
     }
+
 
     private void deleteIfExists(String accessToken){
         if(sessionInfoRepository.existsById(accessToken))

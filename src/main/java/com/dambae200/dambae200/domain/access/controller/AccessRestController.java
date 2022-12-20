@@ -23,7 +23,7 @@ import javax.validation.constraints.NotNull;
 @Slf4j
 public class AccessRestController {
 
-    final AccessService accessService;
+    private final AccessService accessService;
 
     @GetMapping("")
     public ResponseEntity<StandardResponse<AccessGetUserListResponse>> findAllByStoreId(@RequestParam @NotBlank String storeId){

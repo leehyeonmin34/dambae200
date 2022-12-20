@@ -33,13 +33,6 @@ public class CigaretteRestController {
         return StandardResponse.ofOk(response);
     }
 
-    @GetMapping("/drop_box")
-    public ResponseEntity<StandardResponse<CigaretteGetListResponse>> findAllByOfficialNameLike(@RequestParam @NotNull String name) {
-        String decodedName = URLDecoder.decode(name, Charset.forName("UTF-8"));
-        CigaretteGetListResponse response = cigaretteFindService.findAllByOfficialNameLike(decodedName);
-        return StandardResponse.ofOk(response);
-    }
-
     @PostMapping("")
     public ResponseEntity<StandardResponse<CigaretteGetResponse>> addCigarette(@RequestBody @Valid CigaretteAddRequest request) {
         CigaretteGetResponse response = cigaretteUpdateService.addCigarette(request);

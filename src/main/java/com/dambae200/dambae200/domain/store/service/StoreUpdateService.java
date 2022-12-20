@@ -8,7 +8,7 @@ import com.dambae200.dambae200.domain.notification.service.storeNotification.Sto
 import com.dambae200.dambae200.domain.notification.service.storeNotification.StoreNotificationType;
 import com.dambae200.dambae200.domain.store.domain.Store;
 import com.dambae200.dambae200.domain.store.domain.StoreBrand;
-import com.dambae200.dambae200.domain.store.dto.StoreAddRequest;
+import com.dambae200.dambae200.domain.store.dto.StoreCreateRequest;
 import com.dambae200.dambae200.domain.store.dto.StoreGetResponse;
 import com.dambae200.dambae200.domain.store.dto.StoreUpdateRequest;
 import com.dambae200.dambae200.domain.store.exception.DuplicatedStoreException;
@@ -36,27 +36,18 @@ public class StoreUpdateService {
     final RepoUtils repoUtils;
     final StoreNotificationGeneratorAndSender storeNotificationGeneratorAndSender;
 
-    //TODO 영속화 관련 테스트
     @Transactional
-    public StoreGetResponse addStore(StoreAddRequest request) throws EntityNotFoundException, InvalidStoreBrandCodeException, DuplicatedStoreException {
+    public StoreGetResponse createStore(StoreCreateRequest request){
 
         checkDuplicate(request.getName(), request.getStoreBrandCode());
 
         // Store 먼저 생성 후 영속화
-        Store store = Store.builder()
-                .brand(StoreBrand.ofCode(request.getStoreBrandCode()))
-                .name(request.getName())
-                .build();
-
+        Store store = new Store(request.getName(), StoreBrand.ofCode(request.getStoreBrandCode()));
         Store savedStore = storeRepository.save(store);
 
         // 연관 객체인 access 생성
         User admin = repoUtils.getOneElseThrowException(userRepository, request.getAdminId());
-        Access access = Access.builder()
-                .user(admin)
-                .store(savedStore)
-                .accessType(AccessType.ADMIN)
-                .build();
+        Access access = new Access(AccessType.ADMIN, savedStore, admin);
 
         accessRepository.save(access);
 

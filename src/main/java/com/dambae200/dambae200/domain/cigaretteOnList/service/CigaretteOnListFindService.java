@@ -31,10 +31,4 @@ public class CigaretteOnListFindService {
         return new CigaretteOnListGetListResponse(cigaretteOnLists);
     }
 
-    //리스트에 있는 담배 보여주기(전산순서)
-    public CigaretteOnListGetListResponse findAllByStoreIdOrderByComputerized(Long cigaretteListId, Long requestUserId) {
-        List<CigaretteOnList> cigaretteOnLists = cigaretteOnListRepository.findAllByStoreIdOrderByComputerized(cigaretteListId);
-        return new CigaretteOnListGetListResponse(cigaretteOnLists);
-    }
-
 }
