@@ -14,7 +14,7 @@ public enum AccessSituationType {
     ADMIN_PROMOTED, // 관리자로 승급함
     ACCESS_REMOVED; // 접근권한 삭제됨
 
-    public static AccessSituationType findBy(AccessType prev, AccessType curr, Boolean byAdmin){
+    public static AccessSituationType findBy(final AccessType prev, final AccessType curr, final Boolean byAdmin){
         // 매장 관리자에 의해 행해졌을 때
         if (byAdmin){
             switch ( prev ){

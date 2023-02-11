@@ -41,15 +41,17 @@ public class LoginCheckFilter implements Filter {
             if (isLoginCheckPath(requestURI)) {
                 String accessToken = ((HttpServletRequest) request).getHeader("Authorization");
                 log.info("accessToken : " + accessToken);
-                if (accessToken == null || !sessionService.existsByToken(accessToken)) {
-                    log.info("미인증 사용자 요청 {}", requestURI);
-                    // 로그인 안되었다는 예외 발생 후 종료 - 바깥 필터에서 처리
-                    throw new SessionInfoNotExistsException();
+                sessionService.checkValidation(accessToken);
                 }
-            }
             chain.doFilter(request, response); //다음 필터 진행. 없다면 서블릿 띄우기
-        } catch (Exception e) {
-            throw e; //예외 로깅 가능 하지만, 톰캣까지 예외를 보내주어야 함
+
+        } catch (SessionInfoNotExistsException ex){
+            log.info("미인증 사용자 요청 {}", requestURI);
+            throw ex;
+        // 로그인 안되었다는 예외 발생 후 종료 - 바깥 필터에서 처리
+        }
+        catch (Exception e) {
+            throw e;
         } finally {
             log.info("인증 체크 필터 종료 {}", requestURI);
         }

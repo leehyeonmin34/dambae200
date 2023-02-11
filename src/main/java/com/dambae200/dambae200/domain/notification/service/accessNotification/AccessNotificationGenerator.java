@@ -7,6 +7,7 @@ import com.dambae200.dambae200.domain.notification.domain.Notification;
 import com.dambae200.dambae200.domain.notification.exception.CannotFindAccessNotificationType;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -15,16 +16,16 @@ import java.util.stream.Collectors;
 @Component
 public class AccessNotificationGenerator {
 
-    final AccessNotificationTypeFinder accessNotificationTypeFinder;
-    final AccessRepository accessRepository;
+    private final AccessNotificationTypeFinder accessNotificationTypeFinder;
+    private final AccessRepository accessRepository;
 
     // 데이터 기반해 알림 타입 선택
-    private List<AccessNotificationType> getNotificationType(AccessType prev, AccessType curr, Boolean byAdmin){
+    private List<AccessNotificationType> getNotificationType(final AccessType prev, final AccessType curr, final Boolean byAdmin){
         return accessNotificationTypeFinder.getNotificationType(prev, curr, byAdmin);
     }
 
     // 알림 엔티티 생성
-    public List<Notification> generate(AccessType prev, Access access, Boolean byAdmin){
+    public List<Notification> generate(final AccessType prev, final Access access, final Boolean byAdmin){
 
         // 알림타입(템플릿) 선택
         List<AccessNotificationType> notificationTypes = getNotificationType(prev, access.getAccessType(), byAdmin);

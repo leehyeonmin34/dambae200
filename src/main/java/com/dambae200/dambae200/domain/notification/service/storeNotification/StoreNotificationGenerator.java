@@ -17,7 +17,7 @@ public class StoreNotificationGenerator {
 
     final AccessRepository accessRepository;
 
-    public List<Notification> generate(Store store, StoreNotificationType type, String oldName){
+    public List<Notification> generate(final Store store, final StoreNotificationType type, final String oldName){
         // 해당 매장의 접근 권한자들의 아이디를 로드
         List<Access> accessList = accessRepository.findAllByStoreId(store.getId());
         List<Long> recieverIdList = accessList.stream()

@@ -27,7 +27,6 @@ public class StoreRestController {
     final StoreUpdateService storeUpdateService;
     final AccessService accessService;
 
-
     @GetMapping("")
     public ResponseEntity<StandardResponse<StoreGetListResponse>> findAllByName(@RequestParam @NotNull String name){
         String decodedName = URLDecoder.decode(name, Charset.forName("UTF-8"));
@@ -54,9 +53,5 @@ public class StoreRestController {
         DeleteResponse response = storeUpdateService.deleteStore(Long.valueOf(id));
         return StandardResponse.ofOk(response);
     }
-
-
-
-
 
 }

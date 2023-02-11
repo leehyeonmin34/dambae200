@@ -17,13 +17,12 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class NotificationUpdateService {
 
-    final NotificationRepository notificationRepository;
-    final RepoUtils repoUtils;
+    private final NotificationRepository notificationRepository;
+    private final RepoUtils repoUtils;
 
-    @Transactional
-    public NotificationGetListResponse markAsReadNotifiations(List<Long> idList) {
+    public NotificationGetListResponse markAsReadNotifiations(final List<Long> idList) {
 
-        List<Notification> notifications = notificationRepository.findAllById(idList).stream().map(item -> {
+        final List<Notification> notifications = notificationRepository.findAllById(idList).stream().map(item -> {
             item.markAsRead();
             notificationRepository.save(item);
             return item;
@@ -32,8 +31,7 @@ public class NotificationUpdateService {
         return new NotificationGetListResponse(notifications);
     }
 
-    @Transactional
-    public DeleteResponse deleteNotification(Long id) throws EntityNotFoundException {
+    public DeleteResponse deleteNotification(final Long id) throws EntityNotFoundException {
         // 유효성검사, 처리
         repoUtils.deleteOneElseThrowException(notificationRepository, id);
 

@@ -29,6 +29,7 @@ public class HashCacheModule {
 
     // cacheName, key, hashKey에 해당하는 캐시를 먼저 조회한 뒤, 캐시에 없으면 다른 저장소 조회(loadFunction 수행)
     // map의 entry에 대한 look-aside (단건)
+    @Transactional(readOnly = true)
     public <K, HK, V> V getCacheOrLoad(String cacheName, K key, HK hashKey, Function<HK, V> dbLoadFunctionByHashKey) {
 
         // 캐시가 있다면 바로 리턴
@@ -46,6 +47,7 @@ public class HashCacheModule {
 
     // cacheName, key에 해당하는 캐시들을 먼저 조회한 뒤, 캐시에 없으면 다른 저장소 조회(loadFunction 수행)
     // key에 해당하는 map 전체에 대한 look-aside
+    @Transactional(readOnly = true)
     public <K, HK, V> Map<HK, V> getAllCacheOrLoad(String cacheName, K key, Function<K, List<V>> dbLoadFunctionByKey, Function<V, HK> keyExtractor){
         Map<HK, V> cached = getAll(cacheName, key);
 
@@ -67,6 +69,7 @@ public class HashCacheModule {
 
     // cacheName, key, hashKeys에 해당하는 캐시들을 먼저 조회한 뒤, 캐시에 없으면 다른 저장소 조회(loadFunction 수행)
     // map entry에 대한 look-aside (복수건)
+    @Transactional(readOnly = true)
     public <K, HK, V> Map<HK, V> getAllCacheOrLoadByHashKeys(String cacheName
             , K key
             , List<HK> hashKeys
@@ -97,12 +100,14 @@ public class HashCacheModule {
     }
 
     // 캐시 조회 (단건)
+    @Transactional(readOnly = true)
     public <K, HK, V> V get(String cacheName, K key, HK hashKey){
         String cacheKey = getCacheKey(cacheName, key);
         return (V)ops.get(cacheKey, hashKey);
     }
 
     // 캐시 조회 (key에 대한 map 전체 조회)
+    @Transactional(readOnly = true)
     public <K, HK, V> Map<HK, V> getAll(String cacheName, K key){
         String cacheKey = getCacheKey(cacheName, key);
         return ops.entries(cacheKey);
@@ -124,8 +129,6 @@ public class HashCacheModule {
         putAll(cacheName, key, values, keyExtractor);
         return saved;
     }
-
-
 
 
 
@@ -183,9 +186,6 @@ public class HashCacheModule {
         for(HK hashKey: hashKeys)
             ops.delete(cacheKey, hashKey);
     }
-
-
-
 
     // 캐시, DB 모두 삭제 (단건)
     public <K, HK> void deleteThrough(String cacheName, K key, HK hashKey, Consumer<HK> dbDeleteFunction){

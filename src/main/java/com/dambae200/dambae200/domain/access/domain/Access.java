@@ -17,11 +17,11 @@ public class Access extends BaseEntity {
     @Convert(converter = AccessTypeConverter.class)
     private AccessType accessType;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "store_id", nullable = false, updatable = false)
     private Store store;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", nullable = false, updatable = false)
     private User user;
 

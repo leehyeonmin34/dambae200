@@ -6,6 +6,8 @@ import com.dambae200.dambae200.domain.notification.domain.Notification;
 import com.dambae200.dambae200.domain.notification.service.NotificationSender;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -13,10 +15,12 @@ import java.util.List;
 @Component
 public class AccessNotificationGeneratorAndSender {
 
-    final AccessNotificationGenerator generator;
-    final NotificationSender sender;
+    private final AccessNotificationGenerator generator;
+    private final NotificationSender sender;
 
-    public void from(AccessType prev, Access access, Boolean byAdmin){
+
+    // 이 트랜잭션이 실패하더라도 상위 트랜잭션은 롤백되지 않음
+    public void from(final AccessType prev, final Access access, final Boolean byAdmin){
         List<Notification> notifications = generator.generate(prev, access, byAdmin);
         sender.send(notifications);
     }

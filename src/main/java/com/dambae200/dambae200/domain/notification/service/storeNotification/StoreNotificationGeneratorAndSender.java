@@ -15,12 +15,12 @@ public class StoreNotificationGeneratorAndSender {
     final StoreNotificationGenerator generator;
     final NotificationSender sender;
 
-    public void generateAndSend(Store store, StoreNotificationType type, String oldName){
+    public void generateAndSend(final Store store, final StoreNotificationType type, final String oldName){
         List<Notification> notifications = generator.generate(store, type, oldName);
         sender.send(notifications);
     }
 
-    public void generateAndSend(Store store, StoreNotificationType type){
+    public void generateAndSend(final Store store, final StoreNotificationType type){
         List<Notification> notifications = generator.generate(store, type, null);
         sender.send(notifications);
     }

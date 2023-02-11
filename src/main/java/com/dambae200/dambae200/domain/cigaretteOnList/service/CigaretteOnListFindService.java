@@ -21,7 +21,8 @@ public class CigaretteOnListFindService {
     private final HashCacheModule hashCacheModule;
 
     //리스트에 있는 담배 보여주기(진열순서)
-    public CigaretteOnListGetListResponse findAllByStoreIdOrderByDisplay(Long storeId, Long requestUserId) {
+    @Transactional(readOnly = true)
+    public CigaretteOnListGetListResponse findAllByStoreIdOrderByDisplay(final Long storeId) {
 
         List<CigaretteOnList> cigaretteOnLists = hashCacheModule.getAllCacheOrLoad(CacheEnv.CIGARETTE_LIST, storeId,
         cigaretteOnListRepository::findAllByStoreIdOrderByDisplay, CigaretteOnList::getId)

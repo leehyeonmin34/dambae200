@@ -31,7 +31,7 @@ public class SessionServiceImplCacheModule implements SessionService {
     final private RedisCacheManager cacheManager;
 
     @Override
-    public boolean existsByToken(String accessToken){
+    public boolean existsByToken(final String accessToken){
         try {
             getSessionElseThrow(accessToken);
             return true;
@@ -41,7 +41,7 @@ public class SessionServiceImplCacheModule implements SessionService {
     }
 
     @Override
-    public SessionInfo getSessionElseThrow(String accessToken){
+    public SessionInfo getSessionElseThrow(final String accessToken){
 
         // 캐시, DB 조회
         SessionInfo sessionInfo = cacheModule.getCacheOrLoad(CacheEnv.SESSION_INFO,
@@ -58,7 +58,7 @@ public class SessionServiceImplCacheModule implements SessionService {
     }
 
 
-    private void removeIfExpired(SessionInfo sessionInfo){
+    private void removeIfExpired(final SessionInfo sessionInfo){
         try {
             sessionInfo.checkExpiration();
         } catch (AccessedExpiredSessionTokenException e){
@@ -69,7 +69,7 @@ public class SessionServiceImplCacheModule implements SessionService {
 
     // 세션 키 등록
     @Override
-    public SessionInfo registerSession(UserGetResponse user, String userAgent) {
+    public SessionInfo registerSession(final UserGetResponse user, final String userAgent) {
 
         // 세션정보 생성
         String accessToken = UUID.randomUUID().toString();
@@ -87,13 +87,13 @@ public class SessionServiceImplCacheModule implements SessionService {
 
     // 세션 키 삭제
     @Override
-    public void removeSession(String accessToken) {
+    public void removeSession(final String accessToken) {
         if (accessToken != null)
             cacheModule.deleteThrough(CacheEnv.SESSION_INFO, accessToken, this::deleteIfExists);
     }
 
 
-    private void deleteIfExists(String accessToken){
+    private void deleteIfExists(final String accessToken){
         if(sessionInfoRepository.existsById(accessToken))
             sessionInfoRepository.deleteById(accessToken);
     }

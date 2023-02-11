@@ -6,15 +6,15 @@ import com.dambae200.dambae200.domain.sessionInfo.exception.SessionInfoNotExists
 import com.dambae200.dambae200.domain.user.dto.UserGetResponse;
 
 public interface SessionService {
-    boolean existsByToken(String accessToken);
+    boolean existsByToken(final String accessToken);
 
-    SessionInfo getSessionElseThrow(String accessToken);
+    SessionInfo getSessionElseThrow(final String accessToken);
 
-    SessionInfo registerSession(UserGetResponse user, String userAgent);
+    SessionInfo registerSession(final UserGetResponse user, String userAgent);
 
-    void removeSession(String accessToken);
+    void removeSession(final String accessToken);
 
-    default void checkValidation(String accessToken){
+    default void checkValidation(final String accessToken){
         if (accessToken == null || !existsByToken(accessToken))
             throw new SessionInfoNotExistsException();
     };

@@ -35,29 +35,22 @@ public class StoreUpdateService {
     final CigaretteOnListRepository cigaretteOnListRepository;
     final RepoUtils repoUtils;
     final StoreNotificationGeneratorAndSender storeNotificationGeneratorAndSender;
+    final StoreTransaction storeTransaction;
 
-    @Transactional
-    public StoreGetResponse createStore(StoreCreateRequest request){
+    public StoreGetResponse createStore(final StoreCreateRequest request){
 
         checkDuplicate(request.getName(), request.getStoreBrandCode());
 
-        // Store 먼저 생성 후 영속화
         Store store = new Store(request.getName(), StoreBrand.ofCode(request.getStoreBrandCode()));
-        Store savedStore = storeRepository.save(store);
 
-        // 연관 객체인 access 생성
-        User admin = repoUtils.getOneElseThrowException(userRepository, request.getAdminId());
-        Access access = new Access(AccessType.ADMIN, savedStore, admin);
+        Store saved = storeTransaction.saveStoreTransaction(store, request.getAdminId());
 
-        accessRepository.save(access);
-
-        return new StoreGetResponse(savedStore);
+        return new StoreGetResponse(saved);
     }
 
 
 
-    @Transactional
-    public StoreGetResponse updateStore(Long id, StoreUpdateRequest request) throws EntityNotFoundException, InvalidStoreBrandCodeException, DuplicatedStoreException {
+    public StoreGetResponse updateStore(final Long id, final StoreUpdateRequest request) throws EntityNotFoundException, InvalidStoreBrandCodeException, DuplicatedStoreException {
         checkDuplicate(request.getName(), request.getStoreBrandCode());
 
         // 해당 엔티티 로드
@@ -75,26 +68,20 @@ public class StoreUpdateService {
         return new StoreGetResponse(store);
     }
 
-    @Transactional
-    public DeleteResponse deleteStore(Long id) throws EntityNotFoundException{
-        // 해당 엔티티 로드
+
+    public DeleteResponse deleteStore(final Long id){
+
         Store store = repoUtils.getOneElseThrowException(storeRepository, id);
-        // 관련 엔티티 로드 및 삭제
-        List<Access> accessList = accessRepository.findAllByStoreId(id);
-        accessRepository.deleteAll(accessList);
-        cigaretteOnListRepository.deleteAllByStoreId(id);
 
-        //해당 엔티티 삭제
-        storeRepository.delete(store);
+        storeTransaction.deleteStoreTransaction(store);
 
-        // 관련 알림 발송
         storeNotificationGeneratorAndSender.generateAndSend(store, StoreNotificationType.STORE_DELETED);
 
-        // 리턴
         return new DeleteResponse("store", id);
     }
 
-    private void checkDuplicate(String name, String brandCode){
+
+    private void checkDuplicate(final String name, final String brandCode){
         if(storeRepository.existsByNameAndBrand(name, StoreBrand.ofCode(brandCode))) {
             throw new DuplicatedStoreException(name, brandCode);
         }

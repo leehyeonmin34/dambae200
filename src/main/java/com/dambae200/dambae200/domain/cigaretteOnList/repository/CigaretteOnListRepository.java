@@ -1,6 +1,7 @@
 package com.dambae200.dambae200.domain.cigaretteOnList.repository;
 
 import com.dambae200.dambae200.domain.cigaretteOnList.domain.CigaretteOnList;
+import com.dambae200.dambae200.domain.store.domain.Store;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
@@ -12,7 +13,7 @@ public interface CigaretteOnListRepository extends JpaRepository<CigaretteOnList
 
     List<CigaretteOnList> findAllByCigaretteId(Long cigaretteId);
 
-    void deleteAllByStoreId(Long storeId);
+    void deleteAllByStore(Store store);
 
     boolean existsByStoreIdAndCigaretteId(Long storeId, Long cigaretteId);
 

@@ -5,6 +5,7 @@ import com.dambae200.dambae200.domain.notification.exception.CannotFindAccessNot
 import com.dambae200.dambae200.domain.notification.repository.NotificationRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -12,12 +13,12 @@ import java.util.List;
 @RequiredArgsConstructor
 public class NotificationSender{
 
-    final NotificationRepository notificationRepository;
+    private final NotificationRepository notificationRepository;
 
-    public void send(List<Notification> notifications){
+    public void send(final List<Notification> notifications){
         notificationRepository.saveAll(notifications);
     }
-    public void send(Notification notification){
+    public void send(final Notification notification){
         notificationRepository.save(notification);
     }
 }

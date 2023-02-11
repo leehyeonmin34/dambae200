@@ -12,9 +12,6 @@ import java.io.Serializable;
 @Entity
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-@Builder
-@AllArgsConstructor
-//@ToString
 @ToString(callSuper = true)
 public class CigaretteOnList extends BaseEntity{
 
@@ -25,11 +22,11 @@ public class CigaretteOnList extends BaseEntity{
     @Column(name = "cigarette_on_list_id")
     private Long id;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "store_id", nullable = false, updatable = false, unique = false)
     private Store store;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "cigarette_id", nullable = true, updatable = true, unique = false)
     private Cigarette cigarette;
 
@@ -45,22 +42,10 @@ public class CigaretteOnList extends BaseEntity{
     @Column(name = "customized_name", nullable = true, updatable = true, unique = false)
     private String customizedName;
 
-    public void changeStore(Store store) {
-        this.store = store;
-    }
-
-    private void changeCigarette(Cigarette cigarette) {
-        this.cigarette = cigarette;
-    }
-
-    public void changeDisplayOrder(int displayOrder){this.displayOrder = displayOrder;}
-
-    public void changeComputerizedOrder(int computerizedOrder){
-        this.computerizedOrder = computerizedOrder;}
 
     public void changeOrderInfo(int displayOrder, int computerizedOrder){
-        changeDisplayOrder(displayOrder);
-        changeComputerizedOrder(computerizedOrder);
+        this.displayOrder = displayOrder;
+        this.computerizedOrder = computerizedOrder;
     }
 
     public void changeCount(int count) {
@@ -71,11 +56,44 @@ public class CigaretteOnList extends BaseEntity{
         this.customizedName = name;
     }
 
-    //생성자
-    public CigaretteOnList(Store store, Cigarette cigarette, String customizedName) {
-        this.store = store;
-        this.cigarette = cigarette;
-        this.customizedName = customizedName;
-        this.count = -1; // 빈 값은 -1로 표현
+    public static class Builder{
+
+        private Store store;
+        private Cigarette cigarette;
+        private int count;
+        private int displayOrder;
+        private int computerizedOrder;
+        private String customizedName;
+
+        public Builder(Store store, int listSize){
+            this.store = store;
+            this.displayOrder = listSize + 1;
+            this.computerizedOrder = listSize + 1;
+            this.count = -1; // 빈 값을 -1로 표현
+        }
+
+        public Builder cigarette(Cigarette cigarette){
+            this.cigarette = cigarette;
+            return this;
+        }
+
+        public Builder customizedName(String customizedName){
+            this.customizedName = customizedName;
+            return this;
+        }
+
+        public CigaretteOnList build(){
+            return new CigaretteOnList(this);
+        }
+
+    }
+
+    public CigaretteOnList(Builder builder){
+        this.store = builder.store;
+        this.cigarette = builder.cigarette;
+        this.count = builder.count;
+        this.displayOrder = builder.displayOrder;
+        this.computerizedOrder = builder.computerizedOrder;
+        this.customizedName = builder.customizedName;
     }
 }

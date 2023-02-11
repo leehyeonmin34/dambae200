@@ -29,31 +29,31 @@ public class CigaretteRestController {
 
     @GetMapping("/all")
     public ResponseEntity<StandardResponse<CigaretteGetListResponse>> findAllCigarette() {
-        CigaretteGetListResponse response = cigaretteFindService.findAllCigarettes();
+        final CigaretteGetListResponse response = cigaretteFindService.findAllCigarettes();
         return StandardResponse.ofOk(response);
     }
 
     @PostMapping("")
-    public ResponseEntity<StandardResponse<CigaretteGetResponse>> addCigarette(@RequestBody @Valid CigaretteAddRequest request) {
-        CigaretteGetResponse response = cigaretteUpdateService.addCigarette(request);
+    public ResponseEntity<StandardResponse<CigaretteGetResponse>> addCigarette(@RequestBody @Valid final CigaretteAddRequest request) {
+        final CigaretteGetResponse response = cigaretteUpdateService.addCigarette(request);
         return StandardResponse.ofOk(response);
     }
 
     @PostMapping("/multiple")
-    public ResponseEntity<StandardResponse<CigaretteGetListResponse>> addCigarettes(@RequestBody @Valid List<CigaretteAddRequest> request) {
-        CigaretteGetListResponse response = cigaretteUpdateService.addAllCigarette(request);
+    public ResponseEntity<StandardResponse<CigaretteGetListResponse>> addCigarettes(@RequestBody @Valid final List<CigaretteAddRequest> request) {
+        final CigaretteGetListResponse response = cigaretteUpdateService.addAllCigarette(request);
         return StandardResponse.ofOk(response);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<StandardResponse<CigaretteGetResponse>> updateCigarette(@PathVariable @NotNull Long id, @RequestBody @Valid CigaretteUpdateRequest request) {
-        CigaretteGetResponse response = cigaretteUpdateService.updateCigarette(id, request);
+    public ResponseEntity<StandardResponse<CigaretteGetResponse>> updateCigarette(@PathVariable @NotNull final Long id, @RequestBody @Valid final CigaretteUpdateRequest request) {
+        final CigaretteGetResponse response = cigaretteUpdateService.updateCigarette(id, request);
         return StandardResponse.ofOk(response);
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<StandardResponse<DeleteResponse>> deleteCigarette(@PathVariable String id) {
-        DeleteResponse response = cigaretteUpdateService.deleteCigarette(Long.valueOf(id));
+    public ResponseEntity<StandardResponse<DeleteResponse>> deleteCigarette(@PathVariable final String id) {
+        final DeleteResponse response = cigaretteUpdateService.deleteCigarette(Long.valueOf(id));
         return StandardResponse.ofOk(response);
     }
 

@@ -9,7 +9,7 @@ import java.util.List;
 @Component
 public class AccessNotificationTypeFinder {
     // 데이터 -> 상황타입 추출 -> 알림타입 반환
-    public List<AccessNotificationType> getNotificationType(AccessType prev, AccessType curr, Boolean byAdmin){
+    public List<AccessNotificationType> getNotificationType(final AccessType prev, final AccessType curr, final Boolean byAdmin){
         AccessSituationType accessSituationType = AccessSituationType.findBy(prev, curr, byAdmin);
         return AccessNotificationType.findBy(accessSituationType);
     }

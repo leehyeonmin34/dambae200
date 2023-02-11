@@ -62,7 +62,7 @@ public enum AccessNotificationType {
         return String.format(this.getContentTemplate(), (Object[])strings);
     }
 
-    static public List<AccessNotificationType> findBy(AccessSituationType type){
+    static public List<AccessNotificationType> findBy(final AccessSituationType type){
         // ACCESSIBLE, INACCESSIBLE, ADMIN, WAITING
         switch (type){
             case APPLIED:

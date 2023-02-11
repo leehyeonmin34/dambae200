@@ -57,17 +57,10 @@ public class SocketExceptionHandler extends StompSubProtocolErrorHandler {
     }
 
 
-
 //    // 메세지 생성
     private Message<byte[]> prepareErrorMessage(StandardResponse body) throws JsonProcessingException {
-
-//        String code = String.valueOf(responseCode.getMessage());
-
         StompHeaderAccessor accessor = StompHeaderAccessor.create(StompCommand.ERROR);
-
-//        accessor.setMessage(objectMapper.writeValueAsString(body));
         accessor.setLeaveMutable(true);
-
         return MessageBuilder.createMessage(objectMapper.writeValueAsString(body).getBytes(StandardCharsets.UTF_8), accessor.getMessageHeaders());
     }
 

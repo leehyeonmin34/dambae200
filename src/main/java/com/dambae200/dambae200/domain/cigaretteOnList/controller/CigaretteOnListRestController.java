@@ -21,9 +21,9 @@ public class CigaretteOnListRestController {
 
     //리스트에 있는 담배 보여주기(진열순서)
     @GetMapping("/display_order")
-    public ResponseEntity<StandardResponse<CigaretteOnListGetListResponse>> findAllByStoreIdOrderByDisplay(@RequestParam @NonNull String storeId, @RequestParam @NonNull String requestUserId) {
+    public ResponseEntity<StandardResponse<CigaretteOnListGetListResponse>> findAllByStoreIdOrderByDisplay(@RequestParam @NonNull final String storeId, @RequestParam @NonNull final String requestUserId) {
         accessService.checkAccess(Long.valueOf(requestUserId), Long.valueOf(storeId));
-        CigaretteOnListGetListResponse response = cigaretteOnListFindService.findAllByStoreIdOrderByDisplay(Long.valueOf(storeId), Long.valueOf(requestUserId));
+        CigaretteOnListGetListResponse response = cigaretteOnListFindService.findAllByStoreIdOrderByDisplay(Long.valueOf(storeId));
         return StandardResponse.ofOk(response);
     }
 

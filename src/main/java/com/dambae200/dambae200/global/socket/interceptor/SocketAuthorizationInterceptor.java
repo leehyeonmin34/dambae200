@@ -36,13 +36,6 @@ public class SocketAuthorizationInterceptor implements ChannelInterceptor {
 
     final private SessionService sessionService;
     final private AccessService accessService;
-    final private ObjectMapper objectMapper;
-//    final private ApplicationContext context;
-
-//    @Autowired
-//    final private GlobalMessageExceptionHandler globalMessageExceptionHandler;
-//    final private SimpMessagingTemplate template;
-//    final private GlobalExceptionHandler globalExceptionHandler;
 
     @Override
     public Message<?> preSend(Message<?> message, MessageChannel channel) {
@@ -61,7 +54,7 @@ public class SocketAuthorizationInterceptor implements ChannelInterceptor {
                 destination = headerAccessor.getNativeHeader("destination").get(0);
                 accessToken = headerAccessor.getNativeHeader("Authorization").get(0);
                 sessionService.checkValidation(accessToken);
-            } catch (SessionInfoNotExistsException | NullPointerException e ) {
+            } catch (SessionInfoNotExistsException | NullPointerException e ) { // 해당 헤더가 없으면 NullPointerException이 발생
                 log.info("미인증 사용자 요청 {}", destination);
                 throw new SessionInfoNotExistsException();
             }

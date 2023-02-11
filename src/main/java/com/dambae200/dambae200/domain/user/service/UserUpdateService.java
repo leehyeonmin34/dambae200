@@ -31,8 +31,9 @@ public class UserUpdateService {
 
     final RepoUtils repoUtils;
 
-    @Transactional
-    public UserGetResponse addUser(UserAddRequest request){
+    final UserTransaction userTransaction;
+
+    public UserGetResponse addUser(final UserAddRequest request){
 
         validateEmail(request.getEmail());
         validateNickname(request.getNickname());
@@ -42,9 +43,7 @@ public class UserUpdateService {
         return new UserGetResponse(saved);
     }
 
-
-    @Transactional
-    public UserGetResponse updateUser(Long id, UserUpdateRequest request){
+    public UserGetResponse updateUser(final Long id, final UserUpdateRequest request){
         validateNickname(request.getNickname());
         User user = repoUtils.getOneElseThrowException(userRepository, id);
         user.changeNickname(request.getNickname());
@@ -52,55 +51,51 @@ public class UserUpdateService {
         return new UserGetResponse(saved);
     }
 
-    @Transactional
-    public UserGetResponse changeUserPassword(Long id, UserChangePasswordRequest request){
+    public UserGetResponse changeUserPassword(final Long id, final UserChangePasswordRequest request){
         User user = repoUtils.getOneElseThrowException(userRepository, id);
         user.changePw(request.getOldPw(), request.getNewPw());
         User saved = userRepository.save(user);
         return new UserGetResponse(saved);
     }
 
-    @Transactional
-    public void sendNewPwAndChangePw(String email){
+    public void sendNewPwAndChangePw(final String email){
         User user = findByEmail(email);
 
         // Transaction 덕분에 비밀번호를 재지정한 뒤 알림 메일 전송이 실패해도, 비밀번호가 제대로 돌아옴
         String code = PasswordGenerator.generatePw();
         user.changePw(user.getPw(), code);
+        userRepository.save(user);
 
         PasswordSender.send(code, email);
     }
 
-    private User findByEmail(String email){
+    private User findByEmail(final String email){
         return userRepository.findByEmail(email)
                 .orElseThrow(() -> { throw new EmailNotFoundException(email);});
     }
 
     @Transactional
-    public DeleteResponse deleteUser(Long id, String pw) throws EntityNotFoundException, LoginInfoNotMatched {
+    public DeleteResponse deleteUser(final Long id, final String pw) throws EntityNotFoundException, LoginInfoNotMatched {
 
         // 인증
         User user = repoUtils.getOneElseThrowException(userRepository, id);
         user.authenticate(pw);
 
         // 연관 데이터 삭제
-        accessRepository.deleteAllByUserId(id);
-        notificationRepository.deleteAllByUserId(id);
+        userTransaction.deleteById(id);
 
-        // 삭제
-        userRepository.deleteById(id);
         return new DeleteResponse("user", id);
     }
 
 
     @Transactional(readOnly = true)
-    private void validateEmail(String email){
+    private void validateEmail(final String email){
         if (userRepository.existsByEmail(email))
             throw new DuplicatedEmailException();
     }
 
     @Transactional(readOnly = true)
-    private void validateNickname(String nickname){
+    private void validateNickname(final String nickname){
         if (userRepository.existsByNickname(nickname))
             throw new DuplicatedNicknameException();
     }

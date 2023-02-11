@@ -24,38 +24,37 @@ import javax.validation.constraints.NotNull;
 @RequestMapping("/api/notifications")
 public class NotificationRestController {
 
-    final NotificationUpdateService notificationUpdateService;
-    final NotificationFindService notificationFindService;
+    private final NotificationUpdateService notificationUpdateService;
+    private final NotificationFindService notificationFindService;
 
     @GetMapping("/{id}")
     public ResponseEntity<StandardResponse<NotificationGetResponse>> getNotificationById(@PathVariable String id){
-        NotificationGetResponse response = notificationFindService.findById(Long.valueOf(id));
+        final NotificationGetResponse response = notificationFindService.findById(Long.valueOf(id));
         return StandardResponse.ofOk(response);
     }
 
-    // TODO 어떻게 보면 /user/{id}/notifications 인데 이렇게 하는 게 괜찮은가?
     @GetMapping("")
     public ResponseEntity<StandardResponse<Page<NotificationGetResponse>>> getNotificationsByUserId(
-            @RequestParam @NotNull String userId,
-            @PageableDefault(size = 5, sort = "createdAt",  direction = Sort.Direction.DESC) Pageable pageable){
+            @RequestParam @NotNull final String userId,
+            @PageableDefault(size = 5, sort = "createdAt",  direction = Sort.Direction.DESC) final Pageable pageable){
         Page<NotificationGetResponse> response = notificationFindService.findByUserId(Long.valueOf(userId), pageable);
         return StandardResponse.ofOk(response);
     }
 
     @PutMapping("/read")
-    public ResponseEntity<StandardResponse<NotificationGetListResponse>> markAsRead(@RequestBody NotificationMarkAsReadRequest request) throws EntityNotFoundException {
+    public ResponseEntity<StandardResponse<NotificationGetListResponse>> markAsRead(@RequestBody final NotificationMarkAsReadRequest request) throws EntityNotFoundException {
         NotificationGetListResponse response = notificationUpdateService.markAsReadNotifiations(request.getIdList());
         return StandardResponse.ofOk(response);
     }
 
     @GetMapping("/read")
-    public ResponseEntity<StandardResponse<Boolean>> unreadExistsByUserId(Long userId){
+    public ResponseEntity<StandardResponse<Boolean>> unreadExistsByUserId(final Long userId){
         Boolean response = (Boolean)notificationFindService.unreadExistByUserId(userId);
         return StandardResponse.ofOk(response);
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<StandardResponse<DeleteResponse>> deleteNotification(@PathVariable String id){
+    public ResponseEntity<StandardResponse<DeleteResponse>> deleteNotification(@PathVariable final String id){
         DeleteResponse response = notificationUpdateService.deleteNotification(Long.valueOf(id));
         return StandardResponse.ofOk(response);
     }

@@ -1,14 +1,13 @@
 package com.dambae200.dambae200.domain.cigaretteOnList.controller;
 
-import com.dambae200.dambae200.domain.access.service.AccessService;
 import com.dambae200.dambae200.domain.cigaretteOnList.dto.*;
 import com.dambae200.dambae200.domain.cigaretteOnList.service.CigaretteOnListUpdateService;
 import com.dambae200.dambae200.global.common.dto.DeleteResponse;
 import com.dambae200.dambae200.global.socket.dto.SocketMessage;
 import com.dambae200.dambae200.global.socket.dto.SocketRequest;
 import com.dambae200.dambae200.global.common.dto.StandardResponse;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.handler.annotation.Payload;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
@@ -19,68 +18,67 @@ import java.security.Principal;
 
 @RequiredArgsConstructor
 @Controller
+@Slf4j
 public class CigaretteOnListStompController {
 
     private final SimpMessagingTemplate template; // 특정 Broker로 메시지를 전달
     private final CigaretteOnListUpdateService cigaretteOnListUpdateService;
-    private final AccessService accessService;
-    private final ObjectMapper objectMapper;
 
     @MessageMapping("/store/cigar_num") // -> pub/store/cigar_num
-    public void cigarNum(@Payload SocketRequest<CigaretteOnListUpdateCountRequest> request){
-        CigaretteOnListUpdateCountRequest messageContent = request.getContent();
+    public void cigarNum(@Payload final SocketRequest<CigaretteOnListUpdateCountRequest> request){
+        final CigaretteOnListUpdateCountRequest messageContent = request.getContent();
         String destination = "/sub/store/" + messageContent.getStoreId() + "/cigar_num";
 
-        CigaretteOnListGetResponse response = cigaretteOnListUpdateService.inputCigaretteCount(messageContent.getStoreId(), messageContent.getCigarOnListId(), messageContent.getNum());
-        StandardResponse<SocketMessage<CigaretteOnListGetResponse>> message = StandardResponse.ok(new SocketMessage<>(request.getRequestUserId(), response));
+        final CigaretteOnListUpdateCountResponse response = cigaretteOnListUpdateService.inputCigaretteCount(messageContent.getStoreId(), messageContent.getCigarOnListId(), messageContent.getNum());
+        final StandardResponse<SocketMessage<CigaretteOnListUpdateCountResponse>> message = StandardResponse.ok(new SocketMessage<>(request.getRequestUserId(), response));
         template.convertAndSend(destination, message);
     }
 
     @MessageMapping("/store/add_cigar")
-    public void addCigaretteOnListById(Principal principal, @Payload @Valid SocketRequest<CigaretteOnListAddRequest> request) {
-        String destination = "/sub/store/" + request.getContent().getStoreId() + "/add_cigar";
-        CigaretteOnListGetResponse response = cigaretteOnListUpdateService.addCigaretteOnListById(request.getContent());
-        StandardResponse<SocketMessage<CigaretteOnListGetResponse>> message = StandardResponse.ok(new SocketMessage<>(request.getRequestUserId(), response));
+    public void addCigaretteOnListById(Principal principal, @Payload @Valid final SocketRequest<CigaretteOnListAddRequest> request) {
+        final String destination = "/sub/store/" + request.getContent().getStoreId() + "/add_cigar";
+        final CigaretteOnListGetResponse response = cigaretteOnListUpdateService.addCigaretteOnList(request.getContent());
+        final StandardResponse<SocketMessage<CigaretteOnListGetResponse>> message = StandardResponse.ok(new SocketMessage<>(request.getRequestUserId(), response));
         template.convertAndSend(destination, message);
     }
 
     @MessageMapping("/store/initialize_count")
-    public void initializeCigaretteCount(@Payload SocketRequest<CigaretteOnListInitializeCountRequest> request) {
-        CigaretteOnListInitializeCountRequest requestContent = request.getContent();
-        CigaretteOnListGetListResponse response = cigaretteOnListUpdateService.initializeCigaretteCount(requestContent.getStoreId());
+    public void initializeCigaretteCount(@Payload final SocketRequest<CigaretteOnListInitializeCountRequest> request) {
+        final CigaretteOnListInitializeCountRequest requestContent = request.getContent();
+        cigaretteOnListUpdateService.initializeCigaretteCount(requestContent.getStoreId());
 
-        String destination = "/sub/store/" + requestContent.getStoreId() + "/initialize_count";
-        StandardResponse<SocketMessage<CigaretteOnListGetListResponse>> message = StandardResponse.ok(new SocketMessage<>(request.getRequestUserId(), response));
+        final String destination = "/sub/store/" + requestContent.getStoreId() + "/initialize_count";
+        final StandardResponse<SocketMessage<Object>> message = StandardResponse.ok(new SocketMessage<>(request.getRequestUserId(), null));
         template.convertAndSend(destination, message);
     }
 
     @MessageMapping("/store/delete_cigar")
-    public void deleteCigaretteOnList(@Payload SocketRequest<CigaretteOnListDeleteRequest> request) {
-        CigaretteOnListDeleteRequest requestContent = request.getContent();
-        DeleteResponse response = cigaretteOnListUpdateService.deleteCigaretteOnList(requestContent.getStoreId(), requestContent.getId());
+    public void deleteCigaretteOnList(@Payload final SocketRequest<CigaretteOnListDeleteRequest> request) {
+        final CigaretteOnListDeleteRequest requestContent = request.getContent();
+        final DeleteResponse response = cigaretteOnListUpdateService.deleteCigaretteOnList(requestContent.getStoreId(), requestContent.getId());
 
-        String destination = "/sub/store/" + requestContent.getStoreId() + "/delete_cigar";
-        StandardResponse<SocketMessage<DeleteResponse>> message = StandardResponse.ok(new SocketMessage<>(request.getRequestUserId(), response));
+        final String destination = "/sub/store/" + requestContent.getStoreId() + "/delete_cigar";
+        final StandardResponse<SocketMessage<DeleteResponse>> message = StandardResponse.ok(new SocketMessage<>(request.getRequestUserId(), response));
         template.convertAndSend(destination, message);
     }
 
     @MessageMapping("/store/modify_cigar")
-    public void modifyCigaretteOnList(@Payload SocketRequest<CigaretteOnListModifyRequest> request) {
-        CigaretteOnListModifyRequest requestContent = request.getContent();
-        CigaretteOnListGetResponse response = cigaretteOnListUpdateService.modifyCustomizeName(requestContent.getStoreId(), requestContent.getId(), requestContent.getCustomizedName());
+    public void modifyCigaretteOnList(@Payload final SocketRequest<CigaretteOnListModifyRequest> request) {
+        final CigaretteOnListModifyRequest requestContent = request.getContent();
+        final CigaretteOnListModifyResponse response = cigaretteOnListUpdateService.modifyCustomizeName(requestContent.getStoreId(), requestContent.getId(), requestContent.getCustomizedName());
 
-        String destination = "/sub/store/" + requestContent.getStoreId() + "/modify_cigar";
-        StandardResponse<SocketMessage<CigaretteOnListGetResponse>> message = StandardResponse.ok(new SocketMessage<>(request.getRequestUserId(), response));
+        final String destination = "/sub/store/" + requestContent.getStoreId() + "/modify_cigar";
+        final StandardResponse<SocketMessage<CigaretteOnListModifyResponse>> message = StandardResponse.ok(new SocketMessage<>(request.getRequestUserId(), response));
         template.convertAndSend(destination, message);
     }
 
     @MessageMapping("/store/reorder")
-    public void reorder(@Payload SocketRequest<CigaretteOnListReorderRequest> request) {
-        CigaretteOnListReorderRequest requestContent = request.getContent();
-        CigaretteOnListReorderResponse response = cigaretteOnListUpdateService.reOrderAll(requestContent);
+    public void reorder(@Payload final SocketRequest<CigaretteOnListReorderRequest> request) {
+        final CigaretteOnListReorderRequest requestContent = request.getContent();
+        final CigaretteOnListReorderResponse response = cigaretteOnListUpdateService.reOrderAll(requestContent);
 
-        String destination = "/sub/store/" + requestContent.getStoreId() + "/reorder";
-        StandardResponse<SocketMessage<CigaretteOnListReorderResponse>> message = StandardResponse.ok(new SocketMessage<>(request.getRequestUserId(), response));
+        final String destination = "/sub/store/" + requestContent.getStoreId() + "/reorder";
+        final StandardResponse<SocketMessage<CigaretteOnListReorderResponse>> message = StandardResponse.ok(new SocketMessage<>(request.getRequestUserId(), response));
         template.convertAndSend(destination, message);
     }
 

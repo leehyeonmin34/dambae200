@@ -46,10 +46,6 @@ public class CacheableRepository<K, V, REPO extends JpaRepository<V, K>> {
     }
 
 
-//    public V writeThrough(K key, V value){
-//        return cacheModule.writeThrough(cacheName, key, value, repository::save);
-//    }
-
     public V writeThrough(V value){
         return cacheModule.writeThrough(cacheName, keyExtractor.apply(value), value, repository::save);
     }

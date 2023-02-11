@@ -21,9 +21,10 @@ public class CigaretteFindService {
     private final CacheableRepository<Long, Cigarette, CigaretteRepository> cigaretteCacheableRepository;
     private final CacheModule cacheModule;
 
+    @Transactional(readOnly = true)
     public CigaretteGetListResponse findAllCigarettes() {
         // 전체 공식 담배 정보는 목록으로도 관리되고, 각 항목으로도 캐시에 올라간다
-        List<Cigarette> cigarettes = cacheModule.getCacheOrLoad(CacheEnv.CIGARETTE, 0L
+        final List<Cigarette> cigarettes = cacheModule.getCacheOrLoad(CacheEnv.CIGARETTE, 0L
                 , (key) -> {
                     List<Cigarette> loaded = cigaretteRepository.findAll();
                     cigaretteCacheableRepository.writeAllThrough(loaded);

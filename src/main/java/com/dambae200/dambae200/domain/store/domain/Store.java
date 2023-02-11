@@ -33,6 +33,10 @@ public class Store extends BaseEntity {
         return this.brand.getDesc() + " " + this.name;
     }
 
+    public Store(Long id){
+        this.id = id;
+    }
+
 //    public void changeCigaretteList(CigaretteList cigaretteList) {
 //        this.cigaretteList = cigaretteList;
 //    }

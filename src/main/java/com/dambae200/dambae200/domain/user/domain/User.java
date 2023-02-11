@@ -24,6 +24,10 @@ public class User extends BaseEntity {
     @Column(name = "nickname", nullable = false, updatable = true, unique = true)
     private String nickname;
 
+    public User(Long id){
+        this.id = id;
+    }
+
     public User(String email, String pw, String nickname){
         this.email = email;
         this.pw = pw;
@@ -44,6 +48,7 @@ public class User extends BaseEntity {
             return true;
         else throw new LoginInfoNotMatched();
     }
+
 
 
 }

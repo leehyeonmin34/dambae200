@@ -10,7 +10,7 @@ import java.util.Properties;
 
 public class PasswordSender {
 
-    static public void send(String newPw, String recipient){
+    static public void send(final String newPw, final String recipient){
 
         // 1. 발신자의 메일 계정과 비밀번호 설정
         final String user = "dambae200@gmail.com";

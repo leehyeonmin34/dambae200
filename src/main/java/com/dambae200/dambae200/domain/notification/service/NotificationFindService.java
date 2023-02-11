@@ -15,22 +15,22 @@ import org.springframework.transaction.annotation.Transactional;
 @RequiredArgsConstructor
 public class NotificationFindService {
 
-    final NotificationRepository notificationRepository;
-    final RepoUtils repoUtils;
+    private final NotificationRepository notificationRepository;
+    private final RepoUtils repoUtils;
 
     @Transactional(readOnly = true)
-    public Page<NotificationGetResponse> findByUserId(Long userId, Pageable pageable){
+    public Page<NotificationGetResponse> findByUserId(final Long userId, final Pageable pageable){
         Page<Notification> entities = notificationRepository.findByUserId(userId, pageable);
         return entities.map(NotificationGetResponse::new);
     }
 
     @Transactional(readOnly = true)
-    public boolean unreadExistByUserId(Long userId){
+    public boolean unreadExistByUserId(final Long userId){
         return notificationRepository.existsByUserIdAndIsRead(userId, false);
     }
 
     @Transactional(readOnly = true)
-    public NotificationGetResponse findById(Long id) throws EntityNotFoundException {
+    public NotificationGetResponse findById(final Long id) throws EntityNotFoundException {
         Notification entity = repoUtils.getOneElseThrowException(notificationRepository, id);
         return new NotificationGetResponse(entity);
     }

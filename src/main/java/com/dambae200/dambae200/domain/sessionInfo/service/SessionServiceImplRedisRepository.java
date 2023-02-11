@@ -22,7 +22,7 @@ public class SessionServiceImplRedisRepository implements SessionService{
     final private SessionInfoRepository jpaRepository;
 
     @Override
-    public boolean existsByToken(String accessToken){
+    public boolean existsByToken(final String accessToken){
         try {
             getSessionElseThrow(accessToken);
             return true;
@@ -32,7 +32,7 @@ public class SessionServiceImplRedisRepository implements SessionService{
     }
 
     @Override
-    public SessionInfo getSessionElseThrow(String accessToken){
+    public SessionInfo getSessionElseThrow(final String accessToken){
 
         SessionInfo sessionInfo;
         boolean cached = true;
@@ -60,7 +60,7 @@ public class SessionServiceImplRedisRepository implements SessionService{
     }
 
 
-    private void removeIfExpired(SessionInfo sessionInfo){
+    private void removeIfExpired(final SessionInfo sessionInfo){
         try {
             sessionInfo.checkExpiration();
         } catch (AccessedExpiredSessionTokenException e){
@@ -71,7 +71,7 @@ public class SessionServiceImplRedisRepository implements SessionService{
 
     // 세션 키 등록
     @Override
-    public SessionInfo registerSession(UserGetResponse user, String userAgent) {
+    public SessionInfo registerSession(final UserGetResponse user, final String userAgent) {
 
         // 세션정보 생성
         String accessToken = UUID.randomUUID().toString();
@@ -90,7 +90,7 @@ public class SessionServiceImplRedisRepository implements SessionService{
 
     // 세션 키 삭제
     @Override
-    public void removeSession(String accessToken) {
+    public void removeSession(final String accessToken) {
         if (accessToken != null) {
             if (redisRepository.existsById(accessToken))
                 redisRepository.deleteById(accessToken);

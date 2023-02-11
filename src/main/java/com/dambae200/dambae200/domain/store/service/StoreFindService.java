@@ -14,7 +14,7 @@ public class StoreFindService {
 
     final StoreRepository storeRepository;
 
-    public StoreGetListResponse findByNameLike(String name){
+    public StoreGetListResponse findByNameLike(final String name){
         List<Store> stores = storeRepository.findByNameLike("%"+ name+ "%");
         return new StoreGetListResponse(stores);
     }

@@ -18,8 +18,8 @@ public class UserLoginServiceImpl implements UserLoginService{
     final private RepoUtils repoUtils;
 
     @Override
-    @Transactional
-    public UserGetResponse authenticate(String email, String pw) throws LoginInfoNotMatched {
+    @Transactional(readOnly = true)
+    public UserGetResponse authenticate(final String email, final String pw) throws LoginInfoNotMatched {
         User user = userRepository.findByEmail(email)
                 .orElseThrow(LoginInfoNotMatched::new);
         user.authenticate(pw);
