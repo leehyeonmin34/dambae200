@@ -36,7 +36,7 @@
 - 업무 꿀팁 컨텐츠
 
 <br />
-<br />
+
 #  프로젝트 구조
 - github hook을 받아 Jenkins에서 CI/CD를 진행합니다.
 - 젠킨스와 메인서버 2개로 작동중이며, 메인서버가 docker를 통해 MySQL, Redis, 앱서버를 구동중입니다.
@@ -44,7 +44,7 @@
 - Blue-green 방식으로 무중단 배포됩니다.
 
 <br />
-<br />
+
 # 프로젝트의 주요 관심사
 
 ### 성능 최적화
@@ -73,13 +73,13 @@
 - 다양한 시나리오를 고려한 API와 UI
 - Jenkins와 Docker를 이용한 자동 무중단 배포
 
-- <br />
   <br />
+
 # ERD
 <img width="964" alt="스크린샷 2023-02-11 오후 2 34 12" src="https://user-images.githubusercontent.com/66104031/218242222-d24978f9-f91e-4909-98b5-8f1ca3278fa3.png">
 
 <br />
-<br />
+
 # 프론트
 프론트는 다양한 해상도에서 작동되도록 구현되었습니다.
 
