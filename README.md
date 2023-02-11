@@ -9,9 +9,9 @@
 편의점에서 담배 재고를 쉽게 검수하기 위해 제작된 웹 서비스입니다.
 
 
-![A4 - 26 (1)](https://user-images.githubusercontent.com/66104031/218243616-d63408b3-7176-4406-8662-7897bbad4e52.jpg)
+![A4 - 26 (2)](https://user-images.githubusercontent.com/66104031/218244917-db45b460-fd2a-4c0c-93c9-8150a3d9eff2.jpg)
 
-### 핵심 기능
+# 핵심 기능
 진열된 순서대로 우리 매장의 담배 갯수를 입력하고, ‘전산순으로 정렬하기’ 버튼을 누르면 미리 설정해 놓은 순서대로 정렬됩니다. 이를 포스기에서 출력된 재고 목록과 1:1 비교함으로써 재고 검수를 빠르게 해주는 앱입니다. 
 <br />
 <br />
@@ -35,15 +35,17 @@
 - 설정 (개인정보 수정)
 - 업무 꿀팁 컨텐츠
 
-
-##  프로젝트 구조
+<br />
+<br />
+#  프로젝트 구조
 - github hook을 받아 Jenkins에서 CI/CD를 진행합니다.
 - 젠킨스와 메인서버 2개로 작동중이며, 메인서버가 docker를 통해 MySQL, Redis, 앱서버를 구동중입니다.
 - Naver Cloud Platform의 서버를 사용합니다.
 - Blue-green 방식으로 무중단 배포됩니다.
 
-
-## 프로젝트의 주요 관심사
+<br />
+<br />
+# 프로젝트의 주요 관심사
 
 ### 성능 최적화
 - 서버 부하를 줄이기 위해 캐싱 서버 적극 활용
@@ -71,10 +73,14 @@
 - 다양한 시나리오를 고려한 API와 UI
 - Jenkins와 Docker를 이용한 자동 무중단 배포
 
-## ERD
+- <br />
+  <br />
+# ERD
 <img width="964" alt="스크린샷 2023-02-11 오후 2 34 12" src="https://user-images.githubusercontent.com/66104031/218242222-d24978f9-f91e-4909-98b5-8f1ca3278fa3.png">
 
-## 프론트
+<br />
+<br />
+# 프론트
 프론트는 다양한 해상도에서 작동되도록 구현되었습니다.
 
 ![Frame 1026](https://user-images.githubusercontent.com/66104031/218243078-ff6ce815-1281-4749-8a28-e1ed5c19278d.png)
