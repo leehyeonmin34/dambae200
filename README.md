@@ -72,8 +72,9 @@
 ### 실제 서비스 가능한 완성도
 - 다양한 시나리오를 고려한 API와 UI
 - Jenkins와 Docker를 이용한 자동 무중단 배포
+  
 
-  <br />
+<br />
 
 # ERD
 <img width="964" alt="스크린샷 2023-02-11 오후 2 34 12" src="https://user-images.githubusercontent.com/66104031/218242222-d24978f9-f91e-4909-98b5-8f1ca3278fa3.png">
@@ -81,6 +82,6 @@
 <br />
 
 # 프론트
-프론트는 다양한 해상도에서 작동되도록 구현되었습니다.
+프론트는 다양한 해상도에서 일관되게 작동되도록 구현되었습니다.
 
 ![Frame 1026](https://user-images.githubusercontent.com/66104031/218243078-ff6ce815-1281-4749-8a28-e1ed5c19278d.png)
