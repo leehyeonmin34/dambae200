@@ -1,12 +1,9 @@
 # 담배200 : 공동 편집과 권한 관리를 지원하는 담배 검수 앱
-<div style="color:#808080"> 진행 기간 : 2022.7 ~ 2022.12 
-<br/>
-사용 기술 : Spring Boot, Spring Data JPA, MySQL, Redis, Stomp, Docker, nginx, Naver Cloud Platform 
-<br/>
-담당 부분 : 서비스 전체 (기획, 디자인, 개발) </div>
-<br/>
 
-편의점에서 담배 재고를 쉽게 검수하기 위해 제작된 웹 서비스입니다.
+######사용 기술 : Spring Boot, Spring Data JPA, MySQL, Redis, Stomp, Docker, nginx, Naver Cloud Platform<br/>담당 부분 : 서비스 전체 (기획, 디자인, 개발) 
+
+
+#### 편의점에서 담배 재고를 쉽게 검수하기 위해 제작된 웹 서비스입니다.
 
 
 ![A4 - 26 (2)](https://user-images.githubusercontent.com/66104031/218244917-db45b460-fd2a-4c0c-93c9-8150a3d9eff2.jpg)
@@ -59,8 +56,8 @@
 
 ### 소켓 통신
 - 통신 방식에 종속되지 않는 서비스 코드
-- MessageHandler
-- 소켓 연결 해제 없이 비지니스 예외 처리
+- Channel Interceptor를 활용한 권한 체크
+- 비지니스 예외 발생 시 소켓 연결 유지하며 예외 메시지 발송
 - Http에서 발생한 예외와 소켓통신 중 발생한 예외를 일관되게 처리
 
 ### 로직이 잘 보이고 유지보수하기 좋은 코드
