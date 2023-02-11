@@ -1,8 +1,10 @@
 # 담배200 : 공동 편집과 권한 관리를 지원하는 담배 검수 앱
-<div style="color:gray"> 진행 기간 : 2022.7 ~ 2022.12 </div>
-<div style="color:gray"> 사용 기술 : Spring Boot, Spring Data JPA, MySQL, Redis, Stomp, Docker, nginx, Naver Cloud Platform </div>
-<div style="color:gray"> 담당 부분 : 서비스 전체 (기획, 디자인, 개발) </div>
-
+<div style="color:#808080"> 진행 기간 : 2022.7 ~ 2022.12 
+<br/>
+사용 기술 : Spring Boot, Spring Data JPA, MySQL, Redis, Stomp, Docker, nginx, Naver Cloud Platform 
+<br/>
+담당 부분 : 서비스 전체 (기획, 디자인, 개발) </div>
+<br/>
 
 편의점에서 담배 재고를 쉽게 검수하기 위해 제작된 웹 서비스입니다.
 
@@ -15,9 +17,9 @@
 <br />
 담배 목록은 Google Sheet와 유사하게 매장 직원들끼리 공유가 가능하며, 다른 근무자와 실시간으로 공동 편집이 가능합니다 (소켓 통신 활용)
 <br/><br/>
-[🔗 UI & 작동 영상 + 기획 보러가기](shorturl.at/svKX8)
+[🔗 UI & 작동 영상 + 기획 보러가기](http://shorturl.at/svKX8)
 <br/>
-[🔗 서비스 써보기](http://118.67.135.98/) <span style="color:gray"> (회원가입이 필요합니다) </span>
+[🔗 서비스 써보기](http://118.67.135.98/) <span style="color:#808080"> (회원가입이 필요합니다) </span>
 <br />
 <br />
 
@@ -68,8 +70,6 @@
 ### 실제 서비스 가능한 완성도
 - 다양한 시나리오를 고려한 API와 UI
 - Jenkins와 Docker를 이용한 자동 무중단 배포
-- Nginx의 Reversed-Proxy를 이용하여 로드밸런싱
-
 
 ## ERD
 <img width="964" alt="스크린샷 2023-02-11 오후 2 34 12" src="https://user-images.githubusercontent.com/66104031/218242222-d24978f9-f91e-4909-98b5-8f1ca3278fa3.png">
