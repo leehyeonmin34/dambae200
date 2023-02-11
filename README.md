@@ -1,9 +1,6 @@
 # 담배200 : 공동 편집과 권한 관리를 지원하는 담배 검수 앱
 
-######사용 기술 : Spring Boot, Spring Data JPA, MySQL, Redis, Stomp, Docker, nginx, Naver Cloud Platform<br/>담당 부분 : 서비스 전체 (기획, 디자인, 개발) 
-
-
-#### 편의점에서 담배 재고를 쉽게 검수하기 위해 제작된 웹 서비스입니다.
+편의점에서 담배 재고를 쉽게 검수하기 위해 제작된 웹 서비스입니다. 실제 서비스 제공을 염두에 두고 기획, 디자인, 개발이 진행되었습니다.
 
 
 ![A4 - 26 (2)](https://user-images.githubusercontent.com/66104031/218244917-db45b460-fd2a-4c0c-93c9-8150a3d9eff2.jpg)
@@ -34,11 +31,15 @@
 
 <br />
 
-#  프로젝트 구조
+## 사용 기술
+Spring Boot, Spring Data JPA, MySQL, Redis, Stomp, Docker, nginx, Naver Cloud Platform
+
+## 프로젝트 구조
 - github hook을 받아 Jenkins에서 CI/CD를 진행합니다.
 - 젠킨스와 메인서버 2개로 작동중이며, 메인서버가 docker를 통해 MySQL, Redis, 앱서버를 구동중입니다.
 - Naver Cloud Platform의 서버를 사용합니다.
 - Blue-green 방식으로 무중단 배포됩니다.
+
 
 <br />
 
