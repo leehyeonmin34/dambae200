@@ -1,17 +1,23 @@
 # 담배200 : 공동 편집과 권한 관리를 지원하는 담배 검수 앱
 
-편의점에서 담배 재고를 쉽게 검수하기 위해 제작된 웹 서비스입니다
-<br />
-<br />
-
 ![A4 - 26 (2)](https://user-images.githubusercontent.com/66104031/218244917-db45b460-fd2a-4c0c-93c9-8150a3d9eff2.jpg)
 
-# 핵심 기능
-진열된 순서대로 우리 매장의 담배 갯수를 입력하고, ‘전산순으로 정렬하기’ 버튼을 누르면 미리 설정해 놓은 순서대로 정렬됩니다. 이를 포스기에서 출력된 재고 목록과 1:1 비교함으로써 재고 검수를 빠르게 해주는 앱입니다. 
+편의점에서 담배 재고를 쉽게 검수하기 위해 제작된 웹 서비스입니다. 
+
+매장 별로 '담배 목록'을 만들 수 있고 이를 편집함으로서 담배를 검수합니다.
+
+담배 목록은 다른 사람들과 공유가 가능한데, 각 목록 생성자가 접근 권한을 관리하며, 소켓 통신을 활용해 실시간 공동 편집을 지원합니다.
+
 <br />
 <br />
-담배 목록은 Google Sheet와 유사하게 매장 직원들끼리 공유가 가능하며, 다른 근무자와 실시간으로 공동 편집이 가능합니다 (소켓 통신 활용)
-<br/><br/>
+
+# 핵심 컨셉 (담배 검수)
+1. 담배 목록의 각 담배마다 진열순과 정렬순 정보를 지정
+2. 진열된 순서대로 우리 매장의 담배 갯수를 입력
+3. ‘전산순으로 정렬하기’ 버튼을 눌러서, 미리 설정해 놓은 순서대로 정렬
+4. 이를 포스기에서 출력된 재고 목록 종이와 1:1 비교
+
+
 [🔗 UI & 작동 영상 + 기획 보러가기](http://shorturl.at/svKX8)
 <br/>
 [🔗 서비스 써보기](http://118.67.135.98/) <span style="color:#808080"> (회원가입이 필요합니다) </span>
@@ -20,11 +26,13 @@
 
 
 ### 제공 기능
-- 담배 목록 생성/수정/삭제
+- 담배 목록
+  - 담배 목록 생성/수정/삭제
+  - 담배 추가/수정/삭제
+  - 담배 순서 조정
+  - 담배 목록 내 검색
 - 목록 접근 권한 관리
-- 담배 추가/수정/삭제
-- 담배 순서 조정
-- 담배 목록 내 검색
+  - 요청/허가/비허가/관리자 권한 인계
 - 로그인, 비밀번호 찾기
 - 알림 (Pageable 조회)
 - 설정 (개인정보 수정)
@@ -33,10 +41,10 @@
 <br />
 
 # 프로젝트의 주요 관심사
-- 실제 서비스 가능한 완성도로 서버-클라이언트 구현(API, UI, 통신)
+- 실제 서비스 가능한 완성도로 서버-클라이언트 구현(API, UI, 통신 규약, 기능성)
 - 소켓 통신을 통한 동시 편집 구현
 - 캐시, DB 통신 최소화를 통한 성능 최적화
-- 로직이 잘 보이고 유지보수하기 좋은 코드
+- 로직이 잘 보이고 확장, 유지보수하기 좋은 코드
 
 ## 사용 기술
 Spring Boot, Spring Data JPA, MySQL, Redis, Stomp, Docker, nginx, Naver Cloud Platform
@@ -59,7 +67,7 @@ Spring Boot, Spring Data JPA, MySQL, Redis, Stomp, Docker, nginx, Naver Cloud Pl
   - [DB 락 최소화를 위한 @Transational 최소화](https://github.com/leehyeonmin34/dambae200/wiki/JPA%EC%9D%98-%ED%8A%B9%EC%84%B1%EC%9D%84-%EC%9D%B4%ED%95%B4%ED%95%9C-%EC%B5%9C%EC%A0%81%ED%99%94)
   - [코드 수준의 동적 스케줄러로 캐시에서 DB로 Write-Back](https://github.com/leehyeonmin34/dambae200/wiki/%EB%8F%99%EC%A0%81-%EC%8A%A4%EC%BC%80%EC%A4%84%EB%A7%81%EC%9D%84-%ED%86%B5%ED%95%9C-%EC%BA%90%EC%8B%9C-Write-back%EC%9C%BC%EB%A1%9C-DB-%ED%86%B5%EC%8B%A0-%ED%9A%9F%EC%88%98-%EC%A4%84%EC%9D%B4%EA%B8%B0)
   
-### 서버 확장과 운영을 고려한 방식
+### 서버 확장과 유지보수를 고려한 구조
 - [세션 정보를 Http 세션이 아닌 DB와 캐시에 저장](https://github.com/leehyeonmin34/dambae200/wiki/%EC%84%9C%EB%B2%84-Scale-out%EC%97%90-%EB%8C%80%EB%B9%84%ED%95%9C-%EC%84%B8%EC%85%98-%EA%B4%80%EB%A6%AC-(DB-%EC%B0%B8%EC%A1%B0-%EB%B0%A9%EC%8B%9D))
 - [Jenkins와 Docker를 이용한 자동 무중단 배포](https://github.com/leehyeonmin34/dambae200/wiki/Jenkins%EC%99%80-Docker%EB%A5%BC-%EC%9D%B4%EC%9A%A9%ED%95%9C-%EC%9E%90%EB%8F%99-%EB%AC%B4%EC%A4%91%EB%8B%A8-%EB%B0%B0%ED%8F%AC)
 
@@ -86,6 +94,8 @@ Spring Boot, Spring Data JPA, MySQL, Redis, Stomp, Docker, nginx, Naver Cloud Pl
 <br />
 
 # 프론트
-프론트는 다양한 해상도에서 일관되게 작동되도록 구현되었습니다.
+UI는 실사용 시 마주할 수 있는 다양한 시나리오에 대응하면서, 다양한 해상도에서 일관되게 작동되도록 구현되었습니다.
 
-![Frame 1026](https://user-images.githubusercontent.com/66104031/218243078-ff6ce815-1281-4749-8a28-e1ed5c19278d.png)
+![Frame 1026](https://user-images.githubusercontent.com/66104031/218942694-ddceeaa8-b448-490a-9836-752ad894f271.jpg)
+
+
