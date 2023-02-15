@@ -75,7 +75,7 @@ Spring Boot, Spring Data JPA, MySQL, Redis, Stomp, Docker, nginx, Naver Cloud Pl
 - [인터셉터로 권한 검사](https://github.com/leehyeonmin34/dambae200/wiki/%EC%9D%B8%ED%84%B0%EC%85%89%ED%84%B0%EB%A5%BC-%ED%86%B5%ED%95%9C-%EA%B6%8C%ED%95%9C-%EA%B2%80%EC%82%AC)
 - [간편하게 캐시와 DB를 활용하는 모듈 제작](https://github.com/leehyeonmin34/dambae200/wiki/%EC%BA%90%EC%8B%9C-%EB%AA%A8%EB%93%88%EB%A1%9C-%EA%B0%84%ED%8E%B8%ED%95%98%EA%B2%8C-%EC%BA%90%EC%8B%9C%EC%99%80-DB-%EC%97%B0%EA%B3%84-%ED%99%9C%EC%9A%A9) 
 - [트리구조의 런타임 예외 상속 적극 활용](https://github.com/leehyeonmin34/dambae200/wiki/%ED%8A%B8%EB%A6%AC%EA%B5%AC%EC%A1%B0%EC%9D%98-%EB%9F%B0%ED%83%80%EC%9E%84-%EC%98%88%EC%99%B8%EB%A5%BC-%ED%99%9C%EC%9A%A9%ED%95%9C-%EC%98%88%EC%99%B8-%EC%B2%98%EB%A6%AC)
-- [ControllerAdvice, ExceptionHandler 활용]((https://github.com/leehyeonmin34/dambae200/wiki/%ED%8A%B8%EB%A6%AC%EA%B5%AC%EC%A1%B0%EC%9D%98-%EB%9F%B0%ED%83%80%EC%9E%84-%EC%98%88%EC%99%B8%EB%A5%BC-%ED%99%9C%EC%9A%A9%ED%95%9C-%EC%98%88%EC%99%B8-%EC%B2%98%EB%A6%AC))
+- [ControllerAdvice, ExceptionHandler 활용](https://github.com/leehyeonmin34/dambae200/wiki/%ED%8A%B8%EB%A6%AC%EA%B5%AC%EC%A1%B0%EC%9D%98-%EB%9F%B0%ED%83%80%EC%9E%84-%EC%98%88%EC%99%B8%EB%A5%BC-%ED%99%9C%EC%9A%A9%ED%95%9C-%EC%98%88%EC%99%B8-%EC%B2%98%EB%A6%AC)
   
 
 <br />
