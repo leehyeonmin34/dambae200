@@ -46,6 +46,8 @@
 - 캐시, DB 통신 최소화를 통한 성능 최적화
 - 로직이 잘 보이고 확장, 유지보수하기 좋은 코드
 
+## 문제해결 등 중요한 내용은 [📓위키](https://github.com/leehyeonmin34/dambae200/wiki) 를 참조해주세요 !
+
 ## 사용 기술
 Spring Boot, Spring Data JPA, MySQL, Redis, Stomp, Docker, nginx, Naver Cloud Platform
 
@@ -58,7 +60,6 @@ Spring Boot, Spring Data JPA, MySQL, Redis, Stomp, Docker, nginx, Naver Cloud Pl
 
 <br />
 
-## 문제해결 등 중요한 내용은 [📓위키](https://github.com/leehyeonmin34/dambae200/wiki) 를 참조해주세요 !
 
 <br />
 
