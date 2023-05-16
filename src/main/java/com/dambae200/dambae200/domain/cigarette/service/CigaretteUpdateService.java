@@ -35,17 +35,19 @@ public class CigaretteUpdateService {
     private final CacheableRepository<Long, Cigarette, CigaretteRepository> cigaretteCacheableRepository;
     private final HashCacheModule hashCacheModule;
 
+    @Transactional
     public CigaretteGetResponse addCigarette(final CigaretteAddRequest request){
 
         checkDuplicate(request.getOfficial_name());
 
         final Cigarette cigarette = createCigarette(request);
 
-        cigaretteCacheableRepository.evict(0L); // 목록 evict
+        cigaretteCacheableRepository.evict(0L); // 목록 캐시 evict
         final Cigarette saved = cigaretteRepository.save(cigarette);
         return new CigaretteGetResponse(saved);
     }
 
+    @Transactional
     public CigaretteGetListResponse addAllCigarette(final List<CigaretteAddRequest> request){
 
         final List<Cigarette> cigarettes = new ArrayList<>();
@@ -56,10 +58,11 @@ public class CigaretteUpdateService {
             cigarettes.add(cigarette);
         }
 
-        cigaretteCacheableRepository.evict(0L); // 목록 evict
+        cigaretteCacheableRepository.evict(0L); // 목록 캐시 evict
         final List<Cigarette> saved = cigaretteRepository.saveAll(cigarettes);
         return new CigaretteGetListResponse(saved);
     }
+
 
     private Cigarette createCigarette(CigaretteAddRequest request){
         return Cigarette.builder()
@@ -72,6 +75,7 @@ public class CigaretteUpdateService {
                 .build();
     }
 
+    @Transactional
     public CigaretteGetResponse updateCigarette(final Long id, final CigaretteUpdateRequest request){
 
         checkDuplicate(request.getOfficial_name());
@@ -79,7 +83,7 @@ public class CigaretteUpdateService {
         final Cigarette cigarette = cigaretteCacheableRepository.getCacheOrLoad(id);
         cigarette.updateCigarette(request.getOfficial_name(), request.getCustomized_name());
 
-        cigaretteCacheableRepository.evict(0L); // 목록 evict
+        cigaretteCacheableRepository.evict(0L); // 목록 캐시 evict
         final Cigarette saved = cigaretteRepository.save(cigarette);
 
         return new CigaretteGetResponse(saved);
@@ -105,7 +109,7 @@ public class CigaretteUpdateService {
                 -> hashCacheModule.evictAll(CacheEnv.CIGARETTE_LIST, storeId));
 
         // 목표 엔티티 제거
-        cigaretteCacheableRepository.evict(0L); // 목록 evict
+        cigaretteCacheableRepository.evict(0L); // 목록 캐시 evict
         cigaretteRepository.delete(cigarette);
         return new DeleteResponse("cigarette", id);
     }
