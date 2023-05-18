@@ -40,7 +40,7 @@ public class RedisConfig {
         RedisCacheConfiguration configuration = RedisCacheConfiguration.defaultCacheConfig()
                 .disableCachingNullValues() // null value 캐시안함
                 .entryTtl(Duration.ofSeconds(CacheEnv.DEFAULT_EXPIRE_SEC)) // 캐시의 기본 유효시간 설정
-                .computePrefixWith(CacheKeyPrefix.simple()) // prefix = "CacheName:"
+                .computePrefixWith(CacheKeyPrefix.simple()) // prefix = "CacheName::"
                 .serializeKeysWith(RedisSerializationContext.SerializationPair.fromSerializer(new StringRedisSerializer()))
 //                .serializeValuesWith()
                 ; // redis 캐시 데이터 저장방식을 StringSeriallizer로 지정
