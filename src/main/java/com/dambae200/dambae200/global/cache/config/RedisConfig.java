@@ -10,6 +10,8 @@ import org.springframework.data.redis.cache.RedisCacheConfiguration;
 import org.springframework.data.redis.cache.RedisCacheManager;
 import org.springframework.data.redis.connection.RedisConnectionFactory;
 import org.springframework.data.redis.connection.lettuce.LettuceConnectionFactory;
+import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.data.redis.serializer.GenericJackson2JsonRedisSerializer;
 import org.springframework.data.redis.serializer.RedisSerializationContext;
 import org.springframework.data.redis.serializer.StringRedisSerializer;
 import org.springframework.orm.jpa.JpaTransactionManager;
@@ -42,9 +44,8 @@ public class RedisConfig {
                 .entryTtl(Duration.ofSeconds(CacheEnv.DEFAULT_EXPIRE_SEC)) // 캐시의 기본 유효시간 설정
                 .computePrefixWith(CacheKeyPrefix.simple()) // prefix = "CacheName::"
                 .serializeKeysWith(RedisSerializationContext.SerializationPair.fromSerializer(new StringRedisSerializer()))
-//                .serializeValuesWith()
+                .serializeValuesWith(RedisSerializationContext.SerializationPair.fromSerializer(new GenericJackson2JsonRedisSerializer()))
                 ; // redis 캐시 데이터 저장방식을 StringSeriallizer로 지정
-
 
         // 캐시키별 default 유효시간 설정
         Map<String, RedisCacheConfiguration> cacheConfigurations = new HashMap<>();
@@ -68,10 +69,25 @@ public class RedisConfig {
                 .entryTtl(Duration.ofSeconds(CacheEnv.CIGARETTE_DIRTY_SEC)));
 
 
-        return RedisCacheManager.RedisCacheManagerBuilder.fromConnectionFactory(connectionFactory).cacheDefaults(configuration)
+        return RedisCacheManager.RedisCacheManagerBuilder
+                .fromConnectionFactory(connectionFactory)
+                .cacheDefaults(configuration)
                 .disableCreateOnMissingCache() // cacheManager.getCache(cacheName) 했을 때, 존재하지 않는 cacheName에 대한 Cache를 생성하지 않음
                 .withInitialCacheConfigurations(cacheConfigurations)
                 .build();
+    }
+
+    @Bean
+    public RedisTemplate<?, ?> redisTemplate() {
+        RedisTemplate<?, ?> redisTemplate = new RedisTemplate<>();
+        redisTemplate.setConnectionFactory(redisConnectionFactory());
+        redisTemplate.setEnableTransactionSupport(true);
+
+        redisTemplate.setKeySerializer(new StringRedisSerializer());
+        redisTemplate.setValueSerializer(new GenericJackson2JsonRedisSerializer());
+        redisTemplate.setHashKeySerializer(new StringRedisSerializer());
+        redisTemplate.setHashValueSerializer(new GenericJackson2JsonRedisSerializer());
+        return redisTemplate;
     }
 
     @Bean

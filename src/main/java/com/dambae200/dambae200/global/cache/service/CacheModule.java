@@ -1,11 +1,10 @@
 package com.dambae200.dambae200.global.cache.service;
 
-import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.cache.Cache;
-import org.springframework.cache.CacheManager;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.core.ValueOperations;
+import org.springframework.data.redis.serializer.RedisSerializer;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
@@ -18,30 +17,37 @@ import java.util.stream.Collectors;
 
 
 @Component
-@RequiredArgsConstructor
 @Slf4j
 public class CacheModule {
 
-    final private CacheManager cacheManager;
-
     final private RedisTemplate redisTemplate;
+    final private RedisSerializer keySerializer;
+    final private RedisSerializer valueSerializer;
+    final private ValueOperations ops;
+
+
+    public CacheModule(RedisTemplate redisTemplate) {
+        this.redisTemplate = redisTemplate;
+        this.keySerializer = redisTemplate.getKeySerializer();
+        this.valueSerializer = redisTemplate.getValueSerializer();
+        this.ops = redisTemplate.opsForValue();
+    }
 
     // cacheName, key에 해당하는 캐시들을 먼저 조회한 뒤, 캐시에 없으면 다른 저장소 조회(loadFunction 수행)
     // 단수 조회
     public <K, V> V getCacheOrLoad(String cacheName, K key, Function<K, V> dbLoadFunction) {
 
-        Cache cache = getCache(cacheName);
-        Cache.ValueWrapper cached = cache.get(key);
+        V cached = (V) ops.get(key);
 
         // 캐시에 값 있을 때 바로 리턴
         if (cached != null) {
             log.info(String.format("캐시 사용 - cachaName: %s, key: %s", cacheName, key));
-            return (V) cached.get();
+            return (V) cached;
         }
 
         // 캐시에 값 없을 땐 다른 저장소 조회, 캐시에 저장
         V loaded = dbLoadFunction.apply(key);
-        cache.put(key, loaded);
+        ops.set(key, loaded);
         return loaded;
     }
 
@@ -50,15 +56,16 @@ public class CacheModule {
             , List<K> keys
             , Function<List<K>
             , List<V>> dbLoadFunction){
-        Cache cache = getCache(cacheName);
+
 
         List<K> notCachedKeys = new ArrayList<>();
         List<V> result = new ArrayList<>();
 
         keys.forEach(key -> {
-            Cache.ValueWrapper cached = cache.get(key);
+            String cacheKey = getCacheKey(cacheName, key);
+            V cached = (V)ops.get(cacheKey);
             // 캐시에 값 있으면 결과에 추가, 없으면 따로 리스트에 적재
-            if (cached != null) result.add((V) cached.get());
+            if (cached != null) result.add(cached);
             else notCachedKeys.add(key);
         });
 
@@ -97,47 +104,41 @@ public class CacheModule {
 
     // 캐시 조회 (단수)
     public <K, V> V get(String cacheName, K key){
-        Cache cache = getCache(cacheName);
-        return (V)cache.get(key).get();
+        String cacheKey = getCacheKey(cacheName, key);
+        return (V)ops.get(cacheKey);
     }
 
     // 캐시 조회 (복수)
     public <K, V> List<V> getAllByKeys(String cacheName, List<K> keys){
-        Cache cache = getCache(cacheName);
-        return keys.stream().map(key -> (V)cache.get(key).get())
-                .collect(Collectors.toList());
+
+        return keys.stream().map(key -> {
+                String cacheKey = getCacheKey(cacheName, key);
+                return (V)ops.get(cacheKey);
+            }).collect(Collectors.toList());
     }
 
     // 캐시 입력 (단수)
     public <K, V> void put(String cacheName, K key, V value){
-        Cache cache = getCache(cacheName);
-        cache.put(key, value);
+        String cacheKey = getCacheKey(cacheName, key);
+        ops.set(cacheKey, value);
     }
 
     // 캐시 삭제 (단수)
     public <K> void evict(String cacheName, K key){
-        Cache cache = getCache(cacheName);
-        cache.evictIfPresent(key);
+        String cacheKey = getCacheKey(cacheName, key);
+        redisTemplate.delete(cacheKey);
     }
 
     // 캐시 삭제 (복수)
     public <K> void evictAllByKeys(String cacheName, List<K> keys){
-        Cache cache = getCache(cacheName);
-        keys.forEach(cache::evictIfPresent);
+        List<String> cacheKeys = keys.stream()
+                .map(key -> getCacheKey(cacheName, key))
+                .collect(Collectors.toList());
+        redisTemplate.delete(cacheKeys);
     }
 
-    // 캐시 삭제 (캐시 이름에 해당하는 캐시 전체)
-    public <K> void evictAll(String cacheName){
-        Cache cache = getCache(cacheName);
-        cache.invalidate();
-    }
-
-    // 캐시 객체 추출
-    private Cache getCache(String cacheName){
-        return Optional.ofNullable(cacheManager.getCache(cacheName))
-                .orElseThrow(() -> new IllegalArgumentException(
-                    String.format("선언되지 않은 캐시 이름(%s)입니다.", cacheName))
-                );
+    private <K> String getCacheKey(String cacheName, K key){
+        return cacheName + ":" + key;
     }
 
 }
