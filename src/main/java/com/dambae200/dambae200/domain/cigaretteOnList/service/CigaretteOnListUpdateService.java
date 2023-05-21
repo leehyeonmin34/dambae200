@@ -8,14 +8,14 @@ import com.dambae200.dambae200.domain.store.repository.StoreRepository;
 import com.dambae200.dambae200.domain.cigaretteOnList.domain.CigaretteOnList;
 import com.dambae200.dambae200.domain.cigaretteOnList.exception.DuplicateCigaretteOnListException;
 import com.dambae200.dambae200.domain.cigaretteOnList.repository.CigaretteOnListRepository;
+import com.dambae200.dambae200.global.cache.config.CacheType;
 import com.dambae200.dambae200.global.cache.service.CacheableRepository;
 import com.dambae200.dambae200.global.common.dto.DeleteResponse;
-import com.dambae200.dambae200.global.cache.config.CacheEnv;
+import com.dambae200.dambae200.global.cache.config.CacheEnvOld;
 import com.dambae200.dambae200.global.cache.service.HashCacheModule;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityNotFoundException;
 import java.util.Comparator;
@@ -73,7 +73,7 @@ public class CigaretteOnListUpdateService {
         // id 리스트로 한 번에 DB 조회
         List<CigaretteOnListReorderRequest.OrderInfo> orderInfos = request.getOrderInfos();
         List<Long> idList = orderInfos.stream().map(orderInfo -> orderInfo.getId()).collect(Collectors.toList());
-        List<CigaretteOnList> cigars = hashCacheModule.getAllCacheOrLoadByHashKeys(CacheEnv.CIGARETTE_LIST
+        List<CigaretteOnList> cigars = hashCacheModule.getAllCacheOrLoadByHashKeys(CacheType.CIGARETTE_LIST
                 , request.getStoreId(), idList
                 , cigaretteOnListRepository::findAllById
                 , CigaretteOnList::getId)
@@ -117,7 +117,7 @@ public class CigaretteOnListUpdateService {
 
     //삭제
     public DeleteResponse deleteCigaretteOnList(Long storeId, Long id) {
-        hashCacheModule.deleteThrough(CacheEnv.CIGARETTE_LIST, storeId, id, cigaretteOnListRepository::deleteById);
+        hashCacheModule.deleteThrough(CacheType.CIGARETTE_LIST, storeId, id, cigaretteOnListRepository::deleteById);
         return new DeleteResponse("cigaretteOnList", id);
     }
 
@@ -128,23 +128,23 @@ public class CigaretteOnListUpdateService {
     }
 
     private CigaretteOnList getCacheOrLoad(Long storeId, Long id){
-        return hashCacheModule.getCacheOrLoad(CacheEnv.CIGARETTE_LIST, storeId, id
+        return hashCacheModule.getCacheOrLoad(CacheType.CIGARETTE_LIST, storeId, id
                 , (_id) -> cigaretteOnListRepository.findById(_id).orElseThrow(EntityNotFoundException::new));
     }
 
     private List<CigaretteOnList> getAllCacheOrLoad(Long storeId){
-        return hashCacheModule.getAllCacheOrLoad(CacheEnv.CIGARETTE_LIST, storeId
+        return hashCacheModule.getAllCacheOrLoad(CacheType.CIGARETTE_LIST, storeId
                         , (_id) -> cigaretteOnListRepository.findAllByStoreId(_id)
                         , CigaretteOnList::getId)
                 .values().stream().collect(Collectors.toList());
     }
 
     private List<CigaretteOnList> writeAllThrough(Long storeId, List<CigaretteOnList> modified){
-        return hashCacheModule.writeAllThrough(CacheEnv.CIGARETTE_LIST, storeId, modified, CigaretteOnList::getId, cigaretteOnListRepository::saveAll);
+        return hashCacheModule.writeAllThrough(CacheType.CIGARETTE_LIST, storeId, modified, CigaretteOnList::getId, cigaretteOnListRepository::saveAll);
     }
 
     private CigaretteOnList writeThrough(Long storeId, CigaretteOnList modified){
-        return hashCacheModule.writeThrough(CacheEnv.CIGARETTE_LIST, storeId, modified, CigaretteOnList::getId, cigaretteOnListRepository::save);
+        return hashCacheModule.writeThrough(CacheType.CIGARETTE_LIST, storeId, modified, CigaretteOnList::getId, cigaretteOnListRepository::save);
     }
 
 

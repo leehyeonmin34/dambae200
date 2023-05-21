@@ -7,14 +7,12 @@ import com.dambae200.dambae200.domain.cigarette.dto.CigaretteGetResponse;
 import com.dambae200.dambae200.domain.cigarette.dto.CigaretteUpdateRequest;
 import com.dambae200.dambae200.domain.cigarette.exception.OfficaialNameDuplicationException;
 import com.dambae200.dambae200.domain.cigarette.repository.CigaretteRepository;
-import com.dambae200.dambae200.domain.cigaretteOnList.domain.CigaretteOnList;
 import com.dambae200.dambae200.domain.cigaretteOnList.repository.CigaretteOnListRepository;
-import com.dambae200.dambae200.global.cache.config.CacheEnv;
-import com.dambae200.dambae200.global.cache.service.CacheModule;
+import com.dambae200.dambae200.global.cache.config.CacheEnvOld;
+import com.dambae200.dambae200.global.cache.config.CacheType;
 import com.dambae200.dambae200.global.cache.service.CacheableRepository;
 import com.dambae200.dambae200.global.cache.service.HashCacheModule;
 import com.dambae200.dambae200.global.common.dto.DeleteResponse;
-import com.dambae200.dambae200.global.common.service.RepoUtils;
 import com.dambae200.dambae200.global.error.exception.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -24,7 +22,6 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -106,7 +103,7 @@ public class CigaretteUpdateService {
 
         // 관련 캐시 제거
         relatedStoreIdSet.forEach(storeId
-                -> hashCacheModule.evictAll(CacheEnv.CIGARETTE_LIST, storeId));
+                -> hashCacheModule.evictAll(CacheType.CIGARETTE_LIST, storeId));
 
         // 목표 엔티티 제거
         cigaretteCacheableRepository.evict(0L); // 목록 캐시 evict

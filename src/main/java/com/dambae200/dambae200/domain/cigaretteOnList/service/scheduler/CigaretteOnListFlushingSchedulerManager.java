@@ -2,7 +2,8 @@ package com.dambae200.dambae200.domain.cigaretteOnList.service.scheduler;
 
 import com.dambae200.dambae200.domain.cigaretteOnList.domain.CigaretteOnList;
 import com.dambae200.dambae200.domain.cigaretteOnList.repository.CigaretteOnListRepository;
-import com.dambae200.dambae200.global.cache.config.CacheEnv;
+import com.dambae200.dambae200.global.cache.config.CacheEnvOld;
+import com.dambae200.dambae200.global.cache.config.CacheType;
 import com.dambae200.dambae200.global.scheduler.service.SchedulerService;
 import com.dambae200.dambae200.global.cache.service.SetCacheModule;
 import lombok.extern.slf4j.Slf4j;
@@ -46,7 +47,7 @@ public class CigaretteOnListFlushingSchedulerManager {
 
     private Runnable task(Long storeId){
         return () -> {
-            setCacheModule.flushAll(CacheEnv.CIGARETTE_DIRTY, storeId, dbWriteFunction);
+            setCacheModule.flushAll(CacheType.CIGARETTE_DIRTY, storeId, dbWriteFunction);
             log.info(String.format("%s task가 수행됐습니다.", getTaskId(storeId)));
         };
     }

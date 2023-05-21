@@ -1,14 +1,13 @@
 package com.dambae200.dambae200.global.cache.config;
 
-import com.dambae200.dambae200.domain.sessionInfo.repository.SessionInfoRepository;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 
 @Getter
 @RequiredArgsConstructor
-public class CacheEnv {
+public class CacheEnvOld {
 
-    final private SessionInfoRepository sessionInfoRepository;
+//    final private SessionInfoRepository sessionInfoRepository;
 
     public static final int ONE_DAY = 60 * 60 * 24;
     public static final int ONE_HOUR = 60 * 60;

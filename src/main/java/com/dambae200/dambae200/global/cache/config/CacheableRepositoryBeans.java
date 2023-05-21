@@ -4,8 +4,6 @@ import com.dambae200.dambae200.domain.access.domain.Access;
 import com.dambae200.dambae200.domain.access.repository.AccessRepository;
 import com.dambae200.dambae200.domain.cigarette.domain.Cigarette;
 import com.dambae200.dambae200.domain.cigarette.repository.CigaretteRepository;
-import com.dambae200.dambae200.domain.cigaretteOnList.domain.CigaretteOnList;
-import com.dambae200.dambae200.domain.cigaretteOnList.repository.CigaretteOnListRepository;
 import com.dambae200.dambae200.global.cache.service.CacheModule;
 import com.dambae200.dambae200.global.cache.service.CacheableRepository;
 import lombok.RequiredArgsConstructor;
@@ -23,12 +21,12 @@ public class CacheableRepositoryBeans {
 
     @Bean
     public CacheableRepository<Long, Access, AccessRepository> accessCacheableRepository(){
-        return new CacheableRepository<>(CacheEnv.ACCESS, accessRepository, Access::getId, cacheModule);
+        return new CacheableRepository<>(CacheType.ACCESS, accessRepository, Access::getId, cacheModule);
     }
 
     @Bean
     public CacheableRepository<Long, Cigarette, CigaretteRepository> cigaretteCacheableRepository(){
-        return new CacheableRepository<>(CacheEnv.CIGARETTE, cigaretteRepository, Cigarette::getId, cacheModule);
+        return new CacheableRepository<>(CacheType.CIGARETTE, cigaretteRepository, Cigarette::getId, cacheModule);
     }
 
 }

@@ -18,7 +18,6 @@ public class CigaretteOnListStopFlushingSchedulerManager {
     final private CigaretteOnListFlushingSchedulerManager cigaretteOnListFlushingSchedulerManager;
     final private CigaretteOnListRepository cigaretteOnListRepository;
     final private SchedulerService schedulerService;
-    final private CacheModule cacheModule;
 
     final private UnaryOperator<List<CigaretteOnList>> dbWriteFunction;
     final private Long period;
@@ -28,7 +27,6 @@ public class CigaretteOnListStopFlushingSchedulerManager {
         this.cigaretteOnListFlushingSchedulerManager = cigaretteOnListFlushingSchedulerManager;
         this.cigaretteOnListRepository = cigaretteOnListRepository;
         this.schedulerService = schedulerService;
-        this.cacheModule = cacheModule;
 
         this.dbWriteFunction = cigaretteOnListRepository::saveAll;
         this.period = TimeUnit.SECONDS.toMillis(31);

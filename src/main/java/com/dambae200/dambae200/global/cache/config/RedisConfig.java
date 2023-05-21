@@ -18,6 +18,7 @@ import org.springframework.orm.jpa.JpaTransactionManager;
 import org.springframework.transaction.PlatformTransactionManager;
 
 import java.time.Duration;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -41,7 +42,7 @@ public class RedisConfig {
 
         RedisCacheConfiguration configuration = RedisCacheConfiguration.defaultCacheConfig()
                 .disableCachingNullValues() // null value 캐시안함
-                .entryTtl(Duration.ofSeconds(CacheEnv.DEFAULT_EXPIRE_SEC)) // 캐시의 기본 유효시간 설정
+                .entryTtl(Duration.ofSeconds(CacheEnvOld.DEFAULT_EXPIRE_SEC)) // 캐시의 기본 유효시간 설정
                 .computePrefixWith(CacheKeyPrefix.simple()) // prefix = "CacheName::"
                 .serializeKeysWith(RedisSerializationContext.SerializationPair.fromSerializer(new StringRedisSerializer()))
                 .serializeValuesWith(RedisSerializationContext.SerializationPair.fromSerializer(new GenericJackson2JsonRedisSerializer()))
@@ -49,25 +50,10 @@ public class RedisConfig {
 
         // 캐시키별 default 유효시간 설정
         Map<String, RedisCacheConfiguration> cacheConfigurations = new HashMap<>();
-        cacheConfigurations.put(CacheEnv.SESSION_INFO, RedisCacheConfiguration.defaultCacheConfig()
-                .entryTtl(Duration.ofSeconds(CacheEnv.SESSION_INFO_EXPIRE_SEC)));
-        cacheConfigurations.put(CacheEnv.TEST, RedisCacheConfiguration.defaultCacheConfig()
-                .entryTtl(Duration.ofSeconds(CacheEnv.DEFAULT_EXPIRE_SEC)));
-        cacheConfigurations.put(CacheEnv.STORE, RedisCacheConfiguration.defaultCacheConfig()
-                .entryTtl(Duration.ofSeconds(CacheEnv.STORE_SEC)));
-        cacheConfigurations.put(CacheEnv.ACCESS, RedisCacheConfiguration.defaultCacheConfig()
-                .entryTtl(Duration.ofSeconds(CacheEnv.ACCESS_SEC)));
-        cacheConfigurations.put(CacheEnv.NOTIFICATION, RedisCacheConfiguration.defaultCacheConfig()
-                .entryTtl(Duration.ofSeconds(CacheEnv.NOTIFICATION_SEC)));
-        cacheConfigurations.put(CacheEnv.USER, RedisCacheConfiguration.defaultCacheConfig()
-                .entryTtl(Duration.ofSeconds(CacheEnv.USER_SEC)));
-        cacheConfigurations.put(CacheEnv.CIGARETTE, RedisCacheConfiguration.defaultCacheConfig()
-                .entryTtl(Duration.ofSeconds(CacheEnv.CIGARETTE_SEC)));
-        cacheConfigurations.put(CacheEnv.CIGARETTE_LIST, RedisCacheConfiguration.defaultCacheConfig()
-                .entryTtl(Duration.ofSeconds(CacheEnv.CIGARETTE_LIST_SEC)));
-        cacheConfigurations.put(CacheEnv.CIGARETTE_DIRTY, RedisCacheConfiguration.defaultCacheConfig()
-                .entryTtl(Duration.ofSeconds(CacheEnv.CIGARETTE_DIRTY_SEC)));
-
+        Arrays.stream(CacheType.values()).forEach(cacheObject -> {
+            cacheConfigurations.put(cacheObject.getCacheName(), RedisCacheConfiguration.defaultCacheConfig()
+                    .entryTtl(Duration.ofSeconds(cacheObject.getTtlSecond())));
+        });
 
         return RedisCacheManager.RedisCacheManagerBuilder
                 .fromConnectionFactory(connectionFactory)
@@ -82,7 +68,6 @@ public class RedisConfig {
         RedisTemplate<?, ?> redisTemplate = new RedisTemplate<>();
         redisTemplate.setConnectionFactory(redisConnectionFactory());
         redisTemplate.setEnableTransactionSupport(true);
-
         redisTemplate.setKeySerializer(new StringRedisSerializer());
         redisTemplate.setValueSerializer(new GenericJackson2JsonRedisSerializer());
         redisTemplate.setHashKeySerializer(new StringRedisSerializer());

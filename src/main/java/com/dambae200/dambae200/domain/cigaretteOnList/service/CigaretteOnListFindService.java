@@ -3,7 +3,8 @@ package com.dambae200.dambae200.domain.cigaretteOnList.service;
 import com.dambae200.dambae200.domain.cigaretteOnList.domain.CigaretteOnList;
 import com.dambae200.dambae200.domain.cigaretteOnList.dto.CigaretteOnListGetListResponse;
 import com.dambae200.dambae200.domain.cigaretteOnList.repository.CigaretteOnListRepository;
-import com.dambae200.dambae200.global.cache.config.CacheEnv;
+import com.dambae200.dambae200.global.cache.config.CacheEnvOld;
+import com.dambae200.dambae200.global.cache.config.CacheType;
 import com.dambae200.dambae200.global.cache.service.HashCacheModule;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -24,7 +25,7 @@ public class CigaretteOnListFindService {
     @Transactional(readOnly = true)
     public CigaretteOnListGetListResponse findAllByStoreIdOrderByDisplay(final Long storeId) {
 
-        List<CigaretteOnList> cigaretteOnLists = hashCacheModule.getAllCacheOrLoad(CacheEnv.CIGARETTE_LIST, storeId,
+        List<CigaretteOnList> cigaretteOnLists = hashCacheModule.getAllCacheOrLoad(CacheType.CIGARETTE_LIST, storeId,
         cigaretteOnListRepository::findAllByStoreIdOrderByDisplay, CigaretteOnList::getId)
                 .values().stream().collect(Collectors.toList());
         cigaretteOnLists.sort(Comparator.comparingInt(CigaretteOnList::getDisplayOrder));

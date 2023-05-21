@@ -1,10 +1,10 @@
 package com.dambae200.dambae200.global.cache;
 
 import com.dambae200.dambae200.domain.user.domain.User;
-import com.dambae200.dambae200.global.cache.config.CacheEnv;
+import com.dambae200.dambae200.global.cache.config.CacheEnvOld;
+import com.dambae200.dambae200.global.cache.config.CacheType;
 import com.dambae200.dambae200.global.cache.service.CacheModule;
 import com.dambae200.dambae200.global.cache.service.HashCacheModule;
-import org.hibernate.Cache;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -31,15 +31,15 @@ public class CacheSerializationTest {
     @Test
     public void serializationTest(){
         User testUser = new User("email", "pw","nickname");
-        cacheModule.put(CacheEnv.TEST, "key", testUser.toString());
-        cacheModule.put(CacheEnv.TEST, "Integer", "1");
+        cacheModule.put(CacheType.TEST, "key", testUser.toString());
+        cacheModule.put(CacheType.TEST, "Integer", "1");
 
-        hashCacheModule.put(CacheEnv.TEST, "hash", "hashKey", testUser);
+        hashCacheModule.put(CacheType.TEST, "hash", "hashKey", testUser);
 
 
 
-        String integerCache = cacheModule.get(CacheEnv.TEST, "Integer");
-        String testUserString = cacheModule.get(CacheEnv.TEST, "key");
+        String integerCache = cacheModule.get(CacheType.TEST, "Integer");
+        String testUserString = cacheModule.get(CacheType.TEST, "key");
         then(testUserString).isEqualTo(testUser.toString());
         then(integerCache).isEqualTo("1");
 
