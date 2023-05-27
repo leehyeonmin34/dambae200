@@ -4,14 +4,13 @@ import static com.dambae200.dambae200.global.cache.service.CacheKeyGenerator.*;
 import com.dambae200.dambae200.global.cache.config.CacheType;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.cache.Cache;
+import org.springframework.data.redis.core.RedisCallback;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.core.ValueOperations;
 import org.springframework.data.redis.serializer.RedisSerializer;
 import org.springframework.stereotype.Component;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 import java.util.concurrent.TimeUnit;
 import java.util.function.Consumer;
 import java.util.function.Function;
@@ -45,7 +44,7 @@ public class CacheModule {
         // 캐시에 값 있을 때 바로 리턴
         if (cached != null) {
             log.info(String.format("캐시 사용 - cachaName: %s, key: %s", cacheType.getCacheName(), key));
-            return (V) cached;
+            return cached;
         }
 
         // 캐시에 값 없을 땐 다른 저장소 조회, 캐시에 저장
@@ -86,6 +85,17 @@ public class CacheModule {
         return saved;
     }
 
+    public <K, V> List<V> writeAllThrough(CacheType cacheType, List<V> values, UnaryOperator<Collection<V>> dbWriteFunction, Function<V, K> keyExtractor){
+        RedisSerializer keySerializer = redisTemplate.getStringSerializer();
+        RedisSerializer valueSerializer = redisTemplate.getValueSerializer();
+
+        List<V> saved = dbWriteFunction.apply(values).stream().collect(Collectors.toList());
+
+        putAll(cacheType, saved, keyExtractor);
+
+        return saved;
+    }
+
     // 캐시의 내용을 DB에 적용하고 캐시에서는 삭제
     public <K, V> V flush(CacheType cacheType, K key, UnaryOperator<V> dbWriteFunction){
         V cached = (V)ops.getAndDelete(getCacheKey(cacheType, key));
@@ -102,6 +112,12 @@ public class CacheModule {
     public <K> void deleteAllThroughByKeys(CacheType cacheType, List<K> keys, Consumer<List<K>> dbDeleteFunction){
         dbDeleteFunction.accept(keys);
         evictAllByKeys(cacheType, keys);
+    }
+
+    // 캐시, DB 모두 삭제 (복수, Redis 파이프라인 사용)
+    public <K> void deleteAllThroughByKeysPipelined(CacheType cacheType, List<K> keys, Consumer<List<K>> dbDeleteFunction){
+        dbDeleteFunction.accept(keys);
+        evictAllByKeysPipelined(cacheType, keys);
     }
 
 
@@ -126,6 +142,19 @@ public class CacheModule {
         ops.set(cacheKey, value, cacheType.getTtlSecond(), TimeUnit.SECONDS);
     }
 
+    // 여러 개의 연산을 여러번의 트랜잭션 대신 1번의 트랜잭션으로 처리
+    public <K, V> void putAll(CacheType cacheType, List<V> values, Function<V, K> keyExtractor){
+
+        redisTemplate.executePipelined((RedisCallback<Object>) RedisConnection -> {
+            values.forEach(item -> {
+                String key = getCacheKey(cacheType, keyExtractor.apply(item));
+                RedisConnection.set(keySerializer.serialize(key), valueSerializer.serialize(item));
+            });
+            return null;
+        });
+
+    }
+
     // 캐시 삭제 (단수)
     public <K> void evict(CacheType cacheType, K key){
         String cacheKey = getCacheKey(cacheType, key);
@@ -138,6 +167,17 @@ public class CacheModule {
                 .map(key -> getCacheKey(cacheType, key))
                 .collect(Collectors.toList());
         redisTemplate.delete(cacheKeys);
+    }
+
+    public <K> void evictAllByKeysPipelined(CacheType cacheType, List<K> keys){
+
+        redisTemplate.executePipelined((RedisCallback<Object>) RedisConnection -> {
+            keys.forEach(key -> {
+                String cacheKey = getCacheKey(cacheType, key);
+                RedisConnection.keyCommands().del(keySerializer.serialize(cacheKey));
+            });
+            return null;
+        });
     }
 
 

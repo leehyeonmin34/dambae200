@@ -81,7 +81,7 @@ public class CigaretteUpdateService {
         cigarette.updateCigarette(request.getOfficial_name(), request.getCustomized_name());
 
         cigaretteCacheableRepository.evict(0L); // 목록 캐시 evict
-        final Cigarette saved = cigaretteRepository.save(cigarette);
+        Cigarette saved = cigaretteCacheableRepository.writeThrough(id, cigarette);
 
         return new CigaretteGetResponse(saved);
     }
@@ -107,7 +107,7 @@ public class CigaretteUpdateService {
 
         // 목표 엔티티 제거
         cigaretteCacheableRepository.evict(0L); // 목록 캐시 evict
-        cigaretteRepository.delete(cigarette);
+        cigaretteCacheableRepository.deleteThrough(id);
         return new DeleteResponse("cigarette", id);
     }
 

@@ -97,7 +97,7 @@ public class CigaretteOnListUpdateService {
     //담배 추가(담배id) - 순서는 맨 마지막으로
     public CigaretteOnListGetResponse addCigaretteOnList(CigaretteOnListAddRequest request){
 
-        checkDuplicate(request.getStoreId(), request.getCigaretteId());
+
 
         Store store = storeRepository.findById(request.getStoreId()).orElseThrow(() -> new EntityNotFoundException());
 
@@ -110,6 +110,8 @@ public class CigaretteOnListUpdateService {
                 .customizedName(request.getCustomizedName())
                 .build();
 
+        // TODO - 아래 두 연산 MySQL, Redis Transaction 적용 필요
+        checkDuplicate(request.getStoreId(), request.getCigaretteId());
         CigaretteOnList saved = writeThrough(store.getId(), cigaretteOnList);
 
         return new CigaretteOnListGetResponse(saved);
@@ -122,7 +124,9 @@ public class CigaretteOnListUpdateService {
     }
 
     private void checkDuplicate(Long storeId, Long cigaretteId) {
-        if (cigaretteOnListRepository.existsByStoreIdAndCigaretteId(storeId, cigaretteId)) {
+        boolean exist = hashCacheModule.getCacheOrLoad(CacheType.CIGARETTE_LIST, storeId, cigaretteId,
+                (_id) -> cigaretteOnListRepository.existsByStoreIdAndCigaretteId(storeId, cigaretteId));
+        if (exist) {
             throw new DuplicateCigaretteOnListException(storeId, cigaretteId);
         }
     }

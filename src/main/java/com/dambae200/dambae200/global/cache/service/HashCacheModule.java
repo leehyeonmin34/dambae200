@@ -196,20 +196,20 @@ public class HashCacheModule {
 
     // 캐시, DB 모두 삭제 (단건)
     public <K, HK> void deleteThrough(CacheType cacheType, K key, HK hashKey, Consumer<HK> dbDeleteFunction){
-        dbDeleteFunction.accept(hashKey);
         evict(cacheType, key, hashKey);
+        dbDeleteFunction.accept(hashKey);
     }
 
     // 캐시, DB 모두 삭제 (key에 해당하는 map 전체)
     public <K, HK> void deleteAllThrough(CacheType cacheType, K key, Consumer<K> dbDeleteFunction){
-        dbDeleteFunction.accept(key);
         evictAll(cacheType, key);
+        dbDeleteFunction.accept(key);
     }
 
     // 캐시, DB 모두 삭제 (복수건)
     public <K, HK> void deleteAllThroughByHashKeys(CacheType cacheType, K key, List<HK> hashKeys, Consumer<List<HK>> dbDeleteFunction){
-        dbDeleteFunction.accept(hashKeys);
         evictAllByHashKeys(cacheType, key, hashKeys);
+        dbDeleteFunction.accept(hashKeys);
     }
 
 

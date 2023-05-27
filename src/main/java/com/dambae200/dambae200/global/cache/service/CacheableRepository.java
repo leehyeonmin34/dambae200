@@ -6,6 +6,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 import javax.persistence.EntityNotFoundException;
 import java.util.List;
+import java.util.Map;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
@@ -44,6 +45,10 @@ public class CacheableRepository<K, V, REPO extends JpaRepository<V, K>> {
         return cacheModule.writeThrough(cacheType, key, value, repository::save);
     }
 
+    public List<V> writeAllthrough(List<V> values){
+        return cacheModule.writeAllThrough(cacheType, values, repository::saveAll, keyExtractor);
+    }
+
 
     public V writeThrough(V value){
         return cacheModule.writeThrough(cacheType, keyExtractor.apply(value), value, repository::save);
@@ -51,6 +56,10 @@ public class CacheableRepository<K, V, REPO extends JpaRepository<V, K>> {
 
     public void deleteThrough(K key){
         cacheModule.deleteThrough(cacheType, key, repository::deleteById);
+    }
+
+    public void deleteAllThroughPipelined(List<K> keys){
+        cacheModule.deleteAllThroughByKeysPipelined(cacheType, keys, repository::deleteAllByIdInBatch);
     }
 
     public void deleteAllThrough(List<K> keys){

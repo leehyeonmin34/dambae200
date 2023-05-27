@@ -74,7 +74,7 @@ public class SessionServiceImplCacheModule implements SessionService {
         String accessToken = UUID.randomUUID().toString();
         SessionInfo sessionInfo = new SessionInfo.Builder(accessToken, user.getId())
                 .userAgent(userAgent)
-                .expirationTime(LocalDateTime.now().plusDays(30))
+                .expirationTime(LocalDateTime.now().plusSeconds(CacheType.SESSION_INFO.getTtlSecond()))
                 .build();
 
         // DB, 캐시에 저장
