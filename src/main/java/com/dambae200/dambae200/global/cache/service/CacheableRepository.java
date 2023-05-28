@@ -49,6 +49,10 @@ public class CacheableRepository<K, V, REPO extends JpaRepository<V, K>> {
         return cacheModule.writeAllThrough(cacheType, values, repository::saveAll, keyExtractor);
     }
 
+    public List<V> writeAllthroughPipelined(List<V> values){
+        return cacheModule.writeAllThroughPipelined(cacheType, values, repository::saveAll, keyExtractor);
+    }
+
 
     public V writeThrough(V value){
         return cacheModule.writeThrough(cacheType, keyExtractor.apply(value), value, repository::save);

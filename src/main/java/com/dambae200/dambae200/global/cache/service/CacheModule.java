@@ -96,6 +96,18 @@ public class CacheModule {
         return saved;
     }
 
+    public <K, V> List<V> writeAllThroughPipelined(CacheType cacheType, List<V> values, UnaryOperator<Collection<V>> dbWriteFunction, Function<V, K> keyExtractor){
+        RedisSerializer keySerializer = redisTemplate.getStringSerializer();
+        RedisSerializer valueSerializer = redisTemplate.getValueSerializer();
+
+        List<V> saved = dbWriteFunction.apply(values).stream().collect(Collectors.toList());
+
+        putAllPipelined(cacheType, saved, keyExtractor);
+
+        return saved;
+    }
+
+
     // 캐시의 내용을 DB에 적용하고 캐시에서는 삭제
     public <K, V> V flush(CacheType cacheType, K key, UnaryOperator<V> dbWriteFunction){
         V cached = (V)ops.getAndDelete(getCacheKey(cacheType, key));
@@ -143,8 +155,12 @@ public class CacheModule {
     }
 
     // 여러 개의 연산을 여러번의 트랜잭션 대신 1번의 트랜잭션으로 처리
-    public <K, V> void putAll(CacheType cacheType, List<V> values, Function<V, K> keyExtractor){
+    public <K, V> void putAllPipelined(CacheType cacheType, List<V> values, Function<V, K> keyExtractor){
+        values.stream().forEach(value -> ops.set(keyExtractor.apply(value), value));
+    }
 
+    // 여러 개의 연산을 여러번의 트랜잭션 대신 1번의 트랜잭션으로 처리
+    public <K, V> void putAll(CacheType cacheType, List<V> values, Function<V, K> keyExtractor){
         redisTemplate.executePipelined((RedisCallback<Object>) RedisConnection -> {
             values.forEach(item -> {
                 String key = getCacheKey(cacheType, keyExtractor.apply(item));
@@ -152,7 +168,6 @@ public class CacheModule {
             });
             return null;
         });
-
     }
 
     // 캐시 삭제 (단수)
