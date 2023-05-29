@@ -16,6 +16,7 @@ import com.dambae200.dambae200.global.cache.service.HashCacheModule;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityNotFoundException;
 import java.util.Comparator;
@@ -31,6 +32,7 @@ public class CigaretteOnListUpdateService {
     private final CacheableRepository<Long, Cigarette, CigaretteRepository> cigaretteCacheableRepository;
     private final StoreRepository storeRepository;
     private final HashCacheModule hashCacheModule;
+    private final CigaretteOnListTxService cigaretteOnListTxService;
 
     //담배 개수 입력
     public CigaretteOnListUpdateCountResponse inputCigaretteCount(final Long storeId, final Long id, final int count){
@@ -69,6 +71,7 @@ public class CigaretteOnListUpdateService {
     }
 
 
+    @Transactional
     public CigaretteOnListReorderResponse reOrderAll(final CigaretteOnListReorderRequest request) {
         // id 리스트로 한 번에 DB 조회
         List<CigaretteOnListReorderRequest.OrderInfo> orderInfos = request.getOrderInfos();
@@ -110,9 +113,8 @@ public class CigaretteOnListUpdateService {
                 .customizedName(request.getCustomizedName())
                 .build();
 
-        // TODO - 아래 두 연산 MySQL, Redis Transaction 적용 필요
-        checkDuplicate(request.getStoreId(), request.getCigaretteId());
-        CigaretteOnList saved = writeThrough(store.getId(), cigaretteOnList);
+        // Setnx 트랜잭션
+        CigaretteOnList saved = cigaretteOnListTxService.addIfNotExist(String.valueOf(store.getId()), store.getId(), cigarette.getId(), cigaretteOnList);
 
         return new CigaretteOnListGetResponse(saved);
     }

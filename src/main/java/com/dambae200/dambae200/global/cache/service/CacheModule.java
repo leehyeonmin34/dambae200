@@ -9,6 +9,7 @@ import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.core.ValueOperations;
 import org.springframework.data.redis.serializer.RedisSerializer;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.*;
 import java.util.concurrent.TimeUnit;
@@ -49,7 +50,7 @@ public class CacheModule {
 
         // 캐시에 값 없을 땐 다른 저장소 조회, 캐시에 저장
         V loaded = dbLoadFunction.apply(key);
-        ops.set(key, loaded, cacheType.getTtlSecond(), TimeUnit.SECONDS);
+        ops.set(cacheKey, loaded, cacheType.getTtlSecond(), TimeUnit.SECONDS);
         return loaded;
     }
 

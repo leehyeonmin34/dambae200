@@ -16,6 +16,7 @@ import org.springframework.data.redis.serializer.RedisSerializationContext;
 import org.springframework.data.redis.serializer.StringRedisSerializer;
 import org.springframework.orm.jpa.JpaTransactionManager;
 import org.springframework.transaction.PlatformTransactionManager;
+import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 import java.time.Duration;
 import java.util.Arrays;
@@ -25,6 +26,7 @@ import java.util.Map;
 @Configuration
 @RequiredArgsConstructor
 @EnableCaching
+@EnableTransactionManagement
 public class RedisConfig {
     @Value("${spring.redis.host}")
     public String host;

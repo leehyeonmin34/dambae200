@@ -14,6 +14,7 @@ public enum ErrorCode {
     INVALID_TYPE_VALUE(HttpStatus.BAD_REQUEST.value(), "C005", " Invalid Type Value"),
     HANDLE_ACCESS_DENIED(HttpStatus.FORBIDDEN.value(), "C006", "Access is Denied"),
     DUPLICATED_ENTITY(HttpStatus.BAD_REQUEST.value(), "C007", "Duplicated Entity"),
+    RLOCK_TIMEOUT(HttpStatus.INTERNAL_SERVER_ERROR.value(), "C008", "Redis Lock Timeout"),
 
     // User
     NOT_LOGGED_IN(HttpStatus.BAD_REQUEST.value(), "U001", "Not Logged in"),
