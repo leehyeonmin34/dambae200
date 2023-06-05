@@ -3,6 +3,7 @@ package com.dambae200.dambae200.domain.cigarette.domain;
 
 import com.dambae200.dambae200.global.common.dto.BaseEntity;
 import lombok.*;
+import lombok.experimental.SuperBuilder;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -11,7 +12,7 @@ import java.io.Serializable;
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @ToString(callSuper = true)
-@Builder
+@SuperBuilder
 @AllArgsConstructor
 public class Cigarette extends BaseEntity implements Serializable {
 

@@ -17,6 +17,8 @@ public interface CigaretteOnListRepository extends JpaRepository<CigaretteOnList
 
     boolean existsByStoreIdAndCigaretteId(Long storeId, Long cigaretteId);
 
+    CigaretteOnList findByStoreIdAndCigaretteId(Long storeId, Long cigaretteId);
+
     // fetch join으로 즉시 로딩
     @Query("select co from CigaretteOnList co join fetch co.store st " +
             "join fetch co.cigarette c " +

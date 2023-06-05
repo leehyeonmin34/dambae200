@@ -37,9 +37,5 @@ public class Store extends BaseEntity {
         this.id = id;
     }
 
-//    public void changeCigaretteList(CigaretteList cigaretteList) {
-//        this.cigaretteList = cigaretteList;
-//    }
-
 
 }

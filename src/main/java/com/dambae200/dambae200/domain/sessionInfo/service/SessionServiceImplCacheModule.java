@@ -2,13 +2,14 @@ package com.dambae200.dambae200.domain.sessionInfo.service;
 
 
 import com.dambae200.dambae200.domain.sessionInfo.domain.SessionInfo;
+import com.dambae200.dambae200.domain.sessionInfo.dto.SessionInfoDto;
 import com.dambae200.dambae200.domain.sessionInfo.exception.AccessedExpiredSessionTokenException;
 import com.dambae200.dambae200.domain.sessionInfo.exception.SessionInfoNotExistsException;
 import com.dambae200.dambae200.domain.sessionInfo.repository.SessionInfoRepository;
 import com.dambae200.dambae200.domain.user.dto.UserGetResponse;
 import com.dambae200.dambae200.global.cache.config.CacheType;
 import com.dambae200.dambae200.global.cache.service.CacheModule;
-import com.dambae200.dambae200.global.cache.config.CacheEnvOld;
+import com.dambae200.dambae200.global.cache.service.CacheableRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Primary;
 import org.springframework.data.redis.cache.RedisCacheManager;
@@ -27,7 +28,7 @@ public class SessionServiceImplCacheModule implements SessionService {
 
     final private SessionInfoRepository sessionInfoRepository;
     final private CacheModule cacheModule;
-    final private RedisCacheManager cacheManager;
+    final private CacheableRepository<SessionInfo, SessionInfoDto, String, SessionInfoRepository> sessionInfoCacheableRepository;
 
     @Override
     public boolean existsByToken(final String accessToken){
@@ -43,11 +44,7 @@ public class SessionServiceImplCacheModule implements SessionService {
     public SessionInfo getSessionElseThrow(final String accessToken){
 
         // 캐시, DB 조회
-        SessionInfo sessionInfo = cacheModule.getCacheOrLoad(CacheType.SESSION_INFO,
-                accessToken,
-                key -> sessionInfoRepository.findById(key)
-                        .orElseThrow(SessionInfoNotExistsException::new)
-        );
+        SessionInfo sessionInfo = sessionInfoCacheableRepository.getEntityCacheOrLoad(accessToken);
 
         // 만료되면 삭제 후 예외 발생
         removeIfExpired(sessionInfo);
@@ -61,7 +58,7 @@ public class SessionServiceImplCacheModule implements SessionService {
         try {
             sessionInfo.checkExpiration();
         } catch (AccessedExpiredSessionTokenException e){
-            cacheModule.deleteThrough(CacheType.SESSION_INFO, sessionInfo.getAccessToken(), sessionInfoRepository::deleteById);
+            sessionInfoCacheableRepository.deleteThrough(sessionInfo.getAccessToken());
             throw new SessionInfoNotExistsException();
         }
     }
@@ -78,7 +75,7 @@ public class SessionServiceImplCacheModule implements SessionService {
                 .build();
 
         // DB, 캐시에 저장
-        SessionInfo saved = cacheModule.writeThrough(CacheType.SESSION_INFO, accessToken, sessionInfo, sessionInfoRepository::save);
+        SessionInfo saved = sessionInfoCacheableRepository.writeThrough(accessToken, sessionInfo);
 
         return saved;
     }

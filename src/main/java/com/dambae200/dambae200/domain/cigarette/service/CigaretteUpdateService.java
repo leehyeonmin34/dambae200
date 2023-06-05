@@ -29,7 +29,7 @@ public class CigaretteUpdateService {
 
     private final CigaretteRepository cigaretteRepository;
     private final CigaretteOnListRepository cigaretteOnListRepository;
-    private final CacheableRepository<Long, Cigarette, CigaretteRepository> cigaretteCacheableRepository;
+    private final CacheableRepository<Cigarette, CigaretteGetResponse, Long, CigaretteRepository> cigaretteCacheableRepository;
     private final HashCacheModule hashCacheModule;
 
     @Transactional
@@ -57,7 +57,7 @@ public class CigaretteUpdateService {
 
         cigaretteCacheableRepository.evict(0L); // 목록 캐시 evict
         final List<Cigarette> saved = cigaretteRepository.saveAll(cigarettes);
-        return new CigaretteGetListResponse(saved);
+        return CigaretteGetListResponse.of(saved);
     }
 
 
@@ -77,7 +77,9 @@ public class CigaretteUpdateService {
 
         checkDuplicate(request.getOfficial_name());
 
-        final Cigarette cigarette = cigaretteCacheableRepository.getCacheOrLoad(id);
+        // TODO - DTO에 toEntity, toDto 메서드를 강제 정의할 순 없을까?
+        final Cigarette cigarette = cigaretteCacheableRepository.getEntityCacheOrLoad(id);
+
         cigarette.updateCigarette(request.getOfficial_name(), request.getCustomized_name());
 
         cigaretteCacheableRepository.evict(0L); // 목록 캐시 evict
@@ -88,8 +90,6 @@ public class CigaretteUpdateService {
 
     @Transactional
     public DeleteResponse deleteCigarette(final Long id) throws EntityNotFoundException {
-        Cigarette cigarette = cigaretteCacheableRepository.getCacheOrLoad(id);;
-
         // 연관된 엔티티 제거
         Set<Long> relatedStoreIdSet = new HashSet<>();
         Set<Long> cigaretteOnListIdSet = new HashSet<>();

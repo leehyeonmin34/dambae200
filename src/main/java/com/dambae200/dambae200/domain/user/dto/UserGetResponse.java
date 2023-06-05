@@ -3,8 +3,10 @@ package com.dambae200.dambae200.domain.user.dto;
 import com.dambae200.dambae200.domain.user.domain.User;
 import com.dambae200.dambae200.global.common.dto.BaseDto;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 @Getter
+@NoArgsConstructor
 public class UserGetResponse extends BaseDto {
     private String email;
     private String nickname;

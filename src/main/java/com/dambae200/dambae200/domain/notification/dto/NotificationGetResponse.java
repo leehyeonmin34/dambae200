@@ -2,10 +2,12 @@ package com.dambae200.dambae200.domain.notification.dto;
 
 import com.dambae200.dambae200.domain.notification.domain.Notification;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
 
 @Getter
+@NoArgsConstructor
 public class NotificationGetResponse{
     private Long id;
     private String title;

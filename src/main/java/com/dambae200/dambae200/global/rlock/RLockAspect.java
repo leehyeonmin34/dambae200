@@ -1,4 +1,4 @@
-package com.dambae200.dambae200.global.cache.rlock;
+package com.dambae200.dambae200.global.rlock;
 
 import com.dambae200.dambae200.global.error.exception.RLockTimeoutException;
 import lombok.RequiredArgsConstructor;
@@ -10,7 +10,6 @@ import org.redisson.api.RLock;
 import org.redisson.api.RedissonClient;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
-import springfox.documentation.annotations.Cacheable;
 
 import java.util.concurrent.TimeUnit;
 
@@ -21,7 +20,7 @@ import java.util.concurrent.TimeUnit;
 public class RLockAspect {
     private final RedissonClient redissonClient;
 
-    @Around("@annotation(RLock) && args(key, ..)") // 첫번째 파라미터가 key여야 함
+    @Around("@annotation(RLockAop) && args(key, ..)") // 첫번째 파라미터가 key여야 함
     public Object aroundRLock(ProceedingJoinPoint joinPoint, String key) throws Throwable {
 
         MethodSignature methodSignature = (MethodSignature) joinPoint.getSignature();
@@ -44,6 +43,7 @@ public class RLockAspect {
         }
 
         return ret;
+//        return joinPoint.proceed();
     }
 
 }

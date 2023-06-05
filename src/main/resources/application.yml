@@ -29,8 +29,13 @@ spring:
     host: localhost
 #    host: 118.67.135.98
     port: 6379
+#  jackson:
+#    serialization:
+#      fail-on-empty-beans: false
 server:
   port: 8060
+
+
 #mail:
 #  smtp:
 #    ssl:

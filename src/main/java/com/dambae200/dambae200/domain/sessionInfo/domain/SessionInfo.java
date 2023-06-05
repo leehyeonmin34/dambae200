@@ -1,10 +1,11 @@
 package com.dambae200.dambae200.domain.sessionInfo.domain;
 
 import com.dambae200.dambae200.domain.sessionInfo.exception.AccessedExpiredSessionTokenException;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.ToString;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateTimeDeserializer;
+import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateTimeSerializer;
+import lombok.*;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -17,7 +18,7 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString
-public class SessionInfo implements Serializable {
+public class SessionInfo {
 
     @Id
     @Column(name = "access_token", nullable = false, updatable = false, unique = true)
@@ -71,7 +72,6 @@ public class SessionInfo implements Serializable {
     }
 
     public Boolean isExpired(){
-//        return false;
         return this.expirationTime.isBefore(LocalDateTime.now());
     }
 

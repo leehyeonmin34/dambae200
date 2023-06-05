@@ -1,4 +1,4 @@
-package com.dambae200.dambae200.global.cache.rlock;
+package com.dambae200.dambae200.global.rlock;
 
 import java.lang.annotation.*;
 

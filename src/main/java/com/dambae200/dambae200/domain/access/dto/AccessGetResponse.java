@@ -2,9 +2,13 @@ package com.dambae200.dambae200.domain.access.dto;
 
 import com.dambae200.dambae200.domain.access.domain.Access;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
+
+import java.io.Serializable;
 
 @Getter
-public class AccessGetResponse{
+@NoArgsConstructor
+public class AccessGetResponse implements Serializable {
     private Long id;
     private String accessTypeCode;
     private String storeName;
