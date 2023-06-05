@@ -9,6 +9,8 @@ import java.util.stream.Collectors;
 
 @Slf4j
 public class DtoConverter {
+
+    // valueClass에서 entityClass를 인자로하는 생성자를 찾아 실행
     public static <V, E> V toDto(E entity, Class<V> valueClass, Class<E> entityClass){
         try {
             V value = valueClass.getDeclaredConstructor(entityClass).newInstance(entity);
@@ -26,6 +28,7 @@ public class DtoConverter {
                 .collect(Collectors.toList());
     }
 
+    // valueClass에서 valueClass를 인자로하는 "toEntity"라는 이름의 메서드를 찾아 실행
     public static <V, E> E toEntity(V value, Class<V> valueClass, Class<E> entityClass){
         try {
             E entity = (E) valueClass.getDeclaredMethod("toEntity", valueClass).invoke(null, value);

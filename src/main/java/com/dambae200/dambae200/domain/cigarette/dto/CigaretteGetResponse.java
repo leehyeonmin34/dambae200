@@ -1,6 +1,8 @@
 package com.dambae200.dambae200.domain.cigarette.dto;
 
 import com.dambae200.dambae200.domain.cigarette.domain.Cigarette;
+import com.dambae200.dambae200.global.common.dto.EntityBasedDTO;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
@@ -11,7 +13,8 @@ import java.time.LocalDateTime;
 @Getter
 @NoArgsConstructor
 @ToString
-public class CigaretteGetResponse implements Serializable {
+@Builder
+public class CigaretteGetResponse implements Serializable{
     private Long id;
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
