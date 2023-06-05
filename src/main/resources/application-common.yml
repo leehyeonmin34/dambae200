@@ -1,0 +1,6 @@
+server:
+  port: 1024
+spring:
+  mvc:
+    pathmatch:
+      matching-strategy: ant_path_matcher
