@@ -14,7 +14,7 @@ import java.util.Arrays;
 @Order(Ordered.HIGHEST_PRECEDENCE)
 public class CorsFilter implements Filter {
 
-    private final static String[] allowedOrigins = {"http://192.100.0.223:5500", "http://49.50.164.244:9090", "http://49.50.164.244:9999"};
+    private final static String[] allowedOrigins = {"http://localhost:5500", "http://192.100.0.223:5500", "http://49.50.164.244:9090", "http://49.50.164.244:9999"};
     // 로컬 VS Code
     // ncp-main nginx
     // ncp-main 프론트엔드 포트
