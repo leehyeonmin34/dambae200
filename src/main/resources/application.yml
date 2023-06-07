@@ -16,4 +16,4 @@ spring:
 #  jdbc:mysql:://DB주소:포트/스키마?rewriteBatchedStatements=true
 logging:
   file:
-    path=logs:
+    path: logs
