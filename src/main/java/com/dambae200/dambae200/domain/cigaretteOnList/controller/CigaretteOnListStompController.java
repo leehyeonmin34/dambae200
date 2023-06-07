@@ -24,7 +24,7 @@ public class CigaretteOnListStompController {
     private final SimpMessagingTemplate template; // 특정 Broker로 메시지를 전달
     private final CigaretteOnListUpdateService cigaretteOnListUpdateService;
 
-    @MessageMapping("/store/cigar_num") // -> pub/store/cigar_num
+    @MessageMapping("/socket/store/cigar_num") // -> pub/store/cigar_num
     public void cigarNum(@Payload final SocketRequest<CigaretteOnListUpdateCountRequest> request){
         final CigaretteOnListUpdateCountRequest messageContent = request.getContent();
         String destination = "/sub/store/" + messageContent.getStoreId() + "/cigar_num";
@@ -34,7 +34,7 @@ public class CigaretteOnListStompController {
         template.convertAndSend(destination, message);
     }
 
-    @MessageMapping("/store/add_cigar")
+    @MessageMapping("/socket/store/add_cigar")
     public void addCigaretteOnListById(Principal principal, @Payload @Valid final SocketRequest<CigaretteOnListAddRequest> request) {
         final String destination = "/sub/store/" + request.getContent().getStoreId() + "/add_cigar";
         final CigaretteOnListGetResponse response = cigaretteOnListUpdateService.addCigaretteOnList(request.getContent());
@@ -42,7 +42,7 @@ public class CigaretteOnListStompController {
         template.convertAndSend(destination, message);
     }
 
-    @MessageMapping("/store/initialize_count")
+    @MessageMapping("/socket/store/initialize_count")
     public void initializeCigaretteCount(@Payload final SocketRequest<CigaretteOnListInitializeCountRequest> request) {
         final CigaretteOnListInitializeCountRequest requestContent = request.getContent();
         cigaretteOnListUpdateService.initializeCigaretteCount(requestContent.getStoreId());
@@ -52,7 +52,7 @@ public class CigaretteOnListStompController {
         template.convertAndSend(destination, message);
     }
 
-    @MessageMapping("/store/delete_cigar")
+    @MessageMapping("/socket/store/delete_cigar")
     public void deleteCigaretteOnList(@Payload final SocketRequest<CigaretteOnListDeleteRequest> request) {
         final CigaretteOnListDeleteRequest requestContent = request.getContent();
         final DeleteResponse response = cigaretteOnListUpdateService.deleteCigaretteOnList(requestContent.getStoreId(), requestContent.getId());
@@ -62,7 +62,7 @@ public class CigaretteOnListStompController {
         template.convertAndSend(destination, message);
     }
 
-    @MessageMapping("/store/modify_cigar")
+    @MessageMapping("/socket/store/modify_cigar")
     public void modifyCigaretteOnList(@Payload final SocketRequest<CigaretteOnListModifyRequest> request) {
         final CigaretteOnListModifyRequest requestContent = request.getContent();
         final CigaretteOnListModifyResponse response = cigaretteOnListUpdateService.modifyCustomizeName(requestContent.getStoreId(), requestContent.getId(), requestContent.getCustomizedName());
@@ -72,7 +72,7 @@ public class CigaretteOnListStompController {
         template.convertAndSend(destination, message);
     }
 
-    @MessageMapping("/store/reorder")
+    @MessageMapping("/socket/store/reorder")
     public void reorder(@Payload final SocketRequest<CigaretteOnListReorderRequest> request) {
         final CigaretteOnListReorderRequest requestContent = request.getContent();
         final CigaretteOnListReorderResponse response = cigaretteOnListUpdateService.reOrderAll(requestContent);
