@@ -38,7 +38,7 @@ public class UserUpdateService {
         validateEmail(request.getEmail());
         validateNickname(request.getNickname());
 
-        User user = new User(request.getEmail(), request.getNickname(), request.getPw());
+        User user = new User(request.getEmail(), request.getPw(), request.getNickname());
         User saved = userRepository.save(user);
         return new UserGetResponse(saved);
     }
