@@ -24,7 +24,7 @@ public class SessionInfo {
     @Column(name = "access_token", nullable = false, updatable = false, unique = true)
     private String accessToken;
 
-    @Column(name = "user_id", nullable = false, updatable = false, unique = true)
+    @Column(name = "user_id", nullable = false, updatable = false, unique = false)
     @Getter
     private Long userId;
 
