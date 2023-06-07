@@ -1,5 +1,6 @@
 package com.dambae200.dambae200.global.common.config;
 
+import com.dambae200.dambae200.global.filter.CorsFilter;
 import com.dambae200.dambae200.global.interceptor.StoreAccessCheckInterceptor;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Configuration;
@@ -31,6 +32,7 @@ public class WebConfig implements WebMvcConfigurer {
     public void addInterceptors(InterceptorRegistry registry) {
         registry.addInterceptor(storeAccessCheckInterceptor);
     }
+
 
 
 
