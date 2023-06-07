@@ -17,6 +17,7 @@ public class CorsFilter implements Filter {
     public void init(FilterConfig filterConfig) throws ServletException {
 
     }
+
     @Override
     public void doFilter(ServletRequest req, ServletResponse res, FilterChain chain) throws IOException, ServletException {
         HttpServletRequest request = (HttpServletRequest) req;
