@@ -108,7 +108,6 @@ public class CigaretteOnListUpdateService {
     public CigaretteOnListGetResponse addCigaretteOnList(CigaretteOnListAddRequest request){
 
 
-
         Store store = storeRepository.findById(request.getStoreId()).orElseThrow(() -> new EntityNotFoundException());
 
         Cigarette cigarette = cigaretteCacheableRepository.getEntityCacheOrLoad(request.getCigaretteId());

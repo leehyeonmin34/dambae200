@@ -31,7 +31,7 @@ public class CigaretteOnListTxService {
         CigaretteOnListGetResponse cached = cigaretteOnListCacheableRepository.get(storeId, cigaretteId);
         if (cached == null) {
             boolean saved = cigaretteOnListRepository.existsByStoreIdAndCigaretteId(storeId, cigaretteId);
-            if (!saved) {
+            if (saved) {
                 throw new DuplicateCigaretteOnListException(storeId, cigaretteId);
             }
         }
