@@ -40,7 +40,7 @@ public class StompWebSocketConfig implements WebSocketMessageBrokerConfigurer {
                 .setErrorHandler(socketExceptionHandler)
                 .addEndpoint("/stomp/store")
 //                .setAllowedOriginPatterns("*")
-                .setAllowedOriginPatterns("http://*:5500", "http://*.*.*.*:5500")
+                .setAllowedOriginPatterns("http://*:*", "http://*.*.*.*:*")
                 .setHandshakeHandler(customHandshakeHandler)
                 .withSockJS();
     }
