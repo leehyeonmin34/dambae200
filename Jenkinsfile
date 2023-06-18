@@ -36,28 +36,7 @@ pipeline {
             }
         }
 
-        // stage('SSH Tranfer') {
-        //     steps {
 
-        //     	sshagent(credentials: ['dambae200-ssh']){
-        //           // remove existing code
-        //     	    sh 'ssh -T root@dambae200-ssh rm -rf ~/docker-image/deploy/*'
-
-        //           // transfer new code
-								// 	sh 'scp -r ./build root@dambae200-ssh:~/docker-image/deploy/'
-
-        //     	}
-        //     }
-        //     post {
-        //         success {
-        //             echo 'ssh transfer success'
-        //         }
-
-        //         failure {
-        //             echo 'ssh transfer failed'
-        //         }
-        //     }
-        // }
 
         stage('Build Docker image'){
             steps{
@@ -96,15 +75,35 @@ pipeline {
                         ./deploy.sh
                         exit
                         _EOF_'''
-				// 	sh "ssh -o StrictHostKeyChecking=no ubuntu@172.31.13.153 'whoami'"
-                    // sh "ssh -o StrictHostKeyChecking=no ubuntu@172.31.13.153 'docker ps -q --filter name=docker-jenkins-pipeline-test | grep -q . && docker rm -f \$(docker ps -aq --filter name=docker-jenkins-pipeline-test)'"
-                    // sh "ssh -o StrictHostKeyChecking=no ubuntu@172.31.13.153 'docker rmi -f mooh2jj/docker-jenkins-pipeline-test'"
-                    // sh "ssh -o StrictHostKeyChecking=no ubuntu@172.31.13.153 'docker run -d --name docker-jenkins-pipeline-test -p 8080:8080 mooh2jj/docker-jenkins-pipeline-test'"
                 }
 
             }
 
         }
+
+        // dockerhub 말고 ssh로 앱서버로 직접 빌드파일 전송
+        // stage('SSH Tranfer') {
+        //     steps {
+
+        //     	sshagent(credentials: ['dambae200-ssh']){
+        //           // remove existing code
+        //     	    sh 'ssh -T root@dambae200-ssh rm -rf ~/docker-image/deploy/*'
+
+        //           // transfer new code
+								// 	sh 'scp -r ./build root@dambae200-ssh:~/docker-image/deploy/'
+
+        //     	}
+        //     }
+        //     post {
+        //         success {
+        //             echo 'ssh transfer success'
+        //         }
+
+        //         failure {
+        //             echo 'ssh transfer failed'
+        //         }
+        //     }
+        // }
 
         // stage('Build Docker Image') {
         //     steps {
@@ -129,43 +128,6 @@ pipeline {
 
         //         failure {
         //             echo 'build docker image failed'
-        //         }
-        //     }
-        // }
-
-
-
-
-        // stage('Docker Push') {
-        //     steps {
-        //         withCredentials([string(credentialsId: 'dockerHubPwd', variable: 'dockerHubPwd')]) {
-        //             sh "docker login -u mooh2jj -p ${dockerHubPwd}"
-        //         }
-        //         sh 'docker push mooh2jj/board_vue_backend'
-        //     }
-
-        //     post {
-        //         success {
-        //             echo 'Docker Push success'
-        //         }
-
-        //         failure {
-        //             echo 'Docker Push failed'
-        //         }
-        //     }
-        // }
-        // stage('Docker Deploy'){
-        //     steps{
-        //         sh 'docker-compose up -d'
-        //         sh 'docker-compose ps'
-        //     }
-        //     post {
-        //         success {
-        //             echo 'docker-compose success'
-        //         }
-
-        //         failure {
-        //             echo 'docker-compose failed'
         //         }
         //     }
         // }
