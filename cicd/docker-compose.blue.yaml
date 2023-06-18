@@ -1,0 +1,9 @@
+version: '2'
+
+services:
+  dambae200:
+    image: leehyeonmin34/dambae200-server #(실행할 이미지 이름)
+    volumes:
+      - ./deploy:/deploy/dambae200 # host의 ./deploy 디렉토리를 컨테이너의 /deploy/dambae200에 마운트 하겠다. 즉, host의 디렉토리와 >컨테이너의 디렉토리를 심볼릭 링크하는 것과 비슷하다.
+    ports:
+      - "1026:1024" # a : b -> host의 a 포트에서 받는 트래픽을 컨테이너(b)로 넘겨준다.
