@@ -9,7 +9,7 @@ VOLUME /deploy/app-name
 
 # 빌드 파일을 app.jar로 복사해서 실행
 # ENV JAR_FILE=/var/jenkins_home/workspace/dambae200/build/libs/dambae200-0.0.1-SNAPSHOT.jar
-ENV JAR_FILE=/build/libs/app-name-0.0.1-SNAPSHOT.jar
+ENV JAR_FILE=/build/libs/dambae200-0.0.1-SNAPSHOT.jar
 # ENV JAR_FILE=
 COPY $JAR_FILE app.jar
 ENTRYPOINT ["java","-jar","app.jar", "--spring.profiles.active=prod"]
