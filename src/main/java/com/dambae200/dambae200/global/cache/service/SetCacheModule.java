@@ -2,6 +2,8 @@ package com.dambae200.dambae200.global.cache.service;
 import static com.dambae200.dambae200.global.cache.service.CacheKeyGenerator.*;
 
 import com.dambae200.dambae200.global.cache.config.CacheType;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.core.SetOperations;
@@ -14,16 +16,11 @@ import java.util.function.UnaryOperator;
 import java.util.stream.Collectors;
 
 @Component
+@Slf4j
+@RequiredArgsConstructor
 public class SetCacheModule {
 
-    private static final Logger log = org.slf4j.LoggerFactory.getLogger(SetCacheModule.class);
-    final private RedisTemplate redisTemplate;
-    final private SetOperations ops;
-
-    public SetCacheModule(RedisTemplate redisTemplate) {
-        this.redisTemplate = redisTemplate;
-        this.ops = redisTemplate.opsForSet();
-    }
+    private final RedisTemplateFinder redisTemplateFinder;
 
     public <K, V> List<V> getAllCacheOrLoad(CacheType cacheType, K key, Function<K, List<V>> dbLoadFunction){
         Set<V> cached = getAll(cacheType, key);
@@ -42,6 +39,7 @@ public class SetCacheModule {
     }
 
     public <K, V> Set<V> getAll(CacheType cacheType, K key){
+        SetOperations ops = redisTemplateFinder.findOf(cacheType).opsForSet();
         String cacheKey = getCacheKey(cacheType, key);
         return ops.members(cacheKey);
     }
@@ -60,6 +58,7 @@ public class SetCacheModule {
     }
 
     public <K, V> List<V> flushAll(CacheType cacheType, K key, UnaryOperator<List<V>> dbWriteFunction){
+        SetOperations ops = redisTemplateFinder.findOf(cacheType).opsForSet();
         String cacheKey = getCacheKey(cacheType, key);
 
         List<V> cached = new ArrayList<>(getAll(cacheType, key));
@@ -70,7 +69,10 @@ public class SetCacheModule {
     }
 
     public <K, V> void put(CacheType cacheType, K key, V value){
+        RedisTemplate redisTemplate = redisTemplateFinder.findOf(cacheType);
+        SetOperations ops = redisTemplate.opsForSet();
         String cacheKey = getCacheKey(cacheType, key);
+
         ops.add(cacheKey, value);
         redisTemplate.expire(key, cacheType.getTtlSecond(), TimeUnit.SECONDS);
     }
@@ -81,7 +83,8 @@ public class SetCacheModule {
     }
 
     public <K, V> void putAll(CacheType cacheType, K key, Collection<V> values){
-
+        RedisTemplate redisTemplate = redisTemplateFinder.findOf(cacheType);
+        SetOperations ops = redisTemplate.opsForSet();
         String cacheKey = getCacheKey(cacheType, key);
         for(V value: values)
             ops.add(cacheKey, value);
@@ -89,6 +92,7 @@ public class SetCacheModule {
     }
 
     public <K, V> void evictAll(CacheType cacheType, K key){
+        RedisTemplate redisTemplate = redisTemplateFinder.findOf(cacheType);
         String cacheKey = getCacheKey(cacheType, key);
         redisTemplate.delete(cacheKey);
     }

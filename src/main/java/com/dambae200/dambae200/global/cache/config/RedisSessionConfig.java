@@ -5,9 +5,9 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.databind.jsontype.BasicPolymorphicTypeValidator;
 import com.fasterxml.jackson.databind.jsontype.PolymorphicTypeValidator;
-import com.fasterxml.jackson.datatype.hibernate5.Hibernate5Module;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.context.annotation.Bean;
@@ -21,9 +21,6 @@ import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.serializer.GenericJackson2JsonRedisSerializer;
 import org.springframework.data.redis.serializer.RedisSerializationContext;
 import org.springframework.data.redis.serializer.RedisSerializer;
-import org.springframework.data.redis.serializer.StringRedisSerializer;
-import org.springframework.orm.jpa.JpaTransactionManager;
-import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 import java.time.Duration;
@@ -34,33 +31,25 @@ import java.util.Map;
 @Configuration
 @RequiredArgsConstructor
 @EnableCaching
-@EnableTransactionManagement
-public class RedisConfig {
-    @Value("${spring.redis.host}")
-    public String host;
+public class RedisSessionConfig {
+    @Value("${spring.redis.session.host}")
+    private String host;
 
-    @Value("${spring.redis.port}")
-    public int port;
+    @Value("${spring.redis.session.port}")
+    private int port;
 
-    @Bean
+    @Bean(name = "sessionRedisConnectionFactory")
     public RedisConnectionFactory redisConnectionFactory() {
         return new LettuceConnectionFactory(host, port);
     }
 
-    @Bean
+    @Bean(name = "sessionKeySerializer")
     public RedisSerializer redisKeySerializer() {
         return new GenericJackson2JsonRedisSerializer();
     }
 
-//    @Bean
-//    Hibernate5Module hibernate5Module(){
-//        Hibernate5Module hibernate5Module = new Hibernate5Module();
-//        hibernate5Module.configure(Hibernate5Module.Feature.FORCE_LAZY_LOADING, true);
-//        return hibernate5Module;
-//    }
-
     // Java8 Date/Time 타입을 직렬,역직렬화할 수 있는 GenericJackson 기반
-    @Bean
+    @Bean(name = "sessionValueSerializer")
     public RedisSerializer redisValueSerializer() {
         PolymorphicTypeValidator typeValidator = BasicPolymorphicTypeValidator
                 .builder()
@@ -77,8 +66,10 @@ public class RedisConfig {
         return new GenericJackson2JsonRedisSerializer(objectMapper);
     }
 
-    @Bean(name = "cacheManager")
-    public RedisCacheManager cacheManager(RedisConnectionFactory connectionFactory, RedisSerializer redisKeySerializer, RedisSerializer redisValueSerializer) {
+    @Bean(name = "sessionCacheManager")
+    public RedisCacheManager cacheManager(@Qualifier("sessionRedisConnectionFactory") RedisConnectionFactory connectionFactory,
+                                          @Qualifier("sessionKeySerializer") RedisSerializer redisKeySerializer,
+                                          @Qualifier("sessionValueSerializer")RedisSerializer redisValueSerializer) {
 
         RedisCacheConfiguration configuration = RedisCacheConfiguration.defaultCacheConfig()
                 .disableCachingNullValues() // null value 캐시안함
@@ -103,10 +94,12 @@ public class RedisConfig {
                 .build();
     }
 
-    @Bean
-    public RedisTemplate<?, ?> redisTemplate(RedisSerializer redisKeySerializer, RedisSerializer redisValueSerializer) {
+    @Bean(name = "sessionRedisTemplate")
+    public RedisTemplate<?, ?> redisTemplate(@Qualifier("sessionRedisConnectionFactory") RedisConnectionFactory redisConnectionFactory,
+                                             @Qualifier("sessionKeySerializer")RedisSerializer redisKeySerializer,
+                                             @Qualifier("sessionValueSerializer")RedisSerializer redisValueSerializer) {
         RedisTemplate<?, ?> redisTemplate = new RedisTemplate<>();
-        redisTemplate.setConnectionFactory(redisConnectionFactory());
+        redisTemplate.setConnectionFactory(redisConnectionFactory);
         redisTemplate.setEnableTransactionSupport(true);
         redisTemplate.setKeySerializer(redisKeySerializer);
         redisTemplate.setValueSerializer(redisValueSerializer);
@@ -115,8 +108,4 @@ public class RedisConfig {
         return redisTemplate;
     }
 
-    @Bean
-    public PlatformTransactionManager transactionManager() {
-        return new JpaTransactionManager();
-    }
 }

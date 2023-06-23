@@ -3,6 +3,7 @@ import static com.dambae200.dambae200.global.cache.service.CacheKeyGenerator.*;
 
 import com.dambae200.dambae200.global.cache.config.CacheType;
 import com.dambae200.dambae200.global.common.dto.DtoConverter;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.redis.core.HashOperations;
 import org.springframework.data.redis.core.RedisTemplate;
@@ -23,20 +24,17 @@ import java.util.stream.Collectors;
 
 @Component
 @Slf4j
+@RequiredArgsConstructor
 public class HashCacheModule {
 
-    final private RedisTemplate redisTemplate;
-    final private HashOperations ops;
-
-    public HashCacheModule(RedisTemplate redisTemplate) {
-        this.redisTemplate = redisTemplate;
-        this.ops = redisTemplate.opsForHash();
-    }
+    private final RedisTemplateFinder redisTemplateFinder;
 
     // cacheName, key, hashKey에 해당하는 캐시를 먼저 조회한 뒤, 캐시에 없으면 다른 저장소 조회(loadFunction 수행)
     // map의 entry에 대한 look-aside (단건)
     @Transactional(readOnly = true)
     public <K, HK, V> V getCacheOrLoad(CacheType cacheType, K key, HK hashKey, Function<HK, V> loadDtoFunction) {
+
+        HashOperations ops = redisTemplateFinder.findOf(cacheType).opsForHash();
 
         // 캐시가 있다면 바로 리턴
         if (ops.hasKey(getCacheKey(cacheType, key), hashKey)) {
@@ -81,6 +79,7 @@ public class HashCacheModule {
             , List<HK> hashKeys
             , Function<List<HK>, List<V>> dbLoadFunctionByHashKey
             , Function<V, HK> keyExtractor){
+        HashOperations ops = redisTemplateFinder.findOf(cacheType).opsForHash();
         String cacheKey = getCacheKey(cacheType, key);
 
         List<V> result = new ArrayList<>();
@@ -113,6 +112,8 @@ public class HashCacheModule {
                                                 , Function<HK, E> loadDtoFunction
                                                 , Class<V> valueClass
                                                 , Class<E> entityClass) {
+
+        HashOperations ops = redisTemplateFinder.findOf(cacheType).opsForHash();
 
         // 캐시가 있다면 바로 리턴
         if (ops.hasKey(getCacheKey(cacheType, key), hashKey)) {
@@ -167,6 +168,8 @@ public class HashCacheModule {
             , Function<E, HK> entityKeyExtractor
             , Class<V> valueClass
             , Class<E> entityClass){
+
+        HashOperations ops = redisTemplateFinder.findOf(cacheType).opsForHash();
         String cacheKey = getCacheKey(cacheType, key);
 
         List<E> result = new ArrayList<>();
@@ -194,6 +197,7 @@ public class HashCacheModule {
     // 캐시 조회 (단건)
     @Transactional(readOnly = true)
     public <K, HK, V> V get(CacheType cacheType, K key, HK hashKey){
+        HashOperations ops = redisTemplateFinder.findOf(cacheType).opsForHash();
         String cacheKey = getCacheKey(cacheType, key);
         return (V)ops.get(cacheKey, hashKey);
     }
@@ -201,6 +205,7 @@ public class HashCacheModule {
     // 캐시 조회 (key에 대한 map 전체 조회)
     @Transactional(readOnly = true)
     public <K, HK, V> Map<HK, V> getAll(CacheType cacheType, K key){
+        HashOperations ops = redisTemplateFinder.findOf(cacheType).opsForHash();
         String cacheKey = getCacheKey(cacheType, key);
         return ops.entries(cacheKey);
     }
@@ -245,6 +250,9 @@ public class HashCacheModule {
 
     // 캐시 입력 (단건)
     public <K, HK, V> void put(CacheType cacheType, K key, HK hashKey, V value){
+        RedisTemplate redisTemplate = redisTemplateFinder.findOf(cacheType);
+        HashOperations ops = redisTemplate.opsForHash();
+
         String cacheKey = getCacheKey(cacheType, key);
         log.info("캐시 저장" + value.toString());
         ops.put(cacheKey, hashKey, value);
@@ -253,23 +261,29 @@ public class HashCacheModule {
 
     // 캐시 입력 (복수건)
     public <K, HK, V> void putAll(CacheType cacheType, K key, List<V> values, Function<V, HK> keyExtractor){
+        RedisTemplate redisTemplate = redisTemplateFinder.findOf(cacheType);
+        HashOperations ops = redisTemplate.opsForHash();
         String cacheKey = getCacheKey(cacheType, key);
+
         Map<HK, V> map = values.stream().collect(Collectors.toUnmodifiableMap(keyExtractor, item -> {
             log.info("캐시 저장" + item.toString());
             return item;
         }));
+
         ops.putAll(cacheKey, map);
         redisTemplate.expire(cacheKey, cacheType.getTtlSecond(), TimeUnit.SECONDS);
     }
 
     // 캐시 삭제 (단건)
     public <K, HK> void evict(CacheType cacheType, K key, HK hashKey){
+        HashOperations ops = redisTemplateFinder.findOf(cacheType).opsForHash();
         String cacheKey = getCacheKey(cacheType, key);
         ops.delete(cacheKey, hashKey);
     }
 
     // 캐시 삭제 (복수건)
     public <K, HK> void evictAllByHashKeys(CacheType cacheType, K key, List<HK> hashKeys){
+        HashOperations ops = redisTemplateFinder.findOf(cacheType).opsForHash();
         String cacheKey = getCacheKey(cacheType, key);
         for(HK hashKey: hashKeys)
             ops.delete(cacheKey, hashKey);
@@ -277,6 +291,7 @@ public class HashCacheModule {
 
     // 캐시 삭제 (key에 해당하는 map 전체)
     public <K, HK> void evictAll(CacheType cacheType, K key){
+        HashOperations ops = redisTemplateFinder.findOf(cacheType).opsForHash();
         String cacheKey = getCacheKey(cacheType, key);
         Set<HK> hashKeys = ops.entries(cacheKey).keySet();
         for(HK hashKey: hashKeys)

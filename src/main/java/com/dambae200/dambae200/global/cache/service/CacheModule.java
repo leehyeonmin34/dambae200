@@ -3,6 +3,7 @@ import static com.dambae200.dambae200.global.cache.service.CacheKeyGenerator.*;
 
 import com.dambae200.dambae200.global.cache.config.CacheType;
 import com.dambae200.dambae200.global.common.dto.DtoConverter;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.redis.core.RedisCallback;
 import org.springframework.data.redis.core.RedisTemplate;
@@ -19,24 +20,15 @@ import java.util.stream.Collectors;
 
 @Component
 @Slf4j
+@RequiredArgsConstructor
 public class CacheModule {
 
-    final private RedisTemplate redisTemplate;
-    final private RedisSerializer keySerializer;
-    final private RedisSerializer valueSerializer;
-    final private ValueOperations ops;
-
-
-    public CacheModule(RedisTemplate redisTemplate) {
-        this.redisTemplate = redisTemplate;
-        this.keySerializer = redisTemplate.getKeySerializer();
-        this.valueSerializer = redisTemplate.getValueSerializer();
-        this.ops = redisTemplate.opsForValue();
-    }
+    private final RedisTemplateFinder redisTemplateFinder;
 
     // cacheName, key에 해당하는 캐시들을 먼저 조회한 뒤, 캐시에 없으면 다른 저장소 조회(loadFunction 수행)
     // 단수 조회
     public <K, V> V getCacheOrLoad(CacheType cacheType, K key, Function<K, V> loadDtoFunction) {
+        ValueOperations ops  = redisTemplateFinder.findOf(cacheType).opsForValue();
 
         String cacheKey = getCacheKey(cacheType, key);
         V cached = (V) ops.get(cacheKey);
@@ -57,6 +49,8 @@ public class CacheModule {
     public <K, V> List<V> getAllCacheOrLoad(CacheType cacheType
             , List<K> keys
             , Function<List<K>, List<V>> loadDtoListFunction){
+
+        ValueOperations ops  = redisTemplateFinder.findOf(cacheType).opsForValue();
 
         List<K> notCachedKeys = new ArrayList<>();
         List<V> result = new ArrayList<>();
@@ -80,6 +74,8 @@ public class CacheModule {
     // 단수 조회
     public <K, V, E> E getEntityCacheOrLoad(CacheType cacheType, K key, Function<K, E> loadDtoFunction, Class<V> valueClass, Class<E> entityClass) {
 
+        ValueOperations ops  = redisTemplateFinder.findOf(cacheType).opsForValue();
+
         String cacheKey = getCacheKey(cacheType, key);
         V cached = (V) ops.get(cacheKey);
 
@@ -101,6 +97,8 @@ public class CacheModule {
             , Function<List<K>, List<E>> loadDBFunction
             , Class<V> valueClass
             , Class<E> entityClass){
+
+        ValueOperations ops  = redisTemplateFinder.findOf(cacheType).opsForValue();
 
         List<K> notCachedKeys = new ArrayList<>();
         List<E> result = new ArrayList<>();
@@ -163,6 +161,7 @@ public class CacheModule {
 
     // 캐시의 내용을 DB에 적용하고 캐시에서는 삭제
     public <K, V> V flush(CacheType cacheType, K key, UnaryOperator<V> dbWriteFunction){
+        ValueOperations ops  = redisTemplateFinder.findOf(cacheType).opsForValue();
         V cached = (V)ops.getAndDelete(getCacheKey(cacheType, key));
         return dbWriteFunction.apply(cached);
     }
@@ -188,13 +187,14 @@ public class CacheModule {
 
     // 캐시 조회 (단수)
     public <K, V> V get(CacheType cacheType, K key){
+        ValueOperations ops  = redisTemplateFinder.findOf(cacheType).opsForValue();
         String cacheKey = getCacheKey(cacheType, key);
         return (V)ops.get(cacheKey);
     }
 
     // 캐시 조회 (복수)
     public <K, V> List<V> getAllByKeys(CacheType cacheType, List<K> keys){
-
+        ValueOperations ops  = redisTemplateFinder.findOf(cacheType).opsForValue();
         return keys.stream().map(key -> {
                 String cacheKey = getCacheKey(cacheType, key);
                 return (V)ops.get(cacheKey);
@@ -203,6 +203,7 @@ public class CacheModule {
 
     // 캐시 입력 (단수)
     public <K, V> void put(CacheType cacheType, K key, V value){
+        ValueOperations ops  = redisTemplateFinder.findOf(cacheType).opsForValue();
         String cacheKey = getCacheKey(cacheType, key);
         log.info("캐시 저장" + value.toString());
         ops.set(cacheKey, value, cacheType.getTtlSecond(), TimeUnit.SECONDS);
@@ -210,6 +211,7 @@ public class CacheModule {
 
     // 여러 개의 연산을 여러번의 트랜잭션 대신 1번의 트랜잭션으로 처리
     public <K, V> void putAll(CacheType cacheType, List<V> values, Function<V, K> keyExtractor){
+        ValueOperations ops  = redisTemplateFinder.findOf(cacheType).opsForValue();
         values.stream().forEach(value -> {
             log.info("캐시 저장" + value.toString());
             ops.set(getCacheKey(cacheType, keyExtractor.apply(value)), value);
@@ -218,6 +220,10 @@ public class CacheModule {
 
     // 여러 개의 연산을 여러번의 트랜잭션 대신 1번의 트랜잭션으로 처리
     public <K, V> void putAllPipelined(CacheType cacheType, List<V> values, Function<V, K> keyExtractor){
+        RedisTemplate redisTemplate = redisTemplateFinder.findOf(cacheType);
+        RedisSerializer keySerializer = redisTemplate.getKeySerializer();
+        RedisSerializer valueSerializer = redisTemplate.getValueSerializer();
+
         redisTemplate.executePipelined((RedisCallback<Object>) RedisConnection -> {
             values.forEach(value -> {
                 log.info("캐시 저장" + value.toString());
@@ -230,12 +236,15 @@ public class CacheModule {
 
     // 캐시 삭제 (단수)
     public <K> void evict(CacheType cacheType, K key){
+        RedisTemplate redisTemplate = redisTemplateFinder.findOf(cacheType);
         String cacheKey = getCacheKey(cacheType, key);
         redisTemplate.delete(cacheKey);
     }
 
     // 캐시 삭제 (복수, 일일이 요청)
     public <K> void evictAllByKeys(CacheType cacheType, List<K> keys){
+        RedisTemplate redisTemplate = redisTemplateFinder.findOf(cacheType);
+
         List<String> cacheKeys = keys.stream()
                 .map(key -> getCacheKey(cacheType, key))
                 .collect(Collectors.toList());
@@ -244,6 +253,8 @@ public class CacheModule {
 
     // 캐시 삭제 (복수, 파이프라인으로 한 번에 요청)
     public <K> void evictAllByKeysPipelined(CacheType cacheType, List<K> keys){
+        RedisTemplate redisTemplate = redisTemplateFinder.findOf(cacheType);
+        RedisSerializer keySerializer = redisTemplate.getKeySerializer();
 
         redisTemplate.executePipelined((RedisCallback<Object>) RedisConnection -> {
             keys.forEach(key -> {
