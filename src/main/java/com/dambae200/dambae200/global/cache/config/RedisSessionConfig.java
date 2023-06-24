@@ -30,7 +30,7 @@ import java.util.Map;
 
 @Configuration
 @RequiredArgsConstructor
-@EnableCaching
+@EnableTransactionManagement
 public class RedisSessionConfig {
     @Value("${spring.redis.session.host}")
     private String host;
@@ -105,6 +105,7 @@ public class RedisSessionConfig {
         redisTemplate.setValueSerializer(redisValueSerializer);
         redisTemplate.setHashKeySerializer(redisKeySerializer);
         redisTemplate.setHashValueSerializer(redisValueSerializer);
+        redisTemplate.setEnableTransactionSupport(true);
         return redisTemplate;
     }
 

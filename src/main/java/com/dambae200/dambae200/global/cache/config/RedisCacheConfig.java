@@ -31,7 +31,6 @@ import java.util.Map;
 
 @Configuration
 @RequiredArgsConstructor
-@EnableCaching
 @EnableTransactionManagement
 public class RedisCacheConfig {
     @Value("${spring.redis.cache.host}")
@@ -113,6 +112,7 @@ public class RedisCacheConfig {
         redisTemplate.setValueSerializer(redisValueSerializer);
         redisTemplate.setHashKeySerializer(redisKeySerializer);
         redisTemplate.setHashValueSerializer(redisValueSerializer);
+        redisTemplate.setEnableTransactionSupport(true);
         return redisTemplate;
     }
 
