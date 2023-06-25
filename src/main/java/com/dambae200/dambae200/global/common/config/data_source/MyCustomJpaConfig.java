@@ -17,7 +17,9 @@ import org.springframework.transaction.PlatformTransactionManager;
 import javax.persistence.EntityManagerFactory;
 import javax.sql.DataSource;
 
-@Configuration
+// DataSourceAutoConfiguartion을 안 쓴다면 이 설정이 필요
+// 현재는 DataSourceAutoConfiguartion을 쓰기 때문에 주석처리
+//@Configuration
 @Slf4j
 @Profile("prod")
 @RequiredArgsConstructor

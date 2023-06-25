@@ -9,6 +9,7 @@ import org.springframework.boot.autoconfigure.orm.jpa.JpaProperties;
 import org.springframework.boot.orm.jpa.EntityManagerFactoryBuilder;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Primary;
 import org.springframework.context.annotation.Profile;
 import org.springframework.jdbc.datasource.LazyConnectionDataSourceProxy;
 import org.springframework.orm.jpa.JpaTransactionManager;
@@ -22,10 +23,10 @@ import javax.sql.DataSource;
 import java.util.HashMap;
 import java.util.Map;
 
-@Configuration
 @Slf4j
 @Profile("prod")
-@EnableAutoConfiguration(exclude = {DataSourceAutoConfiguration.class})
+@Configuration(proxyBeanMethods = false)
+@EnableAutoConfiguration
 public class RoutingDataSourceConfig {
 
     @Bean(name = "routingDataSource")
@@ -47,6 +48,7 @@ public class RoutingDataSourceConfig {
         return routingDataSource;
     }
 
+    @Primary
     @Bean(name = "dataSource")
     public DataSource dataSource(@Qualifier("routingDataSource") DataSource routingDataSource) {
         return new LazyConnectionDataSourceProxy(routingDataSource);
