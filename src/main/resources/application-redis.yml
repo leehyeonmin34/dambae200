@@ -4,6 +4,8 @@ spring:
     activate:
       on-profile: "db-local"
   redis:
+    host: localhost
+    port: 6379
     session:
       host: localhost
       port: 6379
@@ -18,6 +20,8 @@ spring:
     activate:
       on-profile: "db-test"
   redis:
+    host: localhost
+    port: 6379
     session:
       host: localhost
       port: 6379
@@ -32,6 +36,8 @@ spring:
     activate:
       on-profile: "db-prod"
   redis:
+    host: 49.50.164.244
+    port : 6379
     session:
       host: 49.50.164.244
       port: 6380

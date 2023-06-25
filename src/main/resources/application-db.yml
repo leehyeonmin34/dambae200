@@ -57,8 +57,8 @@ spring:
         driver-class-name: com.mysql.cj.jdbc.Driver
         jdbc-url: jdbc:mysql://49.50.164.244:3306/dambae200
         read-only: false
-        username: leehyeonmin34 # mysql에서 유저 생성 필요합니다
-        password: 2737 # mysql에서 비밀번호 설정 필요합니다.
+        username: leehyeonmin34
+        password: 2737
         initialization-mode: always
     slave:
       hikari:
