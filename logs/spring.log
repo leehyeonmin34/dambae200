@@ -1,294 +1,233 @@
-2023-06-25 00:39:57.335  WARN 43985 --- [HikariPool-1 housekeeper] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=54m38s553ms).
-2023-06-25 00:39:57.335  WARN 43985 --- [HikariPool-2 housekeeper] com.zaxxer.hikari.pool.HikariPool        : HikariPool-2 - Thread starvation or clock leap detected (housekeeper delta=54m38s554ms).
-2023-06-25 01:35:41.796  WARN 43985 --- [HikariPool-2 housekeeper] com.zaxxer.hikari.pool.HikariPool        : HikariPool-2 - Thread starvation or clock leap detected (housekeeper delta=55m44s460ms).
-2023-06-25 01:35:41.796  WARN 43985 --- [HikariPool-1 housekeeper] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=55m44s460ms).
-2023-06-25 04:08:43.256  WARN 43985 --- [HikariPool-2 housekeeper] com.zaxxer.hikari.pool.HikariPool        : HikariPool-2 - Thread starvation or clock leap detected (housekeeper delta=2h33m1s437ms).
-2023-06-25 04:08:43.257  WARN 43985 --- [HikariPool-1 housekeeper] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=2h33m1s436ms).
-2023-06-25 04:42:06.978  WARN 43985 --- [HikariPool-2 housekeeper] com.zaxxer.hikari.pool.HikariPool        : HikariPool-2 - Thread starvation or clock leap detected (housekeeper delta=33m23s746ms).
-2023-06-25 04:42:06.978  WARN 43985 --- [HikariPool-1 housekeeper] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=33m23s747ms).
-2023-06-25 06:10:19.368  WARN 43985 --- [HikariPool-2 housekeeper] com.zaxxer.hikari.pool.HikariPool        : HikariPool-2 - Thread starvation or clock leap detected (housekeeper delta=1h28m12s388ms).
-2023-06-25 06:10:19.368  WARN 43985 --- [HikariPool-1 housekeeper] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=1h28m12s388ms).
-2023-06-25 09:50:38.828  WARN 43985 --- [HikariPool-2 housekeeper] com.zaxxer.hikari.pool.HikariPool        : HikariPool-2 - Thread starvation or clock leap detected (housekeeper delta=3h40m19s462ms).
-2023-06-25 09:50:38.828  WARN 43985 --- [HikariPool-1 housekeeper] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=3h40m19s462ms).
-2023-06-25 12:53:27.766  WARN 43985 --- [HikariPool-2 housekeeper] com.zaxxer.hikari.pool.HikariPool        : HikariPool-2 - Thread starvation or clock leap detected (housekeeper delta=3h2m18s921ms).
-2023-06-25 12:53:27.766  WARN 43985 --- [HikariPool-1 housekeeper] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=3h2m18s921ms).
-2023-06-25 13:04:38.633  WARN 43985 --- [HikariPool-2 housekeeper] com.zaxxer.hikari.pool.HikariPool        : HikariPool-2 - Thread starvation or clock leap detected (housekeeper delta=10m10s856ms).
-2023-06-25 13:04:38.633  WARN 43985 --- [HikariPool-1 housekeeper] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=10m10s856ms).
-2023-06-25 13:17:50.767  INFO 43985 --- [SpringApplicationShutdownHook] o.s.m.s.b.SimpleBrokerMessageHandler     : Stopping...
-2023-06-25 13:17:50.772  INFO 43985 --- [SpringApplicationShutdownHook] o.s.m.s.b.SimpleBrokerMessageHandler     : BrokerAvailabilityEvent[available=false, SimpleBrokerMessageHandler [org.springframework.messaging.simp.broker.DefaultSubscriptionRegistry@403a2ed5]]
-2023-06-25 13:17:50.773  INFO 43985 --- [SpringApplicationShutdownHook] o.s.m.s.b.SimpleBrokerMessageHandler     : Stopped.
-2023-06-25 13:17:51.297  INFO 43985 --- [SpringApplicationShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
-2023-06-25 13:17:51.314  INFO 43985 --- [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-2 - Shutdown initiated...
-2023-06-25 13:17:51.458  INFO 43985 --- [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-2 - Shutdown completed.
-2023-06-25 13:17:51.458  INFO 43985 --- [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
-2023-06-25 13:17:51.510  INFO 43985 --- [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
-2023-06-25 13:17:57.172  INFO 46262 --- [main] c.d.dambae200.Dambae200Application       : Starting Dambae200Application using Java 11.0.13 on Hyeonmins-MacBookPro.local with PID 46262 (/Users/hyeonminlee/Desktop/graduation_project/dame200_springboot/dambae200/build/classes/java/main started by hyeonminlee in /Users/hyeonminlee/Desktop/graduation_project/dame200_springboot/dambae200)
-2023-06-25 13:17:57.176  INFO 46262 --- [main] c.d.dambae200.Dambae200Application       : The following 5 profiles are active: "db", "common", "redis", "prod", "db-prod"
-2023-06-25 13:17:59.081  INFO 46262 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode
-2023-06-25 13:17:59.086  INFO 46262 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
-2023-06-25 13:17:59.834  INFO 46262 --- [main] .RepositoryConfigurationExtensionSupport : Spring Data JPA - Could not safely identify store assignment for repository candidate interface com.dambae200.dambae200.domain.sessionInfo.repository.SessionInfoRedisRepository; If you want this repository to be a JPA repository, consider annotating your entities with one of these annotations: javax.persistence.Entity, javax.persistence.MappedSuperclass (preferred), or consider extending one of the following types with your repository: org.springframework.data.jpa.repository.JpaRepository
-2023-06-25 13:17:59.902  INFO 46262 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 797 ms. Found 7 JPA repository interfaces.
-2023-06-25 13:17:59.930  INFO 46262 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode
-2023-06-25 13:17:59.933  INFO 46262 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data Redis repositories in DEFAULT mode.
-2023-06-25 13:17:59.982  INFO 46262 --- [main] .RepositoryConfigurationExtensionSupport : Spring Data Redis - Could not safely identify store assignment for repository candidate interface com.dambae200.dambae200.domain.access.repository.AccessRepository; If you want this repository to be a Redis repository, consider annotating your entities with one of these annotations: org.springframework.data.redis.core.RedisHash (preferred), or consider extending one of the following types with your repository: org.springframework.data.keyvalue.repository.KeyValueRepository
-2023-06-25 13:17:59.983  INFO 46262 --- [main] .RepositoryConfigurationExtensionSupport : Spring Data Redis - Could not safely identify store assignment for repository candidate interface com.dambae200.dambae200.domain.cigarette.repository.CigaretteRepository; If you want this repository to be a Redis repository, consider annotating your entities with one of these annotations: org.springframework.data.redis.core.RedisHash (preferred), or consider extending one of the following types with your repository: org.springframework.data.keyvalue.repository.KeyValueRepository
-2023-06-25 13:17:59.984  INFO 46262 --- [main] .RepositoryConfigurationExtensionSupport : Spring Data Redis - Could not safely identify store assignment for repository candidate interface com.dambae200.dambae200.domain.cigaretteOnList.repository.CigaretteOnListRepository; If you want this repository to be a Redis repository, consider annotating your entities with one of these annotations: org.springframework.data.redis.core.RedisHash (preferred), or consider extending one of the following types with your repository: org.springframework.data.keyvalue.repository.KeyValueRepository
-2023-06-25 13:17:59.984  INFO 46262 --- [main] .RepositoryConfigurationExtensionSupport : Spring Data Redis - Could not safely identify store assignment for repository candidate interface com.dambae200.dambae200.domain.notification.repository.NotificationRepository; If you want this repository to be a Redis repository, consider annotating your entities with one of these annotations: org.springframework.data.redis.core.RedisHash (preferred), or consider extending one of the following types with your repository: org.springframework.data.keyvalue.repository.KeyValueRepository
-2023-06-25 13:17:59.987  INFO 46262 --- [main] .RepositoryConfigurationExtensionSupport : Spring Data Redis - Could not safely identify store assignment for repository candidate interface com.dambae200.dambae200.domain.sessionInfo.repository.SessionInfoRepository; If you want this repository to be a Redis repository, consider annotating your entities with one of these annotations: org.springframework.data.redis.core.RedisHash (preferred), or consider extending one of the following types with your repository: org.springframework.data.keyvalue.repository.KeyValueRepository
-2023-06-25 13:17:59.988  INFO 46262 --- [main] .RepositoryConfigurationExtensionSupport : Spring Data Redis - Could not safely identify store assignment for repository candidate interface com.dambae200.dambae200.domain.store.repository.StoreRepository; If you want this repository to be a Redis repository, consider annotating your entities with one of these annotations: org.springframework.data.redis.core.RedisHash (preferred), or consider extending one of the following types with your repository: org.springframework.data.keyvalue.repository.KeyValueRepository
-2023-06-25 13:17:59.989  INFO 46262 --- [main] .RepositoryConfigurationExtensionSupport : Spring Data Redis - Could not safely identify store assignment for repository candidate interface com.dambae200.dambae200.domain.user.repository.UserRepository; If you want this repository to be a Redis repository, consider annotating your entities with one of these annotations: org.springframework.data.redis.core.RedisHash (preferred), or consider extending one of the following types with your repository: org.springframework.data.keyvalue.repository.KeyValueRepository
-2023-06-25 13:18:00.010  INFO 46262 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 59 ms. Found 1 Redis repository interfaces.
-2023-06-25 13:18:01.294  INFO 46262 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 1024 (http)
-2023-06-25 13:18:01.314  INFO 46262 --- [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
-2023-06-25 13:18:01.315  INFO 46262 --- [main] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.64]
-2023-06-25 13:18:01.520  INFO 46262 --- [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
-2023-06-25 13:18:01.521  INFO 46262 --- [main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 4259 ms
-2023-06-25 13:18:01.879  INFO 46262 --- [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
-2023-06-25 13:18:03.265  INFO 46262 --- [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
-2023-06-25 13:18:04.490  INFO 46262 --- [main] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
-2023-06-25 13:18:04.645  INFO 46262 --- [main] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 5.6.9.Final
-2023-06-25 13:18:05.797  INFO 46262 --- [main] o.hibernate.annotations.common.Version   : HCANN000001: Hibernate Commons Annotations {5.1.2.Final}
-2023-06-25 13:18:06.237  INFO 46262 --- [main] org.hibernate.dialect.Dialect            : HHH000400: Using dialect: org.hibernate.dialect.MySQL5InnoDBDialect
-2023-06-25 13:18:07.944  INFO 46262 --- [main] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
-2023-06-25 13:18:07.963  INFO 46262 --- [main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
-2023-06-25 13:18:08.775  WARN 46262 --- [main] i.n.r.d.DnsServerAddressStreamProviders  : Can not find io.netty.resolver.dns.macos.MacOSDnsServerAddressStreamProvider in the classpath, fallback to system defaults. This may result in incorrect DNS resolutions on MacOS.
-2023-06-25 13:18:10.456  INFO 46262 --- [main] org.redisson.Version                     : Redisson 3.17.7
-2023-06-25 13:18:10.675  INFO 46262 --- [redisson-netty-6-6] o.r.c.pool.MasterPubSubConnectionPool    : 1 connections initialized for localhost/127.0.0.1:6379
-2023-06-25 13:18:10.770  INFO 46262 --- [redisson-netty-6-20] o.r.c.pool.MasterConnectionPool          : 24 connections initialized for localhost/127.0.0.1:6379
-2023-06-25 13:18:11.415  INFO 46262 --- [main] o.s.b.a.e.web.EndpointLinksResolver      : Exposing 1 endpoint(s) beneath base path '/actuator'
-2023-06-25 13:18:12.569  INFO 46262 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 1024 (http) with context path ''
-2023-06-25 13:18:13.256  INFO 46262 --- [main] o.s.m.s.b.SimpleBrokerMessageHandler     : Starting...
-2023-06-25 13:18:13.257  INFO 46262 --- [main] o.s.m.s.b.SimpleBrokerMessageHandler     : BrokerAvailabilityEvent[available=true, SimpleBrokerMessageHandler [org.springframework.messaging.simp.broker.DefaultSubscriptionRegistry@10f535a6]]
-2023-06-25 13:18:13.257  INFO 46262 --- [main] o.s.m.s.b.SimpleBrokerMessageHandler     : Started.
-2023-06-25 13:18:13.289  INFO 46262 --- [main] c.d.dambae200.Dambae200Application       : Started Dambae200Application in 17.024 seconds (JVM running for 17.833)
-2023-06-25 13:18:26.535  INFO 46262 --- [http-nio-1024-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
-2023-06-25 13:18:26.536  INFO 46262 --- [http-nio-1024-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
-2023-06-25 13:18:26.538  INFO 46262 --- [http-nio-1024-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 2 ms
-2023-06-25 13:18:26.552  INFO 46262 --- [http-nio-1024-exec-1] c.d.d.global.filter.LoginCheckFilter     : accessToken : 7b545c01-925c-44c2-8b9e-74f1011ad917
-2023-06-25 13:18:27.035  INFO 46262 --- [http-nio-1024-exec-1] com.zaxxer.hikari.HikariDataSource       : HikariPool-2 - Starting...
-2023-06-25 13:18:27.117  INFO 46262 --- [http-nio-1024-exec-1] com.zaxxer.hikari.HikariDataSource       : HikariPool-2 - Start completed.
-2023-06-25 13:18:27.291  INFO 46262 --- [http-nio-1024-exec-1] c.d.d.global.filter.LoginCheckFilter     : 미인증 사용자 요청 /api/users/2/home
-2023-06-25 13:18:27.292  INFO 46262 --- [http-nio-1024-exec-1] c.d.d.global.filter.LoginCheckFilter     : 인증 체크 필터 종료 /api/users/2/home
-2023-06-25 13:18:27.292 ERROR 46262 --- [http-nio-1024-exec-1] c.d.d.g.filter.ExceptionHandlerFilter    : exception exception handler filter
-2023-06-25 13:18:35.736  INFO 46262 --- [http-nio-1024-exec-2] c.d.d.global.cache.service.CacheModule   : 캐시 저장SessionInfoDto(accessToken=bd415e4d-1bf9-46a4-bf02-707fff02eea5, userId=2, userAgent=Mozilla/5.0 (iPhone; CPU iPhone OS 13_2_3 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/13.0.3 Mobile/15E148 Safari/604.1, expirationTime=2023-06-25T14:18:34.600531)
-2023-06-25 13:18:35.928  INFO 46262 --- [http-nio-1024-exec-2] c.d.d.global.filter.LoginCheckFilter     : 인증 체크 필터 종료 /api/login
-2023-06-25 13:18:36.144  INFO 46262 --- [http-nio-1024-exec-3] c.d.d.global.filter.LoginCheckFilter     : accessToken : bd415e4d-1bf9-46a4-bf02-707fff02eea5
-2023-06-25 13:18:36.169  INFO 46262 --- [http-nio-1024-exec-3] c.d.d.global.cache.service.CacheModule   : 캐시 사용 - cachaName: SessionInfo, key: bd415e4d-1bf9-46a4-bf02-707fff02eea5
-2023-06-25 13:18:36.327  INFO 46262 --- [http-nio-1024-exec-3] c.d.d.global.filter.LoginCheckFilter     : 인증 체크 필터 종료 /api/users/2/home
-2023-06-25 13:19:11.667  INFO 46262 --- [MessageBroker-1] o.s.w.s.c.WebSocketMessageBrokerStats    : WebSocketSession[0 current WS(0)-HttpStream(0)-HttpPoll(0), 0 total, 0 closed abnormally (0 connect failure, 0 send limit, 0 transport error)], stompSubProtocol[processed CONNECT(0)-CONNECTED(0)-DISCONNECT(0)], stompBrokerRelay[null], inboundChannel[pool size = 0, active threads = 0, queued tasks = 0, completed tasks = 0], outboundChannel[pool size = 0, active threads = 0, queued tasks = 0, completed tasks = 0], sockJsScheduler[pool size = 1, active threads = 1, queued tasks = 0, completed tasks = 0]
-2023-06-25 13:27:48.233  INFO 46262 --- [SpringApplicationShutdownHook] o.s.m.s.b.SimpleBrokerMessageHandler     : Stopping...
-2023-06-25 13:27:48.234  INFO 46262 --- [SpringApplicationShutdownHook] o.s.m.s.b.SimpleBrokerMessageHandler     : BrokerAvailabilityEvent[available=false, SimpleBrokerMessageHandler [org.springframework.messaging.simp.broker.DefaultSubscriptionRegistry@10f535a6]]
-2023-06-25 13:27:48.235  INFO 46262 --- [SpringApplicationShutdownHook] o.s.m.s.b.SimpleBrokerMessageHandler     : Stopped.
-2023-06-25 13:27:48.548  INFO 46262 --- [SpringApplicationShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
-2023-06-25 13:27:48.551  INFO 46262 --- [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-2 - Shutdown initiated...
-2023-06-25 13:27:48.797  INFO 46262 --- [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-2 - Shutdown completed.
-2023-06-25 13:27:48.798  INFO 46262 --- [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
-2023-06-25 13:27:49.043  INFO 46262 --- [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
-2023-06-25 13:27:53.245  INFO 47142 --- [main] c.d.dambae200.Dambae200Application       : Starting Dambae200Application using Java 11.0.13 on Hyeonmins-MacBookPro.local with PID 47142 (/Users/hyeonminlee/Desktop/graduation_project/dame200_springboot/dambae200/build/classes/java/main started by hyeonminlee in /Users/hyeonminlee/Desktop/graduation_project/dame200_springboot/dambae200)
-2023-06-25 13:27:53.250  INFO 47142 --- [main] c.d.dambae200.Dambae200Application       : The following 5 profiles are active: "db", "common", "redis", "prod", "db-prod"
-2023-06-25 13:27:55.325  INFO 47142 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode
-2023-06-25 13:27:55.328  INFO 47142 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
-2023-06-25 13:27:55.815  INFO 47142 --- [main] .RepositoryConfigurationExtensionSupport : Spring Data JPA - Could not safely identify store assignment for repository candidate interface com.dambae200.dambae200.domain.sessionInfo.repository.SessionInfoRedisRepository; If you want this repository to be a JPA repository, consider annotating your entities with one of these annotations: javax.persistence.Entity, javax.persistence.MappedSuperclass (preferred), or consider extending one of the following types with your repository: org.springframework.data.jpa.repository.JpaRepository
-2023-06-25 13:27:55.860  INFO 47142 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 519 ms. Found 7 JPA repository interfaces.
-2023-06-25 13:27:55.882  INFO 47142 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode
-2023-06-25 13:27:55.884  INFO 47142 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data Redis repositories in DEFAULT mode.
-2023-06-25 13:27:55.918  INFO 47142 --- [main] .RepositoryConfigurationExtensionSupport : Spring Data Redis - Could not safely identify store assignment for repository candidate interface com.dambae200.dambae200.domain.access.repository.AccessRepository; If you want this repository to be a Redis repository, consider annotating your entities with one of these annotations: org.springframework.data.redis.core.RedisHash (preferred), or consider extending one of the following types with your repository: org.springframework.data.keyvalue.repository.KeyValueRepository
-2023-06-25 13:27:55.919  INFO 47142 --- [main] .RepositoryConfigurationExtensionSupport : Spring Data Redis - Could not safely identify store assignment for repository candidate interface com.dambae200.dambae200.domain.cigarette.repository.CigaretteRepository; If you want this repository to be a Redis repository, consider annotating your entities with one of these annotations: org.springframework.data.redis.core.RedisHash (preferred), or consider extending one of the following types with your repository: org.springframework.data.keyvalue.repository.KeyValueRepository
-2023-06-25 13:27:55.920  INFO 47142 --- [main] .RepositoryConfigurationExtensionSupport : Spring Data Redis - Could not safely identify store assignment for repository candidate interface com.dambae200.dambae200.domain.cigaretteOnList.repository.CigaretteOnListRepository; If you want this repository to be a Redis repository, consider annotating your entities with one of these annotations: org.springframework.data.redis.core.RedisHash (preferred), or consider extending one of the following types with your repository: org.springframework.data.keyvalue.repository.KeyValueRepository
-2023-06-25 13:27:55.920  INFO 47142 --- [main] .RepositoryConfigurationExtensionSupport : Spring Data Redis - Could not safely identify store assignment for repository candidate interface com.dambae200.dambae200.domain.notification.repository.NotificationRepository; If you want this repository to be a Redis repository, consider annotating your entities with one of these annotations: org.springframework.data.redis.core.RedisHash (preferred), or consider extending one of the following types with your repository: org.springframework.data.keyvalue.repository.KeyValueRepository
-2023-06-25 13:27:55.924  INFO 47142 --- [main] .RepositoryConfigurationExtensionSupport : Spring Data Redis - Could not safely identify store assignment for repository candidate interface com.dambae200.dambae200.domain.sessionInfo.repository.SessionInfoRepository; If you want this repository to be a Redis repository, consider annotating your entities with one of these annotations: org.springframework.data.redis.core.RedisHash (preferred), or consider extending one of the following types with your repository: org.springframework.data.keyvalue.repository.KeyValueRepository
-2023-06-25 13:27:55.925  INFO 47142 --- [main] .RepositoryConfigurationExtensionSupport : Spring Data Redis - Could not safely identify store assignment for repository candidate interface com.dambae200.dambae200.domain.store.repository.StoreRepository; If you want this repository to be a Redis repository, consider annotating your entities with one of these annotations: org.springframework.data.redis.core.RedisHash (preferred), or consider extending one of the following types with your repository: org.springframework.data.keyvalue.repository.KeyValueRepository
-2023-06-25 13:27:55.927  INFO 47142 --- [main] .RepositoryConfigurationExtensionSupport : Spring Data Redis - Could not safely identify store assignment for repository candidate interface com.dambae200.dambae200.domain.user.repository.UserRepository; If you want this repository to be a Redis repository, consider annotating your entities with one of these annotations: org.springframework.data.redis.core.RedisHash (preferred), or consider extending one of the following types with your repository: org.springframework.data.keyvalue.repository.KeyValueRepository
-2023-06-25 13:27:55.950  INFO 47142 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 54 ms. Found 1 Redis repository interfaces.
-2023-06-25 13:27:57.061  INFO 47142 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 1024 (http)
-2023-06-25 13:27:57.078  INFO 47142 --- [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
-2023-06-25 13:27:57.078  INFO 47142 --- [main] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.64]
-2023-06-25 13:27:57.275  INFO 47142 --- [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
-2023-06-25 13:27:57.276  INFO 47142 --- [main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 3961 ms
-2023-06-25 13:27:57.466  INFO 47142 --- [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
-2023-06-25 13:27:58.323  INFO 47142 --- [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
-2023-06-25 13:27:58.508 ERROR 47142 --- [main] o.s.b.web.embedded.tomcat.TomcatStarter  : Error starting Tomcat context. Exception: org.springframework.beans.factory.UnsatisfiedDependencyException. Message: Error creating bean with name 'loginCheckFilter' defined in file [/Users/hyeonminlee/Desktop/graduation_project/dame200_springboot/dambae200/build/classes/java/main/com/dambae200/dambae200/global/filter/LoginCheckFilter.class]: Unsatisfied dependency expressed through constructor parameter 0; nested exception is org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'sessionServiceImplCacheModule' defined in file [/Users/hyeonminlee/Desktop/graduation_project/dame200_springboot/dambae200/build/classes/java/main/com/dambae200/dambae200/domain/sessionInfo/service/SessionServiceImplCacheModule.class]: Unsatisfied dependency expressed through constructor parameter 0; nested exception is org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'sessionInfoRepository' defined in com.dambae200.dambae200.domain.sessionInfo.repository.SessionInfoRepository defined in @EnableJpaRepositories declared on JpaRepositoriesRegistrar.EnableJpaRepositoriesConfiguration: Cannot create inner bean '(inner bean)#719bb60d' of type [org.springframework.orm.jpa.SharedEntityManagerCreator] while setting bean property 'entityManager'; nested exception is org.springframework.beans.factory.BeanCreationException: Error creating bean with name '(inner bean)#719bb60d': Cannot resolve reference to bean 'entityManagerFactory' while setting constructor argument; nested exception is org.springframework.beans.factory.NoSuchBeanDefinitionException: No bean named 'entityManagerFactory' available
-2023-06-25 13:27:58.538  INFO 47142 --- [main] o.apache.catalina.core.StandardService   : Stopping service [Tomcat]
-2023-06-25 13:27:58.541  WARN 47142 --- [main] o.a.c.loader.WebappClassLoaderBase       : The web application [ROOT] appears to have started a thread named [HikariPool-1 housekeeper] but has failed to stop it. This is very likely to create a memory leak. Stack trace of thread:
- java.base@11.0.13/jdk.internal.misc.Unsafe.park(Native Method)
- java.base@11.0.13/java.util.concurrent.locks.LockSupport.parkNanos(LockSupport.java:234)
- java.base@11.0.13/java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject.awaitNanos(AbstractQueuedSynchronizer.java:2123)
- java.base@11.0.13/java.util.concurrent.ScheduledThreadPoolExecutor$DelayedWorkQueue.take(ScheduledThreadPoolExecutor.java:1182)
- java.base@11.0.13/java.util.concurrent.ScheduledThreadPoolExecutor$DelayedWorkQueue.take(ScheduledThreadPoolExecutor.java:899)
- java.base@11.0.13/java.util.concurrent.ThreadPoolExecutor.getTask(ThreadPoolExecutor.java:1054)
- java.base@11.0.13/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1114)
- java.base@11.0.13/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:628)
- java.base@11.0.13/java.lang.Thread.run(Thread.java:834)
-2023-06-25 13:27:58.542  WARN 47142 --- [main] o.a.c.loader.WebappClassLoaderBase       : The web application [ROOT] appears to have started a thread named [HikariPool-1 connection adder] but has failed to stop it. This is very likely to create a memory leak. Stack trace of thread:
- java.base@11.0.13/java.net.SocketInputStream.socketRead0(Native Method)
- java.base@11.0.13/java.net.SocketInputStream.socketRead(SocketInputStream.java:115)
- java.base@11.0.13/java.net.SocketInputStream.read(SocketInputStream.java:168)
- java.base@11.0.13/java.net.SocketInputStream.read(SocketInputStream.java:140)
- java.base@11.0.13/sun.security.ssl.SSLSocketInputRecord.read(SSLSocketInputRecord.java:478)
- java.base@11.0.13/sun.security.ssl.SSLSocketInputRecord.readHeader(SSLSocketInputRecord.java:472)
- java.base@11.0.13/sun.security.ssl.SSLSocketInputRecord.bytesInCompletePacket(SSLSocketInputRecord.java:70)
- java.base@11.0.13/sun.security.ssl.SSLSocketImpl.readApplicationRecord(SSLSocketImpl.java:1318)
- java.base@11.0.13/sun.security.ssl.SSLSocketImpl$AppInputStream.read(SSLSocketImpl.java:959)
- java.base@11.0.13/java.io.FilterInputStream.read(FilterInputStream.java:133)
- app//com.mysql.cj.protocol.FullReadInputStream.readFully(FullReadInputStream.java:64)
- app//com.mysql.cj.protocol.a.SimplePacketReader.readHeaderLocal(SimplePacketReader.java:81)
- app//com.mysql.cj.protocol.a.SimplePacketReader.readHeader(SimplePacketReader.java:63)
- app//com.mysql.cj.protocol.a.SimplePacketReader.readHeader(SimplePacketReader.java:45)
- app//com.mysql.cj.protocol.a.TimeTrackingPacketReader.readHeader(TimeTrackingPacketReader.java:52)
- app//com.mysql.cj.protocol.a.TimeTrackingPacketReader.readHeader(TimeTrackingPacketReader.java:41)
- app//com.mysql.cj.protocol.a.MultiPacketReader.readHeader(MultiPacketReader.java:54)
- app//com.mysql.cj.protocol.a.MultiPacketReader.readHeader(MultiPacketReader.java:44)
- app//com.mysql.cj.protocol.a.NativeProtocol.readMessage(NativeProtocol.java:575)
- app//com.mysql.cj.protocol.a.NativeProtocol.checkErrorMessage(NativeProtocol.java:761)
- app//com.mysql.cj.protocol.a.NativeProtocol.sendCommand(NativeProtocol.java:700)
- app//com.mysql.cj.protocol.a.NativeProtocol.sendQueryPacket(NativeProtocol.java:1051)
- app//com.mysql.cj.protocol.a.NativeProtocol.sendQueryString(NativeProtocol.java:997)
- app//com.mysql.cj.NativeSession.execSQL(NativeSession.java:663)
- app//com.mysql.cj.jdbc.ConnectionImpl.setAutoCommit(ConnectionImpl.java:2033)
- app//com.mysql.cj.jdbc.ConnectionImpl.handleAutoCommitDefaults(ConnectionImpl.java:1361)
- app//com.mysql.cj.jdbc.ConnectionImpl.initializePropsFromServer(ConnectionImpl.java:1311)
- app//com.mysql.cj.jdbc.ConnectionImpl.connectOneTryOnly(ConnectionImpl.java:959)
- app//com.mysql.cj.jdbc.ConnectionImpl.createNewIO(ConnectionImpl.java:818)
- app//com.mysql.cj.jdbc.ConnectionImpl.<init>(ConnectionImpl.java:448)
- app//com.mysql.cj.jdbc.ConnectionImpl.getInstance(ConnectionImpl.java:241)
- app//com.mysql.cj.jdbc.NonRegisteringDriver.connect(NonRegisteringDriver.java:198)
- app//com.zaxxer.hikari.util.DriverDataSource.getConnection(DriverDataSource.java:138)
- app//com.zaxxer.hikari.pool.PoolBase.newConnection(PoolBase.java:364)
- app//com.zaxxer.hikari.pool.PoolBase.newPoolEntry(PoolBase.java:206)
- app//com.zaxxer.hikari.pool.HikariPool.createPoolEntry(HikariPool.java:476)
- app//com.zaxxer.hikari.pool.HikariPool.access$100(HikariPool.java:71)
- app//com.zaxxer.hikari.pool.HikariPool$PoolEntryCreator.call(HikariPool.java:726)
- app//com.zaxxer.hikari.pool.HikariPool$PoolEntryCreator.call(HikariPool.java:712)
- java.base@11.0.13/java.util.concurrent.FutureTask.run(FutureTask.java:264)
- java.base@11.0.13/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1128)
- java.base@11.0.13/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:628)
- java.base@11.0.13/java.lang.Thread.run(Thread.java:834)
-2023-06-25 13:27:58.544  WARN 47142 --- [main] ConfigServletWebServerApplicationContext : Exception encountered during context initialization - cancelling refresh attempt: org.springframework.context.ApplicationContextException: Unable to start web server; nested exception is org.springframework.boot.web.server.WebServerException: Unable to start embedded Tomcat
-2023-06-25 13:27:58.545  INFO 47142 --- [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
-2023-06-25 13:27:58.785  INFO 47142 --- [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
-2023-06-25 13:27:58.805  INFO 47142 --- [main] ConditionEvaluationReportLoggingListener : 
+2023-07-02 12:44:56.654  INFO 59969 --- [main] c.d.dambae200.Dambae200Application       : Starting Dambae200Application using Java 11.0.13 on Hyeonmins-MacBookPro.local with PID 59969 (/Users/hyeonminlee/Desktop/graduation_project/dame200_springboot/dambae200/build/classes/java/main started by hyeonminlee in /Users/hyeonminlee/Desktop/graduation_project/dame200_springboot/dambae200)
+2023-07-02 12:44:56.674  INFO 59969 --- [main] c.d.dambae200.Dambae200Application       : The following 5 profiles are active: "db", "common", "redis", "prod", "db-prod"
+2023-07-02 12:45:00.291  INFO 59969 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode
+2023-07-02 12:45:00.295  INFO 59969 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2023-07-02 12:45:01.003  INFO 59969 --- [main] .RepositoryConfigurationExtensionSupport : Spring Data JPA - Could not safely identify store assignment for repository candidate interface com.dambae200.dambae200.domain.sessionInfo.repository.SessionInfoRedisRepository; If you want this repository to be a JPA repository, consider annotating your entities with one of these annotations: javax.persistence.Entity, javax.persistence.MappedSuperclass (preferred), or consider extending one of the following types with your repository: org.springframework.data.jpa.repository.JpaRepository
+2023-07-02 12:45:01.078  INFO 59969 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 767 ms. Found 7 JPA repository interfaces.
+2023-07-02 12:45:01.107  INFO 59969 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode
+2023-07-02 12:45:01.112  INFO 59969 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data Redis repositories in DEFAULT mode.
+2023-07-02 12:45:01.176  INFO 59969 --- [main] .RepositoryConfigurationExtensionSupport : Spring Data Redis - Could not safely identify store assignment for repository candidate interface com.dambae200.dambae200.domain.access.repository.AccessRepository; If you want this repository to be a Redis repository, consider annotating your entities with one of these annotations: org.springframework.data.redis.core.RedisHash (preferred), or consider extending one of the following types with your repository: org.springframework.data.keyvalue.repository.KeyValueRepository
+2023-07-02 12:45:01.177  INFO 59969 --- [main] .RepositoryConfigurationExtensionSupport : Spring Data Redis - Could not safely identify store assignment for repository candidate interface com.dambae200.dambae200.domain.cigarette.repository.CigaretteRepository; If you want this repository to be a Redis repository, consider annotating your entities with one of these annotations: org.springframework.data.redis.core.RedisHash (preferred), or consider extending one of the following types with your repository: org.springframework.data.keyvalue.repository.KeyValueRepository
+2023-07-02 12:45:01.178  INFO 59969 --- [main] .RepositoryConfigurationExtensionSupport : Spring Data Redis - Could not safely identify store assignment for repository candidate interface com.dambae200.dambae200.domain.cigaretteOnList.repository.CigaretteOnListRepository; If you want this repository to be a Redis repository, consider annotating your entities with one of these annotations: org.springframework.data.redis.core.RedisHash (preferred), or consider extending one of the following types with your repository: org.springframework.data.keyvalue.repository.KeyValueRepository
+2023-07-02 12:45:01.179  INFO 59969 --- [main] .RepositoryConfigurationExtensionSupport : Spring Data Redis - Could not safely identify store assignment for repository candidate interface com.dambae200.dambae200.domain.notification.repository.NotificationRepository; If you want this repository to be a Redis repository, consider annotating your entities with one of these annotations: org.springframework.data.redis.core.RedisHash (preferred), or consider extending one of the following types with your repository: org.springframework.data.keyvalue.repository.KeyValueRepository
+2023-07-02 12:45:01.183  INFO 59969 --- [main] .RepositoryConfigurationExtensionSupport : Spring Data Redis - Could not safely identify store assignment for repository candidate interface com.dambae200.dambae200.domain.sessionInfo.repository.SessionInfoRepository; If you want this repository to be a Redis repository, consider annotating your entities with one of these annotations: org.springframework.data.redis.core.RedisHash (preferred), or consider extending one of the following types with your repository: org.springframework.data.keyvalue.repository.KeyValueRepository
+2023-07-02 12:45:01.185  INFO 59969 --- [main] .RepositoryConfigurationExtensionSupport : Spring Data Redis - Could not safely identify store assignment for repository candidate interface com.dambae200.dambae200.domain.store.repository.StoreRepository; If you want this repository to be a Redis repository, consider annotating your entities with one of these annotations: org.springframework.data.redis.core.RedisHash (preferred), or consider extending one of the following types with your repository: org.springframework.data.keyvalue.repository.KeyValueRepository
+2023-07-02 12:45:01.187  INFO 59969 --- [main] .RepositoryConfigurationExtensionSupport : Spring Data Redis - Could not safely identify store assignment for repository candidate interface com.dambae200.dambae200.domain.user.repository.UserRepository; If you want this repository to be a Redis repository, consider annotating your entities with one of these annotations: org.springframework.data.redis.core.RedisHash (preferred), or consider extending one of the following types with your repository: org.springframework.data.keyvalue.repository.KeyValueRepository
+2023-07-02 12:45:01.216  INFO 59969 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 87 ms. Found 1 Redis repository interfaces.
+2023-07-02 12:45:02.716  INFO 59969 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 1024 (http)
+2023-07-02 12:45:02.739  INFO 59969 --- [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2023-07-02 12:45:02.740  INFO 59969 --- [main] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.64]
+2023-07-02 12:45:03.021  INFO 59969 --- [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2023-07-02 12:45:03.025  INFO 59969 --- [main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 6062 ms
+2023-07-02 12:45:03.314  INFO 59969 --- [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2023-07-02 12:45:04.195  INFO 59969 --- [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2023-07-02 12:45:04.683  INFO 59969 --- [main] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2023-07-02 12:45:04.800  INFO 59969 --- [main] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 5.6.9.Final
+2023-07-02 12:45:05.404  INFO 59969 --- [main] o.hibernate.annotations.common.Version   : HCANN000001: Hibernate Commons Annotations {5.1.2.Final}
+2023-07-02 12:45:05.688  INFO 59969 --- [main] org.hibernate.dialect.Dialect            : HHH000400: Using dialect: org.hibernate.dialect.MySQL5InnoDBDialect
+2023-07-02 12:45:08.819  INFO 59969 --- [main] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2023-07-02 12:45:08.839  INFO 59969 --- [main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2023-07-02 12:45:11.809  INFO 59969 --- [main] org.redisson.Version                     : Redisson 3.17.7
+2023-07-02 12:45:11.856  WARN 59969 --- [main] i.n.r.d.DnsServerAddressStreamProviders  : Can not find io.netty.resolver.dns.macos.MacOSDnsServerAddressStreamProvider in the classpath, fallback to system defaults. This may result in incorrect DNS resolutions on MacOS.
+2023-07-02 12:45:12.361  INFO 59969 --- [redisson-netty-2-5] o.r.c.pool.MasterPubSubConnectionPool    : 1 connections initialized for 49.50.164.244/49.50.164.244:6379
+2023-07-02 12:45:12.589  INFO 59969 --- [redisson-netty-2-19] o.r.c.pool.MasterConnectionPool          : 24 connections initialized for 49.50.164.244/49.50.164.244:6379
+2023-07-02 12:45:13.811  INFO 59969 --- [main] o.s.b.a.e.web.EndpointLinksResolver      : Exposing 1 endpoint(s) beneath base path '/actuator'
+2023-07-02 12:45:16.430  INFO 59969 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 1024 (http) with context path ''
+2023-07-02 12:45:17.482  INFO 59969 --- [main] o.s.m.s.b.SimpleBrokerMessageHandler     : Starting...
+2023-07-02 12:45:17.483  INFO 59969 --- [main] o.s.m.s.b.SimpleBrokerMessageHandler     : BrokerAvailabilityEvent[available=true, SimpleBrokerMessageHandler [org.springframework.messaging.simp.broker.DefaultSubscriptionRegistry@3ed0e816]]
+2023-07-02 12:45:17.483  INFO 59969 --- [main] o.s.m.s.b.SimpleBrokerMessageHandler     : Started.
+2023-07-02 12:45:17.529  INFO 59969 --- [main] c.d.dambae200.Dambae200Application       : Started Dambae200Application in 22.402 seconds (JVM running for 23.116)
+2023-07-02 12:45:20.560  INFO 59969 --- [http-nio-1024-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2023-07-02 12:45:20.560  INFO 59969 --- [http-nio-1024-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2023-07-02 12:45:20.563  INFO 59969 --- [http-nio-1024-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 3 ms
+2023-07-02 12:45:57.854  INFO 59969 --- [SpringApplicationShutdownHook] o.s.m.s.b.SimpleBrokerMessageHandler     : Stopping...
+2023-07-02 12:45:57.883  INFO 59969 --- [SpringApplicationShutdownHook] o.s.m.s.b.SimpleBrokerMessageHandler     : BrokerAvailabilityEvent[available=false, SimpleBrokerMessageHandler [org.springframework.messaging.simp.broker.DefaultSubscriptionRegistry@3ed0e816]]
+2023-07-02 12:45:57.885  INFO 59969 --- [SpringApplicationShutdownHook] o.s.m.s.b.SimpleBrokerMessageHandler     : Stopped.
+2023-07-02 12:45:58.247  INFO 59969 --- [SpringApplicationShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2023-07-02 12:45:58.251  INFO 59969 --- [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2023-07-02 12:45:58.326  INFO 59969 --- [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
+2023-07-02 12:46:03.647  INFO 60083 --- [main] c.d.dambae200.Dambae200Application       : Starting Dambae200Application using Java 11.0.13 on Hyeonmins-MacBookPro.local with PID 60083 (/Users/hyeonminlee/Desktop/graduation_project/dame200_springboot/dambae200/build/classes/java/main started by hyeonminlee in /Users/hyeonminlee/Desktop/graduation_project/dame200_springboot/dambae200)
+2023-07-02 12:46:03.651  INFO 60083 --- [main] c.d.dambae200.Dambae200Application       : The following 5 profiles are active: "db", "common", "redis", "prod", "db-prod"
+2023-07-02 12:46:06.748  INFO 60083 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode
+2023-07-02 12:46:06.753  INFO 60083 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2023-07-02 12:46:07.738  INFO 60083 --- [main] .RepositoryConfigurationExtensionSupport : Spring Data JPA - Could not safely identify store assignment for repository candidate interface com.dambae200.dambae200.domain.sessionInfo.repository.SessionInfoRedisRepository; If you want this repository to be a JPA repository, consider annotating your entities with one of these annotations: javax.persistence.Entity, javax.persistence.MappedSuperclass (preferred), or consider extending one of the following types with your repository: org.springframework.data.jpa.repository.JpaRepository
+2023-07-02 12:46:07.797  INFO 60083 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 1004 ms. Found 7 JPA repository interfaces.
+2023-07-02 12:46:07.825  INFO 60083 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode
+2023-07-02 12:46:07.829  INFO 60083 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data Redis repositories in DEFAULT mode.
+2023-07-02 12:46:07.882  INFO 60083 --- [main] .RepositoryConfigurationExtensionSupport : Spring Data Redis - Could not safely identify store assignment for repository candidate interface com.dambae200.dambae200.domain.access.repository.AccessRepository; If you want this repository to be a Redis repository, consider annotating your entities with one of these annotations: org.springframework.data.redis.core.RedisHash (preferred), or consider extending one of the following types with your repository: org.springframework.data.keyvalue.repository.KeyValueRepository
+2023-07-02 12:46:07.884  INFO 60083 --- [main] .RepositoryConfigurationExtensionSupport : Spring Data Redis - Could not safely identify store assignment for repository candidate interface com.dambae200.dambae200.domain.cigarette.repository.CigaretteRepository; If you want this repository to be a Redis repository, consider annotating your entities with one of these annotations: org.springframework.data.redis.core.RedisHash (preferred), or consider extending one of the following types with your repository: org.springframework.data.keyvalue.repository.KeyValueRepository
+2023-07-02 12:46:07.885  INFO 60083 --- [main] .RepositoryConfigurationExtensionSupport : Spring Data Redis - Could not safely identify store assignment for repository candidate interface com.dambae200.dambae200.domain.cigaretteOnList.repository.CigaretteOnListRepository; If you want this repository to be a Redis repository, consider annotating your entities with one of these annotations: org.springframework.data.redis.core.RedisHash (preferred), or consider extending one of the following types with your repository: org.springframework.data.keyvalue.repository.KeyValueRepository
+2023-07-02 12:46:07.885  INFO 60083 --- [main] .RepositoryConfigurationExtensionSupport : Spring Data Redis - Could not safely identify store assignment for repository candidate interface com.dambae200.dambae200.domain.notification.repository.NotificationRepository; If you want this repository to be a Redis repository, consider annotating your entities with one of these annotations: org.springframework.data.redis.core.RedisHash (preferred), or consider extending one of the following types with your repository: org.springframework.data.keyvalue.repository.KeyValueRepository
+2023-07-02 12:46:07.890  INFO 60083 --- [main] .RepositoryConfigurationExtensionSupport : Spring Data Redis - Could not safely identify store assignment for repository candidate interface com.dambae200.dambae200.domain.sessionInfo.repository.SessionInfoRepository; If you want this repository to be a Redis repository, consider annotating your entities with one of these annotations: org.springframework.data.redis.core.RedisHash (preferred), or consider extending one of the following types with your repository: org.springframework.data.keyvalue.repository.KeyValueRepository
+2023-07-02 12:46:07.891  INFO 60083 --- [main] .RepositoryConfigurationExtensionSupport : Spring Data Redis - Could not safely identify store assignment for repository candidate interface com.dambae200.dambae200.domain.store.repository.StoreRepository; If you want this repository to be a Redis repository, consider annotating your entities with one of these annotations: org.springframework.data.redis.core.RedisHash (preferred), or consider extending one of the following types with your repository: org.springframework.data.keyvalue.repository.KeyValueRepository
+2023-07-02 12:46:07.892  INFO 60083 --- [main] .RepositoryConfigurationExtensionSupport : Spring Data Redis - Could not safely identify store assignment for repository candidate interface com.dambae200.dambae200.domain.user.repository.UserRepository; If you want this repository to be a Redis repository, consider annotating your entities with one of these annotations: org.springframework.data.redis.core.RedisHash (preferred), or consider extending one of the following types with your repository: org.springframework.data.keyvalue.repository.KeyValueRepository
+2023-07-02 12:46:07.911  INFO 60083 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 61 ms. Found 1 Redis repository interfaces.
+2023-07-02 12:46:09.790  INFO 60083 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 1024 (http)
+2023-07-02 12:46:09.806  INFO 60083 --- [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2023-07-02 12:46:09.807  INFO 60083 --- [main] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.64]
+2023-07-02 12:46:10.070  INFO 60083 --- [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2023-07-02 12:46:10.071  INFO 60083 --- [main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 6317 ms
+2023-07-02 12:46:10.561  INFO 60083 --- [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2023-07-02 12:46:11.313  INFO 60083 --- [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2023-07-02 12:46:11.697  INFO 60083 --- [main] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2023-07-02 12:46:11.794  INFO 60083 --- [main] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 5.6.9.Final
+2023-07-02 12:46:12.147  INFO 60083 --- [main] o.hibernate.annotations.common.Version   : HCANN000001: Hibernate Commons Annotations {5.1.2.Final}
+2023-07-02 12:46:12.333  INFO 60083 --- [main] org.hibernate.dialect.Dialect            : HHH000400: Using dialect: org.hibernate.dialect.MySQL5InnoDBDialect
+2023-07-02 12:46:13.407  INFO 60083 --- [main] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2023-07-02 12:46:13.420  INFO 60083 --- [main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2023-07-02 12:46:15.616  INFO 60083 --- [main] org.redisson.Version                     : Redisson 3.17.7
+2023-07-02 12:46:15.664  WARN 60083 --- [main] i.n.r.d.DnsServerAddressStreamProviders  : Can not find io.netty.resolver.dns.macos.MacOSDnsServerAddressStreamProvider in the classpath, fallback to system defaults. This may result in incorrect DNS resolutions on MacOS.
+2023-07-02 12:46:15.968  INFO 60083 --- [redisson-netty-2-5] o.r.c.pool.MasterPubSubConnectionPool    : 1 connections initialized for 49.50.164.244/49.50.164.244:6379
+2023-07-02 12:46:16.170  INFO 60083 --- [redisson-netty-2-18] o.r.c.pool.MasterConnectionPool          : 24 connections initialized for 49.50.164.244/49.50.164.244:6379
+2023-07-02 12:46:17.190  INFO 60083 --- [main] o.s.b.a.e.web.EndpointLinksResolver      : Exposing 1 endpoint(s) beneath base path '/actuator'
+2023-07-02 12:46:18.459  INFO 60083 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 1024 (http) with context path ''
+2023-07-02 12:46:19.162  INFO 60083 --- [main] o.s.m.s.b.SimpleBrokerMessageHandler     : Starting...
+2023-07-02 12:46:19.163  INFO 60083 --- [main] o.s.m.s.b.SimpleBrokerMessageHandler     : BrokerAvailabilityEvent[available=true, SimpleBrokerMessageHandler [org.springframework.messaging.simp.broker.DefaultSubscriptionRegistry@50cbe633]]
+2023-07-02 12:46:19.163  INFO 60083 --- [main] o.s.m.s.b.SimpleBrokerMessageHandler     : Started.
+2023-07-02 12:46:19.196  INFO 60083 --- [main] c.d.dambae200.Dambae200Application       : Started Dambae200Application in 16.445 seconds (JVM running for 17.165)
+2023-07-02 12:46:26.795  INFO 60083 --- [http-nio-1024-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2023-07-02 12:46:26.796  INFO 60083 --- [http-nio-1024-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2023-07-02 12:46:26.800  INFO 60083 --- [http-nio-1024-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 4 ms
+2023-07-02 12:46:27.013 ERROR 60083 --- [http-nio-1024-exec-2] c.d.d.g.error.GlobalExceptionHandler     : Exception
 
-Error starting ApplicationContext. To display the conditions report re-run your application with 'debug' enabled.
-2023-06-25 13:27:58.831 ERROR 47142 --- [main] o.s.b.d.LoggingFailureAnalysisReporter   : 
+java.lang.NullPointerException: null
+	at com.dambae200.dambae200.global.cache.service.CacheModule.evict(CacheModule.java:241) ~[main/:na]
+	at com.dambae200.dambae200.global.cache.service.CacheModule.deleteThrough(CacheModule.java:172) ~[main/:na]
+	at com.dambae200.dambae200.domain.sessionInfo.service.SessionServiceImplCacheModule.removeSession(SessionServiceImplCacheModule.java:88) ~[main/:na]
+	at com.dambae200.dambae200.domain.sessionInfo.service.SessionServiceImplCacheModule$$FastClassBySpringCGLIB$$1eb55ff3.invoke(<generated>) ~[main/:na]
+	at org.springframework.cglib.proxy.MethodProxy.invoke(MethodProxy.java:218) ~[spring-core-5.3.21.jar:5.3.21]
+	at org.springframework.aop.framework.CglibAopProxy$CglibMethodInvocation.invokeJoinpoint(CglibAopProxy.java:793) ~[spring-aop-5.3.21.jar:5.3.21]
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:163) ~[spring-aop-5.3.21.jar:5.3.21]
+	at org.springframework.aop.framework.CglibAopProxy$CglibMethodInvocation.proceed(CglibAopProxy.java:763) ~[spring-aop-5.3.21.jar:5.3.21]
+	at org.springframework.transaction.interceptor.TransactionInterceptor$1.proceedWithInvocation(TransactionInterceptor.java:123) ~[spring-tx-5.3.21.jar:5.3.21]
+	at org.springframework.transaction.interceptor.TransactionAspectSupport.invokeWithinTransaction(TransactionAspectSupport.java:388) ~[spring-tx-5.3.21.jar:5.3.21]
+	at org.springframework.transaction.interceptor.TransactionInterceptor.invoke(TransactionInterceptor.java:119) ~[spring-tx-5.3.21.jar:5.3.21]
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:186) ~[spring-aop-5.3.21.jar:5.3.21]
+	at org.springframework.aop.framework.CglibAopProxy$CglibMethodInvocation.proceed(CglibAopProxy.java:763) ~[spring-aop-5.3.21.jar:5.3.21]
+	at org.springframework.aop.framework.CglibAopProxy$DynamicAdvisedInterceptor.intercept(CglibAopProxy.java:708) ~[spring-aop-5.3.21.jar:5.3.21]
+	at com.dambae200.dambae200.domain.sessionInfo.service.SessionServiceImplCacheModule$$EnhancerBySpringCGLIB$$fe0a5e3c.removeSession(<generated>) ~[main/:na]
+	at com.dambae200.dambae200.domain.user.controller.UserLoginRestController.logout(UserLoginRestController.java:48) ~[main/:na]
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method) ~[na:na]
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62) ~[na:na]
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43) ~[na:na]
+	at java.base/java.lang.reflect.Method.invoke(Method.java:566) ~[na:na]
+	at org.springframework.web.method.support.InvocableHandlerMethod.doInvoke(InvocableHandlerMethod.java:205) ~[spring-web-5.3.21.jar:5.3.21]
+	at org.springframework.web.method.support.InvocableHandlerMethod.invokeForRequest(InvocableHandlerMethod.java:150) ~[spring-web-5.3.21.jar:5.3.21]
+	at org.springframework.web.servlet.mvc.method.annotation.ServletInvocableHandlerMethod.invokeAndHandle(ServletInvocableHandlerMethod.java:117) ~[spring-webmvc-5.3.21.jar:5.3.21]
+	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.invokeHandlerMethod(RequestMappingHandlerAdapter.java:895) ~[spring-webmvc-5.3.21.jar:5.3.21]
+	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.handleInternal(RequestMappingHandlerAdapter.java:808) ~[spring-webmvc-5.3.21.jar:5.3.21]
+	at org.springframework.web.servlet.mvc.method.AbstractHandlerMethodAdapter.handle(AbstractHandlerMethodAdapter.java:87) ~[spring-webmvc-5.3.21.jar:5.3.21]
+	at org.springframework.web.servlet.DispatcherServlet.doDispatch(DispatcherServlet.java:1067) ~[spring-webmvc-5.3.21.jar:5.3.21]
+	at org.springframework.web.servlet.DispatcherServlet.doService(DispatcherServlet.java:963) ~[spring-webmvc-5.3.21.jar:5.3.21]
+	at org.springframework.web.servlet.FrameworkServlet.processRequest(FrameworkServlet.java:1006) ~[spring-webmvc-5.3.21.jar:5.3.21]
+	at org.springframework.web.servlet.FrameworkServlet.doPost(FrameworkServlet.java:909) ~[spring-webmvc-5.3.21.jar:5.3.21]
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:665) ~[javax.servlet-api-4.0.1.jar:4.0.1]
+	at org.springframework.web.servlet.FrameworkServlet.service(FrameworkServlet.java:883) ~[spring-webmvc-5.3.21.jar:5.3.21]
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:750) ~[javax.servlet-api-4.0.1.jar:4.0.1]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:227) ~[tomcat-embed-core-9.0.64.jar:9.0.64]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:162) ~[tomcat-embed-core-9.0.64.jar:9.0.64]
+	at org.apache.tomcat.websocket.server.WsFilter.doFilter(WsFilter.java:53) ~[tomcat-embed-websocket-9.0.64.jar:9.0.64]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:189) ~[tomcat-embed-core-9.0.64.jar:9.0.64]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:162) ~[tomcat-embed-core-9.0.64.jar:9.0.64]
+	at com.dambae200.dambae200.global.filter.LoginCheckFilter.doFilter(LoginCheckFilter.java:46) ~[main/:na]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:189) ~[tomcat-embed-core-9.0.64.jar:9.0.64]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:162) ~[tomcat-embed-core-9.0.64.jar:9.0.64]
+	at com.dambae200.dambae200.global.filter.ExceptionHandlerFilter.doFilterInternal(ExceptionHandlerFilter.java:28) ~[main/:na]
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:117) ~[spring-web-5.3.21.jar:5.3.21]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:189) ~[tomcat-embed-core-9.0.64.jar:9.0.64]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:162) ~[tomcat-embed-core-9.0.64.jar:9.0.64]
+	at org.springframework.web.filter.RequestContextFilter.doFilterInternal(RequestContextFilter.java:100) ~[spring-web-5.3.21.jar:5.3.21]
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:117) ~[spring-web-5.3.21.jar:5.3.21]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:189) ~[tomcat-embed-core-9.0.64.jar:9.0.64]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:162) ~[tomcat-embed-core-9.0.64.jar:9.0.64]
+	at org.springframework.web.filter.FormContentFilter.doFilterInternal(FormContentFilter.java:93) ~[spring-web-5.3.21.jar:5.3.21]
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:117) ~[spring-web-5.3.21.jar:5.3.21]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:189) ~[tomcat-embed-core-9.0.64.jar:9.0.64]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:162) ~[tomcat-embed-core-9.0.64.jar:9.0.64]
+	at org.springframework.boot.actuate.metrics.web.servlet.WebMvcMetricsFilter.doFilterInternal(WebMvcMetricsFilter.java:96) ~[spring-boot-actuator-2.7.1.jar:2.7.1]
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:117) ~[spring-web-5.3.21.jar:5.3.21]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:189) ~[tomcat-embed-core-9.0.64.jar:9.0.64]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:162) ~[tomcat-embed-core-9.0.64.jar:9.0.64]
+	at org.springframework.web.filter.CharacterEncodingFilter.doFilterInternal(CharacterEncodingFilter.java:201) ~[spring-web-5.3.21.jar:5.3.21]
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:117) ~[spring-web-5.3.21.jar:5.3.21]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:189) ~[tomcat-embed-core-9.0.64.jar:9.0.64]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:162) ~[tomcat-embed-core-9.0.64.jar:9.0.64]
+	at com.dambae200.dambae200.global.filter.CorsFilter.doFilter(CorsFilter.java:43) ~[main/:na]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:189) ~[tomcat-embed-core-9.0.64.jar:9.0.64]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:162) ~[tomcat-embed-core-9.0.64.jar:9.0.64]
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:197) ~[tomcat-embed-core-9.0.64.jar:9.0.64]
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:97) ~[tomcat-embed-core-9.0.64.jar:9.0.64]
+	at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:541) ~[tomcat-embed-core-9.0.64.jar:9.0.64]
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:135) ~[tomcat-embed-core-9.0.64.jar:9.0.64]
+	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:92) ~[tomcat-embed-core-9.0.64.jar:9.0.64]
+	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:78) ~[tomcat-embed-core-9.0.64.jar:9.0.64]
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:360) ~[tomcat-embed-core-9.0.64.jar:9.0.64]
+	at org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:399) ~[tomcat-embed-core-9.0.64.jar:9.0.64]
+	at org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:65) ~[tomcat-embed-core-9.0.64.jar:9.0.64]
+	at org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:890) ~[tomcat-embed-core-9.0.64.jar:9.0.64]
+	at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1787) ~[tomcat-embed-core-9.0.64.jar:9.0.64]
+	at org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:49) ~[tomcat-embed-core-9.0.64.jar:9.0.64]
+	at org.apache.tomcat.util.threads.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1191) ~[tomcat-embed-core-9.0.64.jar:9.0.64]
+	at org.apache.tomcat.util.threads.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:659) ~[tomcat-embed-core-9.0.64.jar:9.0.64]
+	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:61) ~[tomcat-embed-core-9.0.64.jar:9.0.64]
+	at java.base/java.lang.Thread.run(Thread.java:834) ~[na:na]
 
-***************************
-APPLICATION FAILED TO START
-***************************
-
-Description:
-
-Parameter 0 of constructor in com.dambae200.dambae200.domain.sessionInfo.service.SessionServiceImplCacheModule required a bean named 'entityManagerFactory' that could not be found.
-
-
-Action:
-
-Consider defining a bean named 'entityManagerFactory' in your configuration.
-
-2023-06-25 13:28:20.478  INFO 47177 --- [main] c.d.dambae200.Dambae200Application       : Starting Dambae200Application using Java 11.0.13 on Hyeonmins-MacBookPro.local with PID 47177 (/Users/hyeonminlee/Desktop/graduation_project/dame200_springboot/dambae200/build/classes/java/main started by hyeonminlee in /Users/hyeonminlee/Desktop/graduation_project/dame200_springboot/dambae200)
-2023-06-25 13:28:20.483  INFO 47177 --- [main] c.d.dambae200.Dambae200Application       : The following 5 profiles are active: "db", "common", "redis", "prod", "db-prod"
-2023-06-25 13:28:22.172  INFO 47177 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode
-2023-06-25 13:28:22.175  INFO 47177 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
-2023-06-25 13:28:22.707  INFO 47177 --- [main] .RepositoryConfigurationExtensionSupport : Spring Data JPA - Could not safely identify store assignment for repository candidate interface com.dambae200.dambae200.domain.sessionInfo.repository.SessionInfoRedisRepository; If you want this repository to be a JPA repository, consider annotating your entities with one of these annotations: javax.persistence.Entity, javax.persistence.MappedSuperclass (preferred), or consider extending one of the following types with your repository: org.springframework.data.jpa.repository.JpaRepository
-2023-06-25 13:28:22.752  INFO 47177 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 564 ms. Found 7 JPA repository interfaces.
-2023-06-25 13:28:22.773  INFO 47177 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode
-2023-06-25 13:28:22.774  INFO 47177 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data Redis repositories in DEFAULT mode.
-2023-06-25 13:28:22.811  INFO 47177 --- [main] .RepositoryConfigurationExtensionSupport : Spring Data Redis - Could not safely identify store assignment for repository candidate interface com.dambae200.dambae200.domain.access.repository.AccessRepository; If you want this repository to be a Redis repository, consider annotating your entities with one of these annotations: org.springframework.data.redis.core.RedisHash (preferred), or consider extending one of the following types with your repository: org.springframework.data.keyvalue.repository.KeyValueRepository
-2023-06-25 13:28:22.813  INFO 47177 --- [main] .RepositoryConfigurationExtensionSupport : Spring Data Redis - Could not safely identify store assignment for repository candidate interface com.dambae200.dambae200.domain.cigarette.repository.CigaretteRepository; If you want this repository to be a Redis repository, consider annotating your entities with one of these annotations: org.springframework.data.redis.core.RedisHash (preferred), or consider extending one of the following types with your repository: org.springframework.data.keyvalue.repository.KeyValueRepository
-2023-06-25 13:28:22.814  INFO 47177 --- [main] .RepositoryConfigurationExtensionSupport : Spring Data Redis - Could not safely identify store assignment for repository candidate interface com.dambae200.dambae200.domain.cigaretteOnList.repository.CigaretteOnListRepository; If you want this repository to be a Redis repository, consider annotating your entities with one of these annotations: org.springframework.data.redis.core.RedisHash (preferred), or consider extending one of the following types with your repository: org.springframework.data.keyvalue.repository.KeyValueRepository
-2023-06-25 13:28:22.815  INFO 47177 --- [main] .RepositoryConfigurationExtensionSupport : Spring Data Redis - Could not safely identify store assignment for repository candidate interface com.dambae200.dambae200.domain.notification.repository.NotificationRepository; If you want this repository to be a Redis repository, consider annotating your entities with one of these annotations: org.springframework.data.redis.core.RedisHash (preferred), or consider extending one of the following types with your repository: org.springframework.data.keyvalue.repository.KeyValueRepository
-2023-06-25 13:28:22.818  INFO 47177 --- [main] .RepositoryConfigurationExtensionSupport : Spring Data Redis - Could not safely identify store assignment for repository candidate interface com.dambae200.dambae200.domain.sessionInfo.repository.SessionInfoRepository; If you want this repository to be a Redis repository, consider annotating your entities with one of these annotations: org.springframework.data.redis.core.RedisHash (preferred), or consider extending one of the following types with your repository: org.springframework.data.keyvalue.repository.KeyValueRepository
-2023-06-25 13:28:22.819  INFO 47177 --- [main] .RepositoryConfigurationExtensionSupport : Spring Data Redis - Could not safely identify store assignment for repository candidate interface com.dambae200.dambae200.domain.store.repository.StoreRepository; If you want this repository to be a Redis repository, consider annotating your entities with one of these annotations: org.springframework.data.redis.core.RedisHash (preferred), or consider extending one of the following types with your repository: org.springframework.data.keyvalue.repository.KeyValueRepository
-2023-06-25 13:28:22.820  INFO 47177 --- [main] .RepositoryConfigurationExtensionSupport : Spring Data Redis - Could not safely identify store assignment for repository candidate interface com.dambae200.dambae200.domain.user.repository.UserRepository; If you want this repository to be a Redis repository, consider annotating your entities with one of these annotations: org.springframework.data.redis.core.RedisHash (preferred), or consider extending one of the following types with your repository: org.springframework.data.keyvalue.repository.KeyValueRepository
-2023-06-25 13:28:22.839  INFO 47177 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 51 ms. Found 1 Redis repository interfaces.
-2023-06-25 13:28:23.982  INFO 47177 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 1024 (http)
-2023-06-25 13:28:23.997  INFO 47177 --- [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
-2023-06-25 13:28:23.998  INFO 47177 --- [main] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.64]
-2023-06-25 13:28:24.150  INFO 47177 --- [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
-2023-06-25 13:28:24.150  INFO 47177 --- [main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 3585 ms
-2023-06-25 13:28:24.342  INFO 47177 --- [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
-2023-06-25 13:28:24.823  INFO 47177 --- [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
-2023-06-25 13:28:25.163  INFO 47177 --- [main] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
-2023-06-25 13:28:25.246  INFO 47177 --- [main] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 5.6.9.Final
-2023-06-25 13:28:25.543  INFO 47177 --- [main] o.hibernate.annotations.common.Version   : HCANN000001: Hibernate Commons Annotations {5.1.2.Final}
-2023-06-25 13:28:25.706  INFO 47177 --- [main] org.hibernate.dialect.Dialect            : HHH000400: Using dialect: org.hibernate.dialect.MySQL5InnoDBDialect
-2023-06-25 13:28:26.778  INFO 47177 --- [main] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
-2023-06-25 13:28:26.789  INFO 47177 --- [main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
-2023-06-25 13:28:27.313  WARN 47177 --- [main] i.n.r.d.DnsServerAddressStreamProviders  : Can not find io.netty.resolver.dns.macos.MacOSDnsServerAddressStreamProvider in the classpath, fallback to system defaults. This may result in incorrect DNS resolutions on MacOS.
-2023-06-25 13:28:28.722  INFO 47177 --- [main] org.redisson.Version                     : Redisson 3.17.7
-2023-06-25 13:28:28.887  INFO 47177 --- [redisson-netty-6-6] o.r.c.pool.MasterPubSubConnectionPool    : 1 connections initialized for localhost/127.0.0.1:6379
-2023-06-25 13:28:28.976  INFO 47177 --- [redisson-netty-6-20] o.r.c.pool.MasterConnectionPool          : 24 connections initialized for localhost/127.0.0.1:6379
-2023-06-25 13:28:29.533  INFO 47177 --- [main] o.s.b.a.e.web.EndpointLinksResolver      : Exposing 1 endpoint(s) beneath base path '/actuator'
-2023-06-25 13:28:30.510  INFO 47177 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 1024 (http) with context path ''
-2023-06-25 13:28:31.173  INFO 47177 --- [main] o.s.m.s.b.SimpleBrokerMessageHandler     : Starting...
-2023-06-25 13:28:31.173  INFO 47177 --- [main] o.s.m.s.b.SimpleBrokerMessageHandler     : BrokerAvailabilityEvent[available=true, SimpleBrokerMessageHandler [org.springframework.messaging.simp.broker.DefaultSubscriptionRegistry@2939bfa0]]
-2023-06-25 13:28:31.174  INFO 47177 --- [main] o.s.m.s.b.SimpleBrokerMessageHandler     : Started.
-2023-06-25 13:28:31.213  INFO 47177 --- [main] c.d.dambae200.Dambae200Application       : Started Dambae200Application in 11.443 seconds (JVM running for 12.021)
-2023-06-25 13:29:29.748  INFO 47177 --- [MessageBroker-1] o.s.w.s.c.WebSocketMessageBrokerStats    : WebSocketSession[0 current WS(0)-HttpStream(0)-HttpPoll(0), 0 total, 0 closed abnormally (0 connect failure, 0 send limit, 0 transport error)], stompSubProtocol[processed CONNECT(0)-CONNECTED(0)-DISCONNECT(0)], stompBrokerRelay[null], inboundChannel[pool size = 0, active threads = 0, queued tasks = 0, completed tasks = 0], outboundChannel[pool size = 0, active threads = 0, queued tasks = 0, completed tasks = 0], sockJsScheduler[pool size = 1, active threads = 1, queued tasks = 0, completed tasks = 0]
-2023-06-25 13:40:18.541  INFO 47177 --- [SpringApplicationShutdownHook] o.s.m.s.b.SimpleBrokerMessageHandler     : Stopping...
-2023-06-25 13:40:18.542  INFO 47177 --- [SpringApplicationShutdownHook] o.s.m.s.b.SimpleBrokerMessageHandler     : BrokerAvailabilityEvent[available=false, SimpleBrokerMessageHandler [org.springframework.messaging.simp.broker.DefaultSubscriptionRegistry@2939bfa0]]
-2023-06-25 13:40:18.542  INFO 47177 --- [SpringApplicationShutdownHook] o.s.m.s.b.SimpleBrokerMessageHandler     : Stopped.
-2023-06-25 13:40:18.854  INFO 47177 --- [SpringApplicationShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
-2023-06-25 13:40:18.860  INFO 47177 --- [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
-2023-06-25 13:40:19.134  INFO 47177 --- [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
-2023-06-25 13:59:30.097  INFO 49765 --- [main] c.d.dambae200.Dambae200Application       : Starting Dambae200Application using Java 11.0.13 on Hyeonmins-MacBookPro.local with PID 49765 (/Users/hyeonminlee/Desktop/graduation_project/dame200_springboot/dambae200/build/classes/java/main started by hyeonminlee in /Users/hyeonminlee/Desktop/graduation_project/dame200_springboot/dambae200)
-2023-06-25 13:59:30.102  INFO 49765 --- [main] c.d.dambae200.Dambae200Application       : The following 5 profiles are active: "db", "common", "redis", "prod", "db-prod"
-2023-06-25 13:59:31.882  INFO 49765 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode
-2023-06-25 13:59:31.902  INFO 49765 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
-2023-06-25 13:59:32.483  INFO 49765 --- [main] .RepositoryConfigurationExtensionSupport : Spring Data JPA - Could not safely identify store assignment for repository candidate interface com.dambae200.dambae200.domain.sessionInfo.repository.SessionInfoRedisRepository; If you want this repository to be a JPA repository, consider annotating your entities with one of these annotations: javax.persistence.Entity, javax.persistence.MappedSuperclass (preferred), or consider extending one of the following types with your repository: org.springframework.data.jpa.repository.JpaRepository
-2023-06-25 13:59:32.533  INFO 49765 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 600 ms. Found 7 JPA repository interfaces.
-2023-06-25 13:59:32.557  INFO 49765 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode
-2023-06-25 13:59:32.559  INFO 49765 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data Redis repositories in DEFAULT mode.
-2023-06-25 13:59:32.598  INFO 49765 --- [main] .RepositoryConfigurationExtensionSupport : Spring Data Redis - Could not safely identify store assignment for repository candidate interface com.dambae200.dambae200.domain.access.repository.AccessRepository; If you want this repository to be a Redis repository, consider annotating your entities with one of these annotations: org.springframework.data.redis.core.RedisHash (preferred), or consider extending one of the following types with your repository: org.springframework.data.keyvalue.repository.KeyValueRepository
-2023-06-25 13:59:32.598  INFO 49765 --- [main] .RepositoryConfigurationExtensionSupport : Spring Data Redis - Could not safely identify store assignment for repository candidate interface com.dambae200.dambae200.domain.cigarette.repository.CigaretteRepository; If you want this repository to be a Redis repository, consider annotating your entities with one of these annotations: org.springframework.data.redis.core.RedisHash (preferred), or consider extending one of the following types with your repository: org.springframework.data.keyvalue.repository.KeyValueRepository
-2023-06-25 13:59:32.599  INFO 49765 --- [main] .RepositoryConfigurationExtensionSupport : Spring Data Redis - Could not safely identify store assignment for repository candidate interface com.dambae200.dambae200.domain.cigaretteOnList.repository.CigaretteOnListRepository; If you want this repository to be a Redis repository, consider annotating your entities with one of these annotations: org.springframework.data.redis.core.RedisHash (preferred), or consider extending one of the following types with your repository: org.springframework.data.keyvalue.repository.KeyValueRepository
-2023-06-25 13:59:32.599  INFO 49765 --- [main] .RepositoryConfigurationExtensionSupport : Spring Data Redis - Could not safely identify store assignment for repository candidate interface com.dambae200.dambae200.domain.notification.repository.NotificationRepository; If you want this repository to be a Redis repository, consider annotating your entities with one of these annotations: org.springframework.data.redis.core.RedisHash (preferred), or consider extending one of the following types with your repository: org.springframework.data.keyvalue.repository.KeyValueRepository
-2023-06-25 13:59:32.603  INFO 49765 --- [main] .RepositoryConfigurationExtensionSupport : Spring Data Redis - Could not safely identify store assignment for repository candidate interface com.dambae200.dambae200.domain.sessionInfo.repository.SessionInfoRepository; If you want this repository to be a Redis repository, consider annotating your entities with one of these annotations: org.springframework.data.redis.core.RedisHash (preferred), or consider extending one of the following types with your repository: org.springframework.data.keyvalue.repository.KeyValueRepository
-2023-06-25 13:59:32.604  INFO 49765 --- [main] .RepositoryConfigurationExtensionSupport : Spring Data Redis - Could not safely identify store assignment for repository candidate interface com.dambae200.dambae200.domain.store.repository.StoreRepository; If you want this repository to be a Redis repository, consider annotating your entities with one of these annotations: org.springframework.data.redis.core.RedisHash (preferred), or consider extending one of the following types with your repository: org.springframework.data.keyvalue.repository.KeyValueRepository
-2023-06-25 13:59:32.605  INFO 49765 --- [main] .RepositoryConfigurationExtensionSupport : Spring Data Redis - Could not safely identify store assignment for repository candidate interface com.dambae200.dambae200.domain.user.repository.UserRepository; If you want this repository to be a Redis repository, consider annotating your entities with one of these annotations: org.springframework.data.redis.core.RedisHash (preferred), or consider extending one of the following types with your repository: org.springframework.data.keyvalue.repository.KeyValueRepository
-2023-06-25 13:59:32.624  INFO 49765 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 52 ms. Found 1 Redis repository interfaces.
-2023-06-25 13:59:33.718  INFO 49765 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 1024 (http)
-2023-06-25 13:59:33.734  INFO 49765 --- [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
-2023-06-25 13:59:33.734  INFO 49765 --- [main] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.64]
-2023-06-25 13:59:33.881  INFO 49765 --- [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
-2023-06-25 13:59:33.881  INFO 49765 --- [main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 3717 ms
-2023-06-25 13:59:34.080  INFO 49765 --- [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
-2023-06-25 13:59:34.560  INFO 49765 --- [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
-2023-06-25 13:59:34.835  INFO 49765 --- [main] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
-2023-06-25 13:59:34.910  INFO 49765 --- [main] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 5.6.9.Final
-2023-06-25 13:59:35.211  INFO 49765 --- [main] o.hibernate.annotations.common.Version   : HCANN000001: Hibernate Commons Annotations {5.1.2.Final}
-2023-06-25 13:59:35.371  INFO 49765 --- [main] org.hibernate.dialect.Dialect            : HHH000400: Using dialect: org.hibernate.dialect.MySQL5InnoDBDialect
-2023-06-25 13:59:36.393  INFO 49765 --- [main] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
-2023-06-25 13:59:36.403  INFO 49765 --- [main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
-2023-06-25 13:59:36.941  WARN 49765 --- [main] i.n.r.d.DnsServerAddressStreamProviders  : Can not find io.netty.resolver.dns.macos.MacOSDnsServerAddressStreamProvider in the classpath, fallback to system defaults. This may result in incorrect DNS resolutions on MacOS.
-2023-06-25 13:59:38.455  INFO 49765 --- [main] org.redisson.Version                     : Redisson 3.17.7
-2023-06-25 13:59:38.626  INFO 49765 --- [redisson-netty-6-6] o.r.c.pool.MasterPubSubConnectionPool    : 1 connections initialized for localhost/127.0.0.1:6379
-2023-06-25 13:59:38.750  INFO 49765 --- [redisson-netty-6-19] o.r.c.pool.MasterConnectionPool          : 24 connections initialized for localhost/127.0.0.1:6379
-2023-06-25 13:59:39.317  INFO 49765 --- [main] o.s.b.a.e.web.EndpointLinksResolver      : Exposing 1 endpoint(s) beneath base path '/actuator'
-2023-06-25 13:59:40.273  INFO 49765 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 1024 (http) with context path ''
-2023-06-25 13:59:40.926  INFO 49765 --- [main] o.s.m.s.b.SimpleBrokerMessageHandler     : Starting...
-2023-06-25 13:59:40.927  INFO 49765 --- [main] o.s.m.s.b.SimpleBrokerMessageHandler     : BrokerAvailabilityEvent[available=true, SimpleBrokerMessageHandler [org.springframework.messaging.simp.broker.DefaultSubscriptionRegistry@19b656b0]]
-2023-06-25 13:59:40.927  INFO 49765 --- [main] o.s.m.s.b.SimpleBrokerMessageHandler     : Started.
-2023-06-25 13:59:40.961  INFO 49765 --- [main] c.d.dambae200.Dambae200Application       : Started Dambae200Application in 11.577 seconds (JVM running for 12.272)
-2023-06-25 14:00:00.551  INFO 49765 --- [http-nio-1024-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
-2023-06-25 14:00:00.552  INFO 49765 --- [http-nio-1024-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
-2023-06-25 14:00:00.554  INFO 49765 --- [http-nio-1024-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 2 ms
-2023-06-25 14:00:00.572  INFO 49765 --- [http-nio-1024-exec-2] c.d.d.global.filter.LoginCheckFilter     : accessToken : bd415e4d-1bf9-46a4-bf02-707fff02eea5
-2023-06-25 14:00:01.003  INFO 49765 --- [http-nio-1024-exec-2] c.d.d.global.cache.service.CacheModule   : 캐시 사용 - cachaName: SessionInfo, key: bd415e4d-1bf9-46a4-bf02-707fff02eea5
-2023-06-25 14:00:01.099  INFO 49765 --- [http-nio-1024-exec-2] com.zaxxer.hikari.HikariDataSource       : HikariPool-2 - Starting...
-2023-06-25 14:00:01.199  INFO 49765 --- [http-nio-1024-exec-2] com.zaxxer.hikari.HikariDataSource       : HikariPool-2 - Start completed.
-2023-06-25 14:00:01.420  INFO 49765 --- [http-nio-1024-exec-2] c.d.d.global.filter.LoginCheckFilter     : 인증 체크 필터 종료 /api/users/2/home
-2023-06-25 14:00:04.618  INFO 49765 --- [http-nio-1024-exec-4] c.d.d.global.filter.LoginCheckFilter     : 인증 체크 필터 종료 /api/logout
-2023-06-25 14:00:11.137  INFO 49765 --- [http-nio-1024-exec-6] c.d.d.global.cache.service.CacheModule   : 캐시 저장SessionInfoDto(accessToken=f6bc40e3-7b86-43b7-9708-28d32a100140, userId=2, userAgent=Mozilla/5.0 (iPhone; CPU iPhone OS 13_2_3 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/13.0.3 Mobile/15E148 Safari/604.1, expirationTime=2023-06-25T15:00:11.085617)
-2023-06-25 14:00:11.213  INFO 49765 --- [http-nio-1024-exec-6] c.d.d.global.filter.LoginCheckFilter     : 인증 체크 필터 종료 /api/login
-2023-06-25 14:00:11.425  INFO 49765 --- [http-nio-1024-exec-7] c.d.d.global.filter.LoginCheckFilter     : accessToken : f6bc40e3-7b86-43b7-9708-28d32a100140
-2023-06-25 14:00:11.434  INFO 49765 --- [http-nio-1024-exec-7] c.d.d.global.cache.service.CacheModule   : 캐시 사용 - cachaName: SessionInfo, key: f6bc40e3-7b86-43b7-9708-28d32a100140
-2023-06-25 14:00:11.555  INFO 49765 --- [http-nio-1024-exec-7] c.d.d.global.filter.LoginCheckFilter     : 인증 체크 필터 종료 /api/users/2/home
-2023-06-25 14:00:39.517  INFO 49765 --- [MessageBroker-1] o.s.w.s.c.WebSocketMessageBrokerStats    : WebSocketSession[0 current WS(0)-HttpStream(0)-HttpPoll(0), 0 total, 0 closed abnormally (0 connect failure, 0 send limit, 0 transport error)], stompSubProtocol[processed CONNECT(0)-CONNECTED(0)-DISCONNECT(0)], stompBrokerRelay[null], inboundChannel[pool size = 0, active threads = 0, queued tasks = 0, completed tasks = 0], outboundChannel[pool size = 0, active threads = 0, queued tasks = 0, completed tasks = 0], sockJsScheduler[pool size = 1, active threads = 1, queued tasks = 0, completed tasks = 0]
-2023-06-25 14:06:34.205  INFO 49765 --- [SpringApplicationShutdownHook] o.s.m.s.b.SimpleBrokerMessageHandler     : Stopping...
-2023-06-25 14:06:34.206  INFO 49765 --- [SpringApplicationShutdownHook] o.s.m.s.b.SimpleBrokerMessageHandler     : BrokerAvailabilityEvent[available=false, SimpleBrokerMessageHandler [org.springframework.messaging.simp.broker.DefaultSubscriptionRegistry@19b656b0]]
-2023-06-25 14:06:34.207  INFO 49765 --- [SpringApplicationShutdownHook] o.s.m.s.b.SimpleBrokerMessageHandler     : Stopped.
-2023-06-25 14:06:34.510  INFO 49765 --- [SpringApplicationShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
-2023-06-25 14:06:34.513  INFO 49765 --- [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-2 - Shutdown initiated...
-2023-06-25 14:06:34.578  INFO 49765 --- [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-2 - Shutdown completed.
-2023-06-25 14:06:34.579  INFO 49765 --- [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
-2023-06-25 14:06:34.632  INFO 49765 --- [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
+2023-07-02 12:46:27.086  INFO 60083 --- [http-nio-1024-exec-2] c.d.d.global.filter.LoginCheckFilter     : 인증 체크 필터 종료 /api/logout
+2023-07-02 12:47:17.669  INFO 60083 --- [MessageBroker-1] o.s.w.s.c.WebSocketMessageBrokerStats    : WebSocketSession[0 current WS(0)-HttpStream(0)-HttpPoll(0), 0 total, 0 closed abnormally (0 connect failure, 0 send limit, 0 transport error)], stompSubProtocol[processed CONNECT(0)-CONNECTED(0)-DISCONNECT(0)], stompBrokerRelay[null], inboundChannel[pool size = 0, active threads = 0, queued tasks = 0, completed tasks = 0], outboundChannel[pool size = 0, active threads = 0, queued tasks = 0, completed tasks = 0], sockJsScheduler[pool size = 1, active threads = 1, queued tasks = 0, completed tasks = 0]
+2023-07-02 12:47:23.723  INFO 60083 --- [SpringApplicationShutdownHook] o.s.m.s.b.SimpleBrokerMessageHandler     : Stopping...
+2023-07-02 12:47:23.724  INFO 60083 --- [SpringApplicationShutdownHook] o.s.m.s.b.SimpleBrokerMessageHandler     : BrokerAvailabilityEvent[available=false, SimpleBrokerMessageHandler [org.springframework.messaging.simp.broker.DefaultSubscriptionRegistry@50cbe633]]
+2023-07-02 12:47:23.724  INFO 60083 --- [SpringApplicationShutdownHook] o.s.m.s.b.SimpleBrokerMessageHandler     : Stopped.
+2023-07-02 12:47:24.056  INFO 60083 --- [SpringApplicationShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2023-07-02 12:47:24.059  INFO 60083 --- [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2023-07-02 12:47:24.130  INFO 60083 --- [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
+2023-07-02 12:47:30.526  INFO 60195 --- [main] c.d.dambae200.Dambae200Application       : Starting Dambae200Application using Java 11.0.13 on Hyeonmins-MacBookPro.local with PID 60195 (/Users/hyeonminlee/Desktop/graduation_project/dame200_springboot/dambae200/build/classes/java/main started by hyeonminlee in /Users/hyeonminlee/Desktop/graduation_project/dame200_springboot/dambae200)
+2023-07-02 12:47:30.531  INFO 60195 --- [main] c.d.dambae200.Dambae200Application       : The following 5 profiles are active: "db", "common", "redis", "prod", "db-prod"
+2023-07-02 12:47:32.565  INFO 60195 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode
+2023-07-02 12:47:32.568  INFO 60195 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2023-07-02 12:47:33.116  INFO 60195 --- [main] .RepositoryConfigurationExtensionSupport : Spring Data JPA - Could not safely identify store assignment for repository candidate interface com.dambae200.dambae200.domain.sessionInfo.repository.SessionInfoRedisRepository; If you want this repository to be a JPA repository, consider annotating your entities with one of these annotations: javax.persistence.Entity, javax.persistence.MappedSuperclass (preferred), or consider extending one of the following types with your repository: org.springframework.data.jpa.repository.JpaRepository
+2023-07-02 12:47:33.163  INFO 60195 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 579 ms. Found 7 JPA repository interfaces.
+2023-07-02 12:47:33.186  INFO 60195 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode
+2023-07-02 12:47:33.187  INFO 60195 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data Redis repositories in DEFAULT mode.
+2023-07-02 12:47:33.226  INFO 60195 --- [main] .RepositoryConfigurationExtensionSupport : Spring Data Redis - Could not safely identify store assignment for repository candidate interface com.dambae200.dambae200.domain.access.repository.AccessRepository; If you want this repository to be a Redis repository, consider annotating your entities with one of these annotations: org.springframework.data.redis.core.RedisHash (preferred), or consider extending one of the following types with your repository: org.springframework.data.keyvalue.repository.KeyValueRepository
+2023-07-02 12:47:33.227  INFO 60195 --- [main] .RepositoryConfigurationExtensionSupport : Spring Data Redis - Could not safely identify store assignment for repository candidate interface com.dambae200.dambae200.domain.cigarette.repository.CigaretteRepository; If you want this repository to be a Redis repository, consider annotating your entities with one of these annotations: org.springframework.data.redis.core.RedisHash (preferred), or consider extending one of the following types with your repository: org.springframework.data.keyvalue.repository.KeyValueRepository
+2023-07-02 12:47:33.227  INFO 60195 --- [main] .RepositoryConfigurationExtensionSupport : Spring Data Redis - Could not safely identify store assignment for repository candidate interface com.dambae200.dambae200.domain.cigaretteOnList.repository.CigaretteOnListRepository; If you want this repository to be a Redis repository, consider annotating your entities with one of these annotations: org.springframework.data.redis.core.RedisHash (preferred), or consider extending one of the following types with your repository: org.springframework.data.keyvalue.repository.KeyValueRepository
+2023-07-02 12:47:33.228  INFO 60195 --- [main] .RepositoryConfigurationExtensionSupport : Spring Data Redis - Could not safely identify store assignment for repository candidate interface com.dambae200.dambae200.domain.notification.repository.NotificationRepository; If you want this repository to be a Redis repository, consider annotating your entities with one of these annotations: org.springframework.data.redis.core.RedisHash (preferred), or consider extending one of the following types with your repository: org.springframework.data.keyvalue.repository.KeyValueRepository
+2023-07-02 12:47:33.231  INFO 60195 --- [main] .RepositoryConfigurationExtensionSupport : Spring Data Redis - Could not safely identify store assignment for repository candidate interface com.dambae200.dambae200.domain.sessionInfo.repository.SessionInfoRepository; If you want this repository to be a Redis repository, consider annotating your entities with one of these annotations: org.springframework.data.redis.core.RedisHash (preferred), or consider extending one of the following types with your repository: org.springframework.data.keyvalue.repository.KeyValueRepository
+2023-07-02 12:47:33.232  INFO 60195 --- [main] .RepositoryConfigurationExtensionSupport : Spring Data Redis - Could not safely identify store assignment for repository candidate interface com.dambae200.dambae200.domain.store.repository.StoreRepository; If you want this repository to be a Redis repository, consider annotating your entities with one of these annotations: org.springframework.data.redis.core.RedisHash (preferred), or consider extending one of the following types with your repository: org.springframework.data.keyvalue.repository.KeyValueRepository
+2023-07-02 12:47:33.232  INFO 60195 --- [main] .RepositoryConfigurationExtensionSupport : Spring Data Redis - Could not safely identify store assignment for repository candidate interface com.dambae200.dambae200.domain.user.repository.UserRepository; If you want this repository to be a Redis repository, consider annotating your entities with one of these annotations: org.springframework.data.redis.core.RedisHash (preferred), or consider extending one of the following types with your repository: org.springframework.data.keyvalue.repository.KeyValueRepository
+2023-07-02 12:47:33.254  INFO 60195 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 53 ms. Found 1 Redis repository interfaces.
+2023-07-02 12:47:34.393  INFO 60195 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 1024 (http)
+2023-07-02 12:47:34.409  INFO 60195 --- [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2023-07-02 12:47:34.410  INFO 60195 --- [main] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.64]
+2023-07-02 12:47:34.615  INFO 60195 --- [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2023-07-02 12:47:34.615  INFO 60195 --- [main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 3979 ms
+2023-07-02 12:47:34.854  INFO 60195 --- [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2023-07-02 12:47:35.411  INFO 60195 --- [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2023-07-02 12:47:35.743  INFO 60195 --- [main] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2023-07-02 12:47:35.832  INFO 60195 --- [main] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 5.6.9.Final
+2023-07-02 12:47:36.230  INFO 60195 --- [main] o.hibernate.annotations.common.Version   : HCANN000001: Hibernate Commons Annotations {5.1.2.Final}
+2023-07-02 12:47:36.422  INFO 60195 --- [main] org.hibernate.dialect.Dialect            : HHH000400: Using dialect: org.hibernate.dialect.MySQL5InnoDBDialect
+2023-07-02 12:47:37.844  INFO 60195 --- [main] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2023-07-02 12:47:37.858  INFO 60195 --- [main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2023-07-02 12:47:38.655  WARN 60195 --- [main] i.n.r.d.DnsServerAddressStreamProviders  : Can not find io.netty.resolver.dns.macos.MacOSDnsServerAddressStreamProvider in the classpath, fallback to system defaults. This may result in incorrect DNS resolutions on MacOS.
+2023-07-02 12:47:40.300  INFO 60195 --- [main] org.redisson.Version                     : Redisson 3.17.7
+2023-07-02 12:47:40.473  INFO 60195 --- [redisson-netty-6-5] o.r.c.pool.MasterPubSubConnectionPool    : 1 connections initialized for 49.50.164.244/49.50.164.244:6379
+2023-07-02 12:47:40.693  INFO 60195 --- [redisson-netty-6-19] o.r.c.pool.MasterConnectionPool          : 24 connections initialized for 49.50.164.244/49.50.164.244:6379
+2023-07-02 12:47:41.358  INFO 60195 --- [main] o.s.b.a.e.web.EndpointLinksResolver      : Exposing 1 endpoint(s) beneath base path '/actuator'
+2023-07-02 12:47:42.512  INFO 60195 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 1024 (http) with context path ''
+2023-07-02 12:47:43.353  INFO 60195 --- [main] o.s.m.s.b.SimpleBrokerMessageHandler     : Starting...
+2023-07-02 12:47:43.354  INFO 60195 --- [main] o.s.m.s.b.SimpleBrokerMessageHandler     : BrokerAvailabilityEvent[available=true, SimpleBrokerMessageHandler [org.springframework.messaging.simp.broker.DefaultSubscriptionRegistry@41cc3795]]
+2023-07-02 12:47:43.354  INFO 60195 --- [main] o.s.m.s.b.SimpleBrokerMessageHandler     : Started.
+2023-07-02 12:47:43.382  INFO 60195 --- [main] c.d.dambae200.Dambae200Application       : Started Dambae200Application in 13.734 seconds (JVM running for 14.621)
+2023-07-02 12:47:50.856  INFO 60195 --- [http-nio-1024-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2023-07-02 12:47:50.856  INFO 60195 --- [http-nio-1024-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2023-07-02 12:47:50.859  INFO 60195 --- [http-nio-1024-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 3 ms
+2023-07-02 12:47:51.599  INFO 60195 --- [http-nio-1024-exec-1] c.d.d.global.filter.LoginCheckFilter     : 인증 체크 필터 종료 /api/logout
+2023-07-02 12:47:58.847  INFO 60195 --- [http-nio-1024-exec-3] com.zaxxer.hikari.HikariDataSource       : HikariPool-2 - Starting...
+2023-07-02 12:47:58.944  INFO 60195 --- [http-nio-1024-exec-3] com.zaxxer.hikari.HikariDataSource       : HikariPool-2 - Start completed.
+2023-07-02 12:47:59.083  INFO 60195 --- [http-nio-1024-exec-3] c.d.d.global.cache.service.CacheModule   : 캐시 저장SessionInfoDto(accessToken=3a79f3ae-481e-4a78-b806-7df39a5a7187, userId=2, userAgent=Mozilla/5.0 (iPhone; CPU iPhone OS 13_2_3 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/13.0.3 Mobile/15E148 Safari/604.1, expirationTime=2023-07-02T13:47:59.007186)
+2023-07-02 12:47:59.191  INFO 60195 --- [http-nio-1024-exec-3] c.d.d.global.filter.LoginCheckFilter     : 인증 체크 필터 종료 /api/login
+2023-07-02 12:47:59.647  INFO 60195 --- [http-nio-1024-exec-5] c.d.d.global.filter.LoginCheckFilter     : accessToken : 3a79f3ae-481e-4a78-b806-7df39a5a7187
+2023-07-02 12:47:59.718  INFO 60195 --- [http-nio-1024-exec-5] c.d.d.global.cache.service.CacheModule   : 캐시 사용 - cachaName: SessionInfo, key: 3a79f3ae-481e-4a78-b806-7df39a5a7187
+2023-07-02 12:48:00.000  INFO 60195 --- [http-nio-1024-exec-5] c.d.d.global.filter.LoginCheckFilter     : 인증 체크 필터 종료 /api/users/2/home
+2023-07-02 12:48:41.634  INFO 60195 --- [MessageBroker-1] o.s.w.s.c.WebSocketMessageBrokerStats    : WebSocketSession[0 current WS(0)-HttpStream(0)-HttpPoll(0), 0 total, 0 closed abnormally (0 connect failure, 0 send limit, 0 transport error)], stompSubProtocol[processed CONNECT(0)-CONNECTED(0)-DISCONNECT(0)], stompBrokerRelay[null], inboundChannel[pool size = 0, active threads = 0, queued tasks = 0, completed tasks = 0], outboundChannel[pool size = 0, active threads = 0, queued tasks = 0, completed tasks = 0], sockJsScheduler[pool size = 1, active threads = 1, queued tasks = 0, completed tasks = 0]

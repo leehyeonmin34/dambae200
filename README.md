@@ -12,11 +12,17 @@
 <br />
 
 # 핵심 컨셉 (담배 검수)
-1. 담배 목록의 각 담배마다 진열순과 정렬순 정보를 지정
-2. 진열된 순서대로 우리 매장의 담배 갯수를 입력
-3. ‘전산순으로 정렬하기’ 버튼을 눌러서, 미리 설정해 놓은 순서대로 정렬
-4. 이를 포스기에서 출력된 재고 목록 종이와 1:1 비교
 
+![Frame 1152](https://github.com/leehyeonmin34/weather_reminder/assets/66104031/92060bc6-5ae5-4da2-b609-0f63e4348cda)
+
+1. 목록 생성
+   1. 매장별로 담배 목록을 생성할 수 있음
+   2. 내 목록에 담배를 진열순서대로 추가
+   3. 각 담배들의 '전산 순서'를 수정
+2. 담배 검수
+   1. '진열 순서'대로 우리 매장의 담배 갯수를 입력
+   2. ‘전산순으로 정렬하기’ 버튼을 누르면 미리 설정해 놓은 전산 순서대로 정렬됨
+   3. 포스기에서 출력된 재고 목록 종이와 담배 갯수 1:1 비교
 
 [🔗 UI & 작동 영상 + 기획 보러가기](https://www.figma.com/proto/desD77sVBmkrGoZHDKkU5y/%EB%8B%B4%EB%B0%B0%EA%B2%80%EC%88%98%EC%95%B1-%ED%94%84%EB%A1%9C%EC%84%B8%EC%8A%A4?node-id=781-53559&starting-point-node-id=856%3A43897&scaling=contain)
 <br/>
@@ -24,19 +30,20 @@
 <br />
 <br />
 
-
-### 제공 기능
+### 제공 기능 
 - 담배 목록
   - 담배 목록 생성/수정/삭제
   - 담배 추가/수정/삭제
   - 담배 순서 조정
   - 담배 목록 내 검색
+  - 담배 목록 실시간 동시 편집
 - 목록 접근 권한 관리
   - 요청/허가/비허가/관리자 권한 인계
 - 로그인, 비밀번호 찾기
 - 알림 (Pageable 조회)
 - 설정 (개인정보 수정)
 - 업무 꿀팁 컨텐츠
+
 
 <br />
 
@@ -47,7 +54,7 @@
 - 로직이 잘 보이고 확장, 유지보수하기 좋은 코드
 - 서버 확장, 대용량 트래픽과 운영을 고려한 방식
 
-## [문제해결 등 중요한 내용은 📓위키 를 참조해주세요 !](https://github.com/leehyeonmin34/dambae200/wiki)
+## [<U>문제해결 등 중요한 내용은 📓위키 를 참조해주세요 !</U>](https://github.com/leehyeonmin34/dambae200/wiki)
 
 ## 사용 기술
 Spring Boot, Spring Data JPA, MySQL, Redis, Stomp, Docker, nginx, Naver Cloud Platform
@@ -56,8 +63,10 @@ Spring Boot, Spring Data JPA, MySQL, Redis, Stomp, Docker, nginx, Naver Cloud Pl
 - Naver Cloud Platform의 서버 1개로 docker를 통해 대부분의 구성을 컨테이너로 구동중입니다.
 - docker 컨테이너로 구성되어있지만, 코드 상으로는 서로 별개의 서버라고 가정하고 구현했습니다.
 - github hook을 받아 Jenkins에서 CI/CD를 진행합니다.
+- Jenkins측에서 Dockerhub에 이미지를 push하고, 앱서버 측에서 이미지를 pull합니다.
 - Blue-green 방식으로 무중단 배포됩니다.
-- Naver Cloud Platform의 서버를 사용합니다.
+- 사용자의 요청은 nginx에 의해 프론트엔드 리소스와 api요청을 분기 처리합니다.
+- 세션은 캐시와 세션용으로 구분되어 운용되며, DB는 Primary-Slave 구조의 2개 서버로 운용됩니다.
 
 <img width="1139" alt="스크린샷 2023-06-23 오전 11 57 01" src="https://github.com/leehyeonmin34/weather_reminder/assets/66104031/57fb6c70-da73-479f-8ca2-bc14efb0d7aa">
 
