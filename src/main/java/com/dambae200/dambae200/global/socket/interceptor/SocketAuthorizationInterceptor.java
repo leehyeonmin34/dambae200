@@ -4,23 +4,13 @@ import com.dambae200.dambae200.domain.access.exception.AccessNotAllowedException
 import com.dambae200.dambae200.domain.access.service.AccessService;
 import com.dambae200.dambae200.domain.sessionInfo.exception.SessionInfoNotExistsException;
 import com.dambae200.dambae200.domain.sessionInfo.service.SessionService;
-import com.dambae200.dambae200.global.error.GlobalExceptionHandler;
-import com.dambae200.dambae200.global.socket.dto.SocketRequest;
-import com.dambae200.dambae200.global.socket.exeption.GlobalMessageExceptionHandler;
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.ApplicationContext;
 import org.springframework.core.Ordered;
 import org.springframework.core.annotation.Order;
 import org.springframework.messaging.Message;
 import org.springframework.messaging.MessageChannel;
-import org.springframework.messaging.handler.annotation.MessageExceptionHandler;
-import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.messaging.simp.stomp.StompCommand;
-import org.springframework.messaging.simp.stomp.StompDecoder;
 import org.springframework.messaging.simp.stomp.StompHeaderAccessor;
 import org.springframework.messaging.support.ChannelInterceptor;
 import org.springframework.stereotype.Component;
@@ -40,12 +30,11 @@ public class SocketAuthorizationInterceptor implements ChannelInterceptor {
     @Override
     public Message<?> preSend(Message<?> message, MessageChannel channel) {
         StompHeaderAccessor headerAccessor = StompHeaderAccessor.wrap(message);
-        System.out.println("full message:" + message);
-        System.out.println("payload:" + new String((byte[])message.getPayload(), StandardCharsets.UTF_8));
-        System.out.println("auth:" + headerAccessor.getNativeHeader("Authorization"));
+        log.info("full message:" + message);
+        log.info("payload:" + new String((byte[])message.getPayload(), StandardCharsets.UTF_8));
+        log.info("auth:" + headerAccessor.getNativeHeader("Authorization"));
 
         if (StompCommand.SEND.equals(headerAccessor.getCommand())) {
-
 
             // login check
             String destination = null;

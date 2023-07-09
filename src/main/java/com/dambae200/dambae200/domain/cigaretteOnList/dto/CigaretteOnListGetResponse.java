@@ -17,6 +17,7 @@ import java.time.LocalDateTime;
 public class CigaretteOnListGetResponse extends BaseDto implements Serializable {
     private String officialName;
     private String customizedName;
+    private String simpleName;
     private int count;
     private Long cigaretteId;
     private boolean vertical ;
@@ -48,6 +49,7 @@ public class CigaretteOnListGetResponse extends BaseDto implements Serializable 
         this.vertical = cigarette.isVertical();
         this.filePathLarge = cigarette.getFilePathLarge();
         this.filePathMedium = cigarette.getFilePathMedium();
+        this.simpleName = cigarette.getSimpleName();
     }
 
     public static CigaretteOnList toEntity(CigaretteOnListGetResponse dto) {
@@ -64,7 +66,6 @@ public class CigaretteOnListGetResponse extends BaseDto implements Serializable 
                 .cigarette(buildCigarette(dto))
                 .store(buildStore(dto))
                 .build();
-
     }
 
     private static Cigarette buildCigarette(CigaretteOnListGetResponse dto){
@@ -74,6 +75,7 @@ public class CigaretteOnListGetResponse extends BaseDto implements Serializable 
                 .vertical(dto.isVertical())
                 .filePathMedium(dto.getFilePathMedium())
                 .filePathLarge(dto.getFilePathLarge())
+                .simpleName(dto.getSimpleName())
                 .build();
     }
 

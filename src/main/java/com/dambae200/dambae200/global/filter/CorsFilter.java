@@ -14,7 +14,7 @@ import java.util.Arrays;
 @Order(Ordered.HIGHEST_PRECEDENCE)
 public class CorsFilter implements Filter {
 
-    private final static String[] allowedOrigins = {"http://localhost:5500", "http://192.100.3.182:5500", "http://192.100.3.182:5500", "http://172.30.1.35:5500","http://49.50.164.244:9090", "http://49.50.164.244:9999", "http://49.50.164.244", "http://49.50.164.244:80"};
+    private final static String[] allowedOrigins = {"http://localhost:5500", "http://192.100.3.182:5500", "http://192.100.3.182:5500", "http://172.20.10.3:5500","http://49.50.164.244:9090", "http://49.50.164.244:9999", "http://49.50.164.244", "http://49.50.164.244:80"};
     // 로컬 VS Code
     // ncp-main nginx
     // ncp-main 프론트엔드 포트
@@ -28,7 +28,6 @@ public class CorsFilter implements Filter {
     public void doFilter(ServletRequest req, ServletResponse res, FilterChain chain) throws IOException, ServletException {
         HttpServletRequest request = (HttpServletRequest) req;
         HttpServletResponse response = (HttpServletResponse) res;
-        System.out.println(request.getHeader("Origin"));
         int idx = Arrays.asList(allowedOrigins).indexOf(request.getHeader("Origin"));
         if(idx > -1) response.setHeader("Access-Control-Allow-Origin", allowedOrigins[idx]);
         response.setHeader("Access-Control-Allow-Credentials", "true");

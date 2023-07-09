@@ -8,7 +8,9 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.ApplicationContext;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Component;
+import org.springframework.web.socket.messaging.WebSocketStompClient;
 
+import java.net.Socket;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
@@ -23,6 +25,7 @@ public class RedisTemplateFinder {
     // map에서 캐시타입에 맞는 RedisTemplate bean 찾아서 반환
     public RedisTemplate findOf(CacheType cacheType) {
         return redisTemplateMap.get(cacheType.getRedisServerType().getRedisTemplateBeanName());
+//        WebSocketStompClient
     }
 
 }

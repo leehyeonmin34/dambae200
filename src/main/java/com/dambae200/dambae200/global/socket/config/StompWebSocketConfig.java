@@ -43,6 +43,7 @@ public class StompWebSocketConfig implements WebSocketMessageBrokerConfigurer {
                 .setAllowedOriginPatterns("http://*:*", "http://*.*.*.*:*")
                 .setHandshakeHandler(customHandshakeHandler)
                 .withSockJS();
+//                ;
     }
 
     @Override

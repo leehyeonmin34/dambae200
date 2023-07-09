@@ -9,7 +9,7 @@ import org.springframework.data.redis.core.RedisTemplate;
 @AllArgsConstructor
 public enum CacheType {
 
-    SESSION_INFO("SessionInfo", ONE_HOUR, RedisServerType.SESSION),
+    SESSION_INFO("SessionInfo", ONE_DAY, RedisServerType.SESSION),
 
     CIGARETTE("Cigarette", ONE_DAY, RedisServerType.CACHE),
     ACCESS("Access", ONE_HOUR, RedisServerType.CACHE),
