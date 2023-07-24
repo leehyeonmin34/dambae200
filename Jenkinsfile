@@ -87,6 +87,7 @@ pipeline {
 
         }
 
+
         // dockerhub 말고 ssh로 앱서버로 직접 빌드파일 전송
         // stage('SSH Tranfer') {
         //     steps {
