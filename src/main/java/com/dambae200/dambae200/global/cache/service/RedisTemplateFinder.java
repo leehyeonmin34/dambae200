@@ -22,10 +22,14 @@ public class RedisTemplateFinder {
     // 빈 자동 주입으로 인해, key는 bean Name이다.
     private final Map<String, RedisTemplate> redisTemplateMap;
 
-    // map에서 캐시타입에 맞는 RedisTemplate bean 찾아서 반환
+
     public RedisTemplate findOf(CacheType cacheType) {
-        return redisTemplateMap.get(cacheType.getRedisServerType().getRedisTemplateBeanName());
-//        WebSocketStompClient
+
+        // Redis서버 분리 없이 단일서버로만 캐시운용
+        return redisTemplateMap.get(RedisServerType.CACHE.getRedisTemplateBeanName());
+
+        // map에서 캐시타입에 맞는 RedisTemplate bean 찾아서 반환
+//        return redisTemplateMap.get(cacheType.getRedisServerType().getRedisTemplateBeanName());
     }
 
 }
