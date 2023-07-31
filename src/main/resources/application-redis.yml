@@ -36,6 +36,7 @@ spring:
     activate:
       on-profile: "db-prod"
   redis:
+#    host: 118.67.131.22
     host: 118.67.131.22
     port : 6379
     session:
