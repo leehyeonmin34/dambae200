@@ -4,6 +4,12 @@ System.setProperty("org.jenkinsci.plugins.durabletask.BourneShellScript.HEARTBEA
 
 pipeline {
     agent any 	// 사용 가능한 에이전트에서 이 파이프라인 또는 해당 단계를 실행
+
+    environment {
+        SERVER_LIST = 'ncp-main, ncp-sub001, ncp-sub002'
+    }
+
+
     stages {
 
 
@@ -68,20 +74,44 @@ pipeline {
             }
         }
         stage('Run Container on SSH Dev Server'){
+
+//             steps {
+//                   echo "deploy"
+//                   echo "${SERVER_LIST}"
+//
+//                   script {
+//                         SERVER_LIST.tokenize(',').each {
+//                               echo "SERVER: ${it}"
+//                               ssh_publisher("${it}")
+//                               sh "chmod +x ./deploy.sh"
+//                               sh "./deploy.sh"
+//                         }
+//                   }
+//             }
+
             steps{
-                echo 'SSH'
-                sshagent (credentials: ['dambae200-ssh']) {
-                    sh '''
-                        ssh -T root@dambae200-ssh <<- _EOF_
-                        whoami
-                        docker ps -q --filter name=dambae200-server | grep -q . && docker rm -f \$(docker ps -aq --filter name=dambae200-server-docker-image)
-                        docker rmi -f leehyeonmin34/dambae200-server
-                        docker pull leehyeonmin34/dambae200-server
-                        cd docker-image
-                        ./deploy.sh
-                        exit
-                        _EOF_'''
+                echo 'deploy'
+                echo ${SERVER_LIST}
+
+                script{
+                    SERVER_LIST.tokenize(',').each{
+                        echo "SERVER: ${it}"
+                        ssh_publisher("${it}")
+//                         sshagent (credentials: ['${it}']) {
+                        sh '''
+                            ssh -T root@${it} <<- _EOF_
+                            whoami
+                            docker ps -q --filter name=dambae200-server | grep -q . && docker rm -f \$(docker ps -aq --filter name=dambae200-server-docker-image)
+                            docker rmi -f leehyeonmin34/dambae200-server
+                            docker pull leehyeonmin34/dambae200-server
+                            cd docker-image
+                            ./deploy.sh
+                            exit
+                            _EOF_'''
+//                         }
+                    }
                 }
+
 
             }
 
