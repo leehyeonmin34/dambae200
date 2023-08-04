@@ -91,7 +91,7 @@ pipeline {
 
             steps{
                 echo 'deploy'
-                echo ${SERVER_LIST}
+                echo "${SERVER_LIST}"
 
                 script{
                     SERVER_LIST.tokenize(',').each{
