@@ -99,7 +99,7 @@ pipeline {
 //                         ssh_publisher("${it}")
 //                         sh 'ssh -T root@${it} whoami'
                         sh "echo ${it}"
-                        sh "ssh -T root${it} whoami"
+                        sh "ssh -T root@${it} whoami"
 //                         sh "ssh -T root@${it} whoami"
 //                         sh '''ssh -T root@${it} whoami'''
 //                         sh """ssh -T root@${it} whoami"""
