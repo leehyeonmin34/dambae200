@@ -84,7 +84,7 @@ pipeline {
                         echo "SERVER: ${it}"
 
                         sh "ssh -T root@${it} rm -rf /home/dambae200-ci"
-                        sh "scp -r /var/jenkins_home/workspace/dambae200-ci@${it}:/home"
+                        sh "scp -r /var/jenkins_home/workspace/dambae200-ci root@${it}:/home"
 
                         sh """
                             ssh -T root@${it} <<- _EOF_
