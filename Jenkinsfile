@@ -96,7 +96,7 @@ pipeline {
 
                             cd /home/dambae200-ci
                             touch .env
-                            AGENT_ID=${it} > .env
+                            \"AGENT_ID=${it}\" > .env
                             ./deploy.sh
 
                             exit
