@@ -97,7 +97,7 @@ pipeline {
                     SERVER_LIST.tokenize(',').each{
                         echo "SERVER: ${it}"
 //                         ssh_publisher("${it}")
-                        sh 'ssh -T root@${it} whoami'
+//                         sh 'ssh -T root@${it} whoami'
                         sh "ssh -T root@${it} whoami"
                         sh '''ssh -T root@${it} whoami'''
                         sh """ssh -T root@${it} whoami"""
