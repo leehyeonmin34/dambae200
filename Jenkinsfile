@@ -97,17 +97,30 @@ pipeline {
                     SERVER_LIST.tokenize(',').each{
                         echo "SERVER: ${it}"
 //                         ssh_publisher("${it}")
+                        sh 'ssh -T root@${it} whoami'
+                        sh "ssh -T root@${it} whoami"
+                        sh '''ssh -T root@${it} whoami'''
+                        sh """ssh -T root@${it} whoami"""
+//                             whoami
+//                             docker ps -q --filter name=dambae200-server | grep -q . && docker rm -f \$(docker ps -aq --filter name=dambae200-server-docker-image)
+//                             docker rmi -f leehyeonmin34/dambae200-server
+//                             docker pull leehyeonmin34/dambae200-server
+//                             cd docker-image
+//                             ./deploy.sh
+//                             exit
+//                             _EOF_'''
 
-                        sh '''
-                            ssh -T root@"${it}" <<- _EOF_
-                            whoami
-                            docker ps -q --filter name=dambae200-server | grep -q . && docker rm -f \$(docker ps -aq --filter name=dambae200-server-docker-image)
-                            docker rmi -f leehyeonmin34/dambae200-server
-                            docker pull leehyeonmin34/dambae200-server
-                            cd docker-image
-                            ./deploy.sh
-                            exit
-                            _EOF_'''
+
+//                         sh '''
+//                             ssh -T root@${it}" <<- _EOF_
+//                             whoami
+//                             docker ps -q --filter name=dambae200-server | grep -q . && docker rm -f \$(docker ps -aq --filter name=dambae200-server-docker-image)
+//                             docker rmi -f leehyeonmin34/dambae200-server
+//                             docker pull leehyeonmin34/dambae200-server
+//                             cd docker-image
+//                             ./deploy.sh
+//                             exit
+//                             _EOF_'''
                     }
                 }
 
