@@ -83,7 +83,7 @@ pipeline {
                     SERVER_LIST.tokenize(',').each{
                         echo "SERVER: ${it}"
 
-                        sh "ssh -T root@{it} rm -rf /home/dambae200-ci"
+                        sh "ssh -T root@${it} rm -rf /home/dambae200-ci"
                         sh "scp -r /var/jenkins_home/workspace/dambae200-ci@${it}:/home"
 
                         sh """
