@@ -97,9 +97,9 @@ pipeline {
                     SERVER_LIST.tokenize(',').each{
                         echo "SERVER: ${it}"
 //                         ssh_publisher("${it}")
-                        sshagent (credentials: ['${it}']) {
+
                             sh '''
-                                ssh -T root@ncp-main <<- _EOF_
+                                ssh -T root@${it} <<- _EOF_
                                 whoami
                                 docker ps -q --filter name=dambae200-server | grep -q . && docker rm -f \$(docker ps -aq --filter name=dambae200-server-docker-image)
                                 docker rmi -f leehyeonmin34/dambae200-server
