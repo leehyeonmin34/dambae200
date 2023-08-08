@@ -6,7 +6,7 @@ pipeline {
     agent any 	// 사용 가능한 에이전트에서 이 파이프라인 또는 해당 단계를 실행
 
     environment {
-        SERVER_LIST = 'ncp-main,ncp-sub001,ncp-sub002'
+        SERVER_LIST = 'dambae200-001,dambae200-002,dambae200-003'
     }
 
 
