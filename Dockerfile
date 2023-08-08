@@ -17,4 +17,5 @@ ENTRYPOINT ["nohup","java","-jar",\
            "-Dpinpoint.config=./pinpoint/pinpoint-root.config",\
            "-Dspring.profiles.active=prod","app.jar","2>&1","&"]
 
+
 # ENTRYPOINT ["java","-jar","app.jar", "--spring.profiles.active=prod"]
