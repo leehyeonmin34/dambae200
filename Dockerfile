@@ -12,7 +12,7 @@ ENV AGENT_ID 1
 
 ENTRYPOINT ["nohup","java","-jar",\
            "-javaagent:./pinpoint/pinpoint-bootstrap-2.5.2.jar",\
-           "-Dpinpoint.agentId=dambae200-server-$AGENT_ID",\
+           "-Dpinpoint.agentId=${AGENT_ID}",\
            "-Dpinpoint.applicationName=dambae200-server",\
            "-Dpinpoint.config=./pinpoint/pinpoint-root.config",\
            "-Dspring.profiles.active=prod","app.jar","2>&1","&"]
