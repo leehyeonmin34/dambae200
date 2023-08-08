@@ -7,7 +7,7 @@ pipeline {
 
     environment {
 //         SERVER_LIST = 'dambae200-001,dambae200-002,dambae200-003'
-        SERVER_LIST = 'dambae200-001, dambae200-002, dambae200-003'
+        SERVER_LIST = 'dambae200-001,dambae200-002,dambae200-003'
     }
 
 
