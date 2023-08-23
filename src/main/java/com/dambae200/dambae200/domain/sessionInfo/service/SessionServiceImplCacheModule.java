@@ -10,6 +10,7 @@ import com.dambae200.dambae200.domain.user.dto.UserGetResponse;
 import com.dambae200.dambae200.global.cache.config.CacheType;
 import com.dambae200.dambae200.global.cache.service.CacheModule;
 import com.dambae200.dambae200.global.cache.service.CacheableRepository;
+import com.dambae200.dambae200.global.error.exception.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Primary;
 import org.springframework.data.redis.cache.RedisCacheManager;
@@ -44,13 +45,20 @@ public class SessionServiceImplCacheModule implements SessionService {
     public SessionInfo getSessionElseThrow(final String accessToken){
 
         // 캐시, DB 조회
-        SessionInfo sessionInfo = sessionInfoCacheableRepository.getEntityCacheOrLoad(accessToken);
+        try {
+            SessionInfo sessionInfo = sessionInfoCacheableRepository.getEntityCacheOrLoad(accessToken);
 
-        // 만료되면 삭제 후 예외 발생
-        removeIfExpired(sessionInfo);
 
-        // 리턴
-          return sessionInfo;
+            // 만료되면 삭제 후 예외 발생
+            removeIfExpired(sessionInfo);
+
+            // 리턴
+            return sessionInfo;
+
+        } catch (EntityNotFoundException e){
+            throw new SessionInfoNotExistsException();
+        }
+
     }
 
 
