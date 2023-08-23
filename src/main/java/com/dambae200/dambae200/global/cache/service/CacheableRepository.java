@@ -2,10 +2,10 @@ package com.dambae200.dambae200.global.cache.service;
 
 import com.dambae200.dambae200.global.cache.config.CacheType;
 import com.dambae200.dambae200.global.common.dto.DtoConverter;
+import com.dambae200.dambae200.global.error.exception.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import javax.persistence.EntityNotFoundException;
 import java.util.List;
 import java.util.function.Function;
 import java.util.stream.Collectors;
@@ -25,7 +25,7 @@ public class CacheableRepository<E, V, K, REPO extends JpaRepository<E, K>> {
 
     public V getCacheOrLoad(K key){
         return (V)cacheModule.getCacheOrLoad(cacheType, key
-                , (_id) -> DtoConverter.toDto(repository.findById(_id).orElseThrow(EntityNotFoundException::new), valueClass, entityClass));
+                , (_id) -> DtoConverter.toDto(repository.findById(_id).orElseThrow(() -> new EntityNotFoundException(key.toString())), valueClass, entityClass));
     }
 
     public List<V> getAllCacheOrLoad(List<K> keys){
@@ -36,7 +36,7 @@ public class CacheableRepository<E, V, K, REPO extends JpaRepository<E, K>> {
 
     public E getEntityCacheOrLoad(K key){
         return (E)cacheModule.getEntityCacheOrLoad(cacheType, key
-                , (_id) -> repository.findById(_id).orElseThrow(EntityNotFoundException::new), valueClass, entityClass);
+                , (_id) -> repository.findById(_id).orElseThrow(() -> new EntityNotFoundException(key.toString())), valueClass, entityClass);
     }
 
     public List<E> getAllEntityCacheOrLoad(List<K> keys){
