@@ -2,7 +2,7 @@ server:
   port: 1024
   tomcat:
     threads:
-      max: 500
+      max: 200
       min-spare: 10
     max-connections: 8192
     accept-count: 100
