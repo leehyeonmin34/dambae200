@@ -10,7 +10,7 @@ import org.springframework.context.annotation.Profile;
 
 import javax.sql.DataSource;
 
-//@Configuration
+@Configuration
 @Slf4j
 @Profile("prod")
 public class SlaveDataSourceConfig {

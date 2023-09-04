@@ -32,7 +32,7 @@ public class RoutingDataSourceConfig {
     @Bean(name = "routingDataSource")
     public DataSource routingDataSource(
             @Qualifier("masterDataSource") final DataSource masterDataSource
-//            ,@Qualifier("slaveDataSource") final DataSource slaveDataSource
+            ,@Qualifier("slaveDataSource") final DataSource slaveDataSource
     ) {
 
         ReplicationRoutingDataSource routingDataSource = new ReplicationRoutingDataSource();
@@ -40,7 +40,7 @@ public class RoutingDataSourceConfig {
         Map<Object, Object> dataSourceMap = new HashMap<>();
 
         dataSourceMap.put(DataSourceType.MASTER, masterDataSource);
-//        dataSourceMap.put(DataSourceType.SLAVE, slaveDataSource);
+        dataSourceMap.put(DataSourceType.SLAVE, slaveDataSource);
 
         routingDataSource.setTargetDataSources(dataSourceMap);
         routingDataSource.setDefaultTargetDataSource(masterDataSource);
@@ -51,8 +51,8 @@ public class RoutingDataSourceConfig {
     @Primary
     @Bean(name = "dataSource")
     public DataSource dataSource(@Qualifier("routingDataSource") DataSource routingDataSource) {
-        return routingDataSource;
-//        return new LazyConnectionDataSourceProxy(routingDataSource);
+//        return routingDataSource;
+        return new LazyConnectionDataSourceProxy(routingDataSource);
     }
 
 
