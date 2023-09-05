@@ -24,7 +24,7 @@ public class StoreTransaction {
     private final CigaretteOnListRepository cigaretteOnListRepository;
 
     @Transactional
-    public Store saveStoreTransaction(Store store, Long adminId){
+    public Store createStoreTransaction(Store store, Long adminId){
         Store savedStore = storeRepository.save(store);
 
         // 연관 엔티티 생성
