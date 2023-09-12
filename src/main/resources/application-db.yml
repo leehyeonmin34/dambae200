@@ -60,7 +60,7 @@ spring:
         username: leehyeonmin34
         password: 2737
         initialization-mode: always
-        maximum-pool-size: 350 #최대 pool 크기
+        maximum-pool-size: 300 #최대 pool 크기
         minimum-idle: 10 #최소 pool 크기
         idle-timeout: 600000 #연결위한 최대 유후 시간
         max-lifetime: 1800000 #반납된 커넥션의 최대 수명
@@ -72,7 +72,7 @@ spring:
         username: leehyeonmin34
         password: 2737
         initialization-mode: always
-        maximum-pool-size: 350 #최대 pool 크기
+        maximum-pool-size: 300 #최대 pool 크기
         minimum-idle: 10 #최소 pool 크기
         idle-timeout: 600000 #연결위한 최대 유후 시간
         max-lifetime: 1800000 #반납된 커넥션의 최대 수명
