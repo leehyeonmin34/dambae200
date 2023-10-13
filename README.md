@@ -62,7 +62,7 @@
 ## 👆👆👆👆👆👆👆👆👆👆👆👆👆👆👆👆
 
 ## 사용 기술
-Spring Boot, Spring Data JPA, MySQL, Redis, Stomp, Docker, nginx, Naver Cloud Platform
+`Spring Boot`, `Spring Data JPA`, `MySQL`, `Redis`, `Stomp`, `Docker`, `nginx`, `Jenkins`, `Naver Cloud Platform`
 
 ## 프로젝트 구조
 - Naver Cloud Platform의 서버로 구성되어 있습니다.
