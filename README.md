@@ -11,14 +11,16 @@
 <br />
 <br />
 
-# 핵심 컨셉 (담배 검수)
+# 문제점 & 아이디어
 
+![Frame 1154](https://github.com/leehyeonmin34/dambae200/assets/66104031/6b0bc76d-0796-4e60-856a-fc47f7392fbd)
 ![Frame 1152](https://github.com/leehyeonmin34/weather_reminder/assets/66104031/92060bc6-5ae5-4da2-b609-0f63e4348cda)
 
+# 핵심 기능
 1. 목록 생성
    1. 매장별로 담배 목록을 생성할 수 있음
    2. 내 목록에 담배를 진열순서대로 추가
-   3. 각 담배들의 '전산 순서'를 수정
+   3. 각 담배들의 '전산 순서'를 수정 (POS기에서 출력되는 목록 순서)
 2. 담배 검수
    1. '진열 순서'대로 우리 매장의 담배 갯수를 입력
    2. ‘전산순으로 정렬하기’ 버튼을 누르면 미리 설정해 놓은 전산 순서대로 정렬됨
@@ -36,14 +38,14 @@
   - 담배 추가/수정/삭제
   - 담배 순서 조정
   - 담배 목록 내 검색
-  - 담배 목록 실시간 동시 편집
-- 목록 접근 권한 관리
-  - 요청/허가/비허가/관리자 권한 인계
-- 로그인, 비밀번호 찾기
-- 알림 (Pageable 조회)
-- 설정 (개인정보 수정)
-- 업무 꿀팁 컨텐츠
-
+- 동시 편집
+  - 담배 목록 실시간 동시 편집 (구글 스프레드시트와 유사)
+  - 목록 접근 권한 관리 (요청/허가/비허가/관리자 권한 인계)
+- 그 외 기능
+  - 로그인, 비밀번호 찾기
+  - 알림 (Pageable 조회)
+  - 설정 (개인정보 수정)
+  - 업무 꿀팁 컨텐츠
 
 <br />
 
@@ -55,7 +57,9 @@
 - 서버 확장, 대용량 트래픽과 운영을 고려한 방식
 - 성능테스트를 통한 튜닝
 
+## 👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇
 ## [<U>문제해결 등 중요한 내용은 📓위키 를 참조해주세요 !</U>](https://github.com/leehyeonmin34/dambae200/wiki)
+## 👆👆👆👆👆👆👆👆👆👆👆👆👆👆👆👆
 
 ## 사용 기술
 Spring Boot, Spring Data JPA, MySQL, Redis, Stomp, Docker, nginx, Naver Cloud Platform
@@ -65,7 +69,8 @@ Spring Boot, Spring Data JPA, MySQL, Redis, Stomp, Docker, nginx, Naver Cloud Pl
 - github hook을 받아 Jenkins에서 CI/CD를 진행합니다.
 - Jenkins측에서 Dockerhub에 이미지를 push하고, 앱서버 측에서 이미지를 pull합니다.
 - Blue-green 방식으로 무중단 배포됩니다.
-- 사용자의 요청은 nginx에 의해 프론트엔드 리소스와 api요청을 분기 처리합니다.
+- 사용자의 요청은 nginx에 의해 프론트엔드 리소스와 api요청을 분기 처리됩니다.
+- WAS는 3개 서버로 운용됩니다.
 - DB는 Primary-Slave 구조의 2개 서버로 운용됩니다.
 
 <img width="1048" alt="스크린샷 2023-10-04 오후 10 24 20" src="https://github.com/leehyeonmin34/dambae200/assets/66104031/3faee238-cdc3-4c8c-9bde-4ca29ae8061d">
