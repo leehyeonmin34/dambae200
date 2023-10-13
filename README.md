@@ -57,9 +57,7 @@
 - 서버 확장, 대용량 트래픽과 운영을 고려한 방식
 - 성능테스트를 통한 튜닝
 
-## 👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇
-## [<U>문제해결 등 중요한 내용은 📓위키 를 참조해주세요 !</U>](https://github.com/leehyeonmin34/dambae200/wiki)
-## 👆👆👆👆👆👆👆👆👆👆👆👆👆👆👆👆
+## 👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇<br />[<U>문제해결 등 중요한 내용은 📓위키 를 참조해주세요 !</U>](https://github.com/leehyeonmin34/dambae200/wiki) <br />👆👆👆👆👆👆👆👆👆👆👆👆👆👆👆👆
 
 ## 사용 기술
 `Spring Boot`, `Spring Data JPA`, `MySQL`, `Redis`, `Stomp`, `Docker`, `nginx`, `Jenkins`, `Naver Cloud Platform`
