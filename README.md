@@ -13,8 +13,8 @@
 
 # 문제점 & 아이디어
 
-![Frame 1154](https://github.com/leehyeonmin34/dambae200/assets/66104031/6b0bc76d-0796-4e60-856a-fc47f7392fbd)
-![Frame 1152](https://github.com/leehyeonmin34/weather_reminder/assets/66104031/92060bc6-5ae5-4da2-b609-0f63e4348cda)
+![Frame 1153](https://github.com/leehyeonmin34/dambae200/assets/66104031/5dd39d57-46f1-4391-8e37-f45c31c71d43)
+
 
 # 핵심 플로우
 1. 목록 생성
