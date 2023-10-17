@@ -16,23 +16,16 @@
 ![Frame 1153](https://github.com/leehyeonmin34/dambae200/assets/66104031/5dd39d57-46f1-4391-8e37-f45c31c71d43)
 
 
-# 핵심 플로우
-1. 목록 생성
-   1. 매장별로 담배 목록을 생성할 수 있음
-   2. 내 목록에 담배를 진열순서대로 추가
-   3. 각 담배들의 '전산 순서'를 수정 (POS기에서 출력되는 목록 순서)
-2. 담배 검수
-   1. '진열 순서'대로 우리 매장의 담배 갯수를 입력
-   2. ‘전산순으로 정렬하기’ 버튼을 누르면 미리 설정해 놓은 전산 순서대로 정렬됨
-   3. 포스기에서 출력된 재고 목록 종이와 담배 갯수 1:1 비교
 
-[🔗 UI & 작동 영상 + 기획 보러가기](https://www.figma.com/proto/desD77sVBmkrGoZHDKkU5y/%EB%8B%B4%EB%B0%B0%EA%B2%80%EC%88%98%EC%95%B1-%ED%94%84%EB%A1%9C%EC%84%B8%EC%8A%A4?node-id=781-53559&starting-point-node-id=856%3A43897&scaling=contain)
 <br/>
 </span>
 <br />
 <br />
 
 ### 제공 기능 
+
+[🔗 UI & 작동 영상 + 기획 보러가기](https://www.figma.com/proto/desD77sVBmkrGoZHDKkU5y/%EB%8B%B4%EB%B0%B0%EA%B2%80%EC%88%98%EC%95%B1-%ED%94%84%EB%A1%9C%EC%84%B8%EC%8A%A4?node-id=781-53559&starting-point-node-id=856%3A43897&scaling=contain)
+
 - 담배 목록
   - 담배 목록 생성/수정/삭제
   - 담배 추가/수정/삭제
@@ -53,9 +46,10 @@
 - 실제 서비스 가능한 완성도로 서버-클라이언트 구현(API, UI, 통신 규약, 기능성)
 - 소켓 통신을 통한 동시 편집 구현
 - 캐시, DB 통신 최소화를 통한 성능 최적화
-- 로직이 잘 보이고 확장, 유지보수하기 좋은 코드
 - 서버 확장, 대용량 트래픽과 운영을 고려한 방식
 - 성능테스트를 통한 튜닝
+- 로직이 잘 보이고 확장, 유지보수하기 좋은 코드
+
 
 <br />
 
@@ -64,7 +58,15 @@
 <br />
 
 ## 사용 기술
-`Spring Boot`, `Spring Data JPA`, `MySQL`, `Redis`, `Stomp`, `Docker`, `nginx`, `Jenkins`, `Naver Cloud Platform`
+- Spring Boot
+- Spring Data JPA
+- MySQL
+- Redis
+- nginx
+- Stomp
+- Docker
+- Jenkins
+- Naver Cloud Platform
 
 ## 프로젝트 구조
 - Naver Cloud Platform의 서버로 구성되어 있습니다.
