@@ -55,7 +55,7 @@ spring:
     master:
       hikari:
         driver-class-name: com.mysql.cj.jdbc.Driver
-        jdbc-url: jdbc:mysql://101.101.219.24:3306/dambae200
+        jdbc-url: jdbc:mysql://101.101.208.16:3306/dambae200
         read-only: false
         username: leehyeonmin34
         password: 2737
@@ -67,7 +67,7 @@ spring:
     slave:
       hikari:
         driver-class-name: com.mysql.cj.jdbc.Driver
-        jdbc-url: jdbc:mysql://27.96.135.58:3306/dambae200
+        jdbc-url: jdbc:mysql://101.101.208.16:3307/dambae200
         read-only: true
         username: leehyeonmin34
         password: 2737
