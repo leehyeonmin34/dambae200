@@ -10,6 +10,7 @@ import org.springframework.http.converter.json.Jackson2ObjectMapperBuilder;
 @Configuration
 public class JsonConfig {
 
+
     @Bean("objectMapper")
     public ObjectMapper objectMapper() {
         return Jackson2ObjectMapperBuilder.json()
