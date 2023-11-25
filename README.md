@@ -53,6 +53,32 @@
 
 <br />
 
+
+<br />
+
+## 사용 기술
+- Spring Boot
+- Spring Data JPA
+- MySQL
+- Redis
+- nginx
+- Stomp
+- Docker
+- Jenkins
+- Naver Cloud Platform
+
+## 프로젝트 구조
+- Naver Cloud Platform의 서버로 구성되어 있습니다.
+- github hook을 받아 Jenkins에서 CI/CD를 진행합니다.
+- Jenkins측에서 Dockerhub에 이미지를 push하고, 앱서버 측에서 이미지를 pull합니다.
+- Blue-green 방식으로 무중단 배포됩니다.
+- 사용자의 요청은 nginx에 의해 프론트엔드 리소스와 api요청을 분기 처리됩니다.
+- WAS는 3개 서버로 운용됩니다.
+- DB는 Primary-Slave 구조의 2개 서버로 운용됩니다.
+
+<img width="1048" alt="스크린샷 2023-10-04 오후 10 24 20" src="https://github.com/leehyeonmin34/dambae200/assets/66104031/3faee238-cdc3-4c8c-9bde-4ca29ae8061d">
+
+
 # 문제 해결 사례
 
 <br />
@@ -121,30 +147,6 @@
 - 성공, 실패 모두 일정한 HTTP 응답 형태
 
 [🔗 기타](https://github.com/leehyeonmin34/dambae200/wiki/%EB%A1%9C%EC%A7%81%EC%9D%B4-%EC%9E%98-%EB%B3%B4%EC%9D%B4%EA%B3%A0-%EC%9C%A0%EC%A7%80%EB%B3%B4%EC%88%98%ED%95%98%EA%B8%B0-%EC%A2%8B%EC%9D%80-%EC%BD%94%EB%93%9C)
-
-<br />
-
-## 사용 기술
-- Spring Boot
-- Spring Data JPA
-- MySQL
-- Redis
-- nginx
-- Stomp
-- Docker
-- Jenkins
-- Naver Cloud Platform
-
-## 프로젝트 구조
-- Naver Cloud Platform의 서버로 구성되어 있습니다.
-- github hook을 받아 Jenkins에서 CI/CD를 진행합니다.
-- Jenkins측에서 Dockerhub에 이미지를 push하고, 앱서버 측에서 이미지를 pull합니다.
-- Blue-green 방식으로 무중단 배포됩니다.
-- 사용자의 요청은 nginx에 의해 프론트엔드 리소스와 api요청을 분기 처리됩니다.
-- WAS는 3개 서버로 운용됩니다.
-- DB는 Primary-Slave 구조의 2개 서버로 운용됩니다.
-
-<img width="1048" alt="스크린샷 2023-10-04 오후 10 24 20" src="https://github.com/leehyeonmin34/dambae200/assets/66104031/3faee238-cdc3-4c8c-9bde-4ca29ae8061d">
 
 <br />
 
