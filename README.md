@@ -53,7 +53,74 @@
 
 <br />
 
-## 👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇<br />[<U>문제해결 등 중요한 내용은 📓위키 를 참조해주세요 !</U>](https://github.com/leehyeonmin34/dambae200/wiki) <br />👆👆👆👆👆👆👆👆👆👆👆👆👆👆👆👆👆👆👆👆
+# 문제 해결 사례
+
+<br />
+
+## 운영
+[🔗 서버 Scale-out에 대비해, 세션 정보를 DB에 중앙화해 저장함으로써 Stateless하게 유지](https://velog.io/@leehyeonmin34/session-info-in-db)
+
+[🔗 Jenkins와 Docker, nginx를 이용한 Blue-Green 무중단 배포 🔥](https://velog.io/@leehyeonmin34/dambae200-blue-green)
+
+[🔗 로드밸런서 적용하면서 CORS, hop-by-hop 헤더, 정적리소스 반환 문제 해결](https://velog.io/@leehyeonmin34/dambae200-nginx-introduction)
+
+[🔗 DB 레플리케이션으로 병목 완화](https://velog.io/@leehyeonmin34/dambae200-db-replication)
+
+[🔗 성능테스트를 통한 서버 튜닝으로 핵심 요청 TPS 239 -> 4292 (스케일업 아웃, 커넥션풀, 스레드풀, 레플리케이션) 🔥](https://velog.io/@leehyeonmin34/dambae200-tuning-through-performance-test)
+
+<br />
+
+
+## 캐시 & Redis
+
+[🔗 Redis hash 자료구조를 이용해 탐색시간 줄이기](https://velog.io/@leehyeonmin34/dambae200-redis-data-structure)
+
+[🔗 간편하게 캐시와 DB를 연계 활용하는 캐시 모듈 제작 🔥](https://velog.io/@leehyeonmin34/cache-module)
+
+[🔗 원자성을 위해 Redis에 @Transactional 적용하기](https://velog.io/@leehyeonmin34/dambae200-redis-transactional)
+
+[🔗 쓰기스큐 방지를 위해 분산락 AOP 제작](https://velog.io/@leehyeonmin34/dambae200-distributed-lock)
+
+[🔗 Redis Pipeline으로 Bulk Insert 시 네트워크 병목 개선](https://velog.io/@leehyeonmin34/dambae200-redis-pipeline)
+
+[🔗 캐시에 저장-로드할 때 리플렉션으로 DTO-Entity 변환](https://velog.io/@leehyeonmin34/dto-entity-converter)
+
+[🔗 캐시와 세션별로 Redis 서버 분리 및 eviction, maxmeory 최적화](https://velog.io/@leehyeonmin34/dambae200-cache-seperation)
+
+[🔗 코드 수준의 동적 스케줄러로 캐시에서 DB로 Write-Back](https://velog.io/@leehyeonmin34/dambae200-wrtie-back)
+
+
+<br />
+
+
+## DB
+[🔗 DB 병목 지양을 위한 N + 1 쿼리 지양](https://github.com/leehyeonmin34/dambae200/wiki/JPA%EC%9D%98-%ED%8A%B9%EC%84%B1%EC%9D%84-%EC%9D%B4%ED%95%B4%ED%95%9C-%EC%B5%9C%EC%A0%81%ED%99%94)
+
+[🔗 DB 락 최소화를 위한 @Transational 최소화](https://github.com/leehyeonmin34/dambae200/wiki/DB-%EB%9D%BD-%EC%B5%9C%EC%86%8C%ED%99%94%EB%A5%BC-%EC%9C%84%ED%95%9C-@Transactional-%EC%B5%9C%EC%86%8C%ED%99%94)
+
+
+<br />
+
+## 소켓 통신
+
+[🔗 실시간 공동 편집을 이벤트 기반의 STOMP 소켓통신으로 구현](https://velog.io/@leehyeonmin34/dambae200stomp-for-realtime-simultaneous-editing)
+
+[🔗 서비스 코드가 통신 방식에 종속되지 않도록 DTO Wrapping](https://velog.io/@leehyeonmin34/protocol-independant-service-code)
+
+[🔗 STOMP 예외처리하기](https://velog.io/@leehyeonmin34/protocol-independant-error-handling)
+- Wrapper 구조를 이용해 HTTP, 소켓 통신에서의 예외를 일관되게 처리
+- 비지니스 예외 발생 시 소켓 연결 유지하며 예외 메시지 발송
+- 권한검사 인터셉터 예외 처리
+
+<br />
+
+## 로직이 잘 보이고 유지보수하기 좋은 코드
+[🔗 예외 처리 및 일관된 응답 형태](https://velog.io/@leehyeonmin34/exception-handling)
+- 트리구조의 런타임 예외 상속 적극 활용
+- ControllerAdvice, ExceptionHandler 활용
+- 성공, 실패 모두 일정한 HTTP 응답 형태
+
+[🔗 기타](https://github.com/leehyeonmin34/dambae200/wiki/%EB%A1%9C%EC%A7%81%EC%9D%B4-%EC%9E%98-%EB%B3%B4%EC%9D%B4%EA%B3%A0-%EC%9C%A0%EC%A7%80%EB%B3%B4%EC%88%98%ED%95%98%EA%B8%B0-%EC%A2%8B%EC%9D%80-%EC%BD%94%EB%93%9C)
 
 <br />
 
