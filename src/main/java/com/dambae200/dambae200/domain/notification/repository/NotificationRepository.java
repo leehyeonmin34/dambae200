@@ -8,7 +8,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import java.util.List;
 
 public interface NotificationRepository extends JpaRepository<Notification, Long> {
-    Page<Notification> findByUserId(Long userId, Pageable pageable);
+    Page<Notification> findByUserIdLessThanId(Long userId, Long id, Pageable pageable);
     void deleteAllByUserId(Long id);
     boolean existsByUserIdAndIsRead(Long userId, boolean isRead);
 }

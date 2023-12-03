@@ -36,8 +36,9 @@ public class NotificationRestController {
     @GetMapping("")
     public ResponseEntity<StandardResponse<Page<NotificationGetResponse>>> getNotificationsByUserId(
             @RequestParam @NotNull final String userId,
+            @RequestParam @NotNull final String id,
             @PageableDefault(size = 5, sort = "createdAt",  direction = Sort.Direction.DESC) final Pageable pageable){
-        Page<NotificationGetResponse> response = notificationFindService.findByUserId(Long.valueOf(userId), pageable);
+        Page<NotificationGetResponse> response = notificationFindService.findByUserId(Long.valueOf(userId), Long.valueOf(id), pageable);
         return StandardResponse.ofOk(response);
     }
 

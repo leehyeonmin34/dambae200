@@ -19,8 +19,8 @@ public class NotificationFindService {
     private final RepoUtils repoUtils;
 
     @Transactional(readOnly = true)
-    public Page<NotificationGetResponse> findByUserId(final Long userId, final Pageable pageable){
-        Page<Notification> entities = notificationRepository.findByUserId(userId, pageable);
+    public Page<NotificationGetResponse> findByUserId(final Long userId, final Long id, final Pageable pageable){
+        Page<Notification> entities = notificationRepository.findByUserIdLessThanId(userId, id, pageable);
         return entities.map(NotificationGetResponse::new);
     }
 
